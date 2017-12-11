@@ -22,8 +22,16 @@ app.set('port', (process.env.PORT || port));
 app.use(express.static(path.join(__dirname, 'public/')));
 // Serve vue from node_modules as vue/
 app.use('/vue', express.static(path.join(__dirname, '/node_modules/vue/dist/')));
-// Serve diner.html as root page
+// Serve index.html as root page
 app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views/index.html'));
+});
+// Serve size.html as subpage
+app.get('/size', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views/size.html'));
+});
+// Serve ordering.html as subpage
+app.get('/ordering', function (req, res) {
   res.sendFile(path.join(__dirname, 'views/ordering.html'));
 });
 // Serve kitchen.html as subpage

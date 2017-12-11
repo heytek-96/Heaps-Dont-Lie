@@ -23,3 +23,12 @@ h1 {
 	border: 1px solid #cdc;
 	padding: 1em;
 }
+button:hover{
+    background-color: darkviolet;
+    cursor: pointer;
+}
+.floating-box {
+    display: inline-block;
+    margin: 10px;
+    vertical-align: bottom;
+}
