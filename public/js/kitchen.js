@@ -47,6 +47,7 @@ var vm = new Vue({
   },
   created: function() {
       window.addEventListener("keydown", function(e) {
+        
           if(e.key === "ArrowLeft")
               this.showPreviousOrders();
           if(e.key === "ArrowRight")
@@ -74,9 +75,7 @@ var vm = new Vue({
       nextOrderToPrepare: function(){
           for(var i in this.orders){
               if(!this.orders[i].done){
-                  console.log(this.orders[i].orderId);
-                  console.log(i);
-                  return(i);
+                  return {orderId: i, order: this.orders[i] };
                  
               }
           }
@@ -104,6 +103,7 @@ var vm = new Vue({
       this.showListofWaitingOrders = true;
       this.showListOfPreviousOrders=false;
       this.showNextOrder= false;
+        
     },
     showPreviousOrders: function(){
       this.waitingForOrder = false;
@@ -116,23 +116,10 @@ var vm = new Vue({
       this.showListofWaitingOrders = false;    
       this.showListOfPreviousOrders = false;
       this.showNextOrder= true;    
-      
   }
      
   }
 });
 
 
-/*if (Object.keys(this.orders).length !=0){
-          this.showWaitingOrders();
-          console.log(Object.keys(this.orders).length);
-      } .bind(this); */
-    /*
- function(){  
-          if (Object.keys(this.orders).length !=0){
-          this.showWaitingOrders();
-          console.log(Object.keys(this.orders).length);
-      }
-          
-  }.bind(this);*/
     
