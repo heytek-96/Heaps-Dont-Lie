@@ -38,6 +38,7 @@
 
       <div v-if="ingredientsShown">
         <button v-on:click="showStart()">Restart Order</button>
+        <h1>Ingredients</h1>
         <h1>{{ uiLabels.smoothie }}</h1>
         <button v-on:click="showSize()">Select Size</button>
         <button v-on:click="showCustomize()">Customize</button>
@@ -146,6 +147,7 @@
       <div v-if="payShown">
         <button v-on:click="showStart()">Restart Order</button>
         <h1>Thanks!<h1>
+          <button v-on:click="showStart()">Go back to start page</button>
         </div>
 
 
