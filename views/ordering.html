@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -38,27 +39,27 @@
       <div v-if="ingredientsShown">
         <button v-on:click="showStart()">Restart Order</button>
         <h1>Ingredients</h1>
-        <h1>{{ uiLabels.smoothie }}</h1>
+        <h1>Fruit & Berries</h1>
         <button v-on:click="showSize()">Select Size</button>
         <button v-on:click="showCustomize()">Customize</button>
         <ingredient
         ref="ingredient"
-        type="smoothie"
+        type="fruit"
         v-for="item in ingredients"
-        v-if="item.vol_smoothie > 0"
-        v-on:increment="addToOrder(item, 'smoothie')"
+        v-if="item.fruit > 0"
+        v-on:increment="addToOrder(item, 'fruit')"
         :item="item"
         :lang="lang"
         :key="item.ingredient_id">
       </ingredient>
 
-      <h1>{{ uiLabels.juice }}</h1>
+      <h1>Greens</h1>
       <ingredient
       ref="ingredient"
-      type="juice"
+      type="green"
       v-for="item in ingredients"
-      v-if="item.vol_juice > 0"
-      v-on:increment="addToOrder(item, 'juice')"
+      v-if="item.green > 0"
+      v-on:increment="addToOrder(item, 'green')"
       :item="item"
       :lang="lang"
       :key="item.ingredient_id">
@@ -69,11 +70,11 @@
     <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
     <h1>{{ uiLabels.ordersInQueue }}</h1>
-    <h2>{{ uiLabels.smoothie }}</h2>
+    <h2>Fruit and berries</h2>
     <div>
       <order-item
       v-for="(order, key) in orders"
-      v-if="!order.done && order.type == 'smoothie'"
+      v-if="!order.done && order.type == 'fruit'"
       :order-id="key"
       :order="order"
       :ui-labels="uiLabels"
@@ -81,11 +82,11 @@
       :key="key">
     </order-item>
   </div>
-  <h2>{{ uiLabels.juice }}</h2>
+  <h2>Greens</h2>
   <div>
     <order-item
     v-for="(order, key) in orders"
-    v-if="!order.done && order.type == 'juice'"
+    v-if="!order.done && order.type == 'green'"
     :order-id="key"
     :order="order"
     :ui-labels="uiLabels"
@@ -146,10 +147,13 @@
       <div v-if="payShown">
         <button v-on:click="showStart()">Restart Order</button>
         <h1>Thanks!<h1>
-          <button v-on:click="showStart()">Go back to start page</button>
+          <button v-on:click="showStart()">Go back to start </button>
         </div>
 
+
       </div>
+
+
 
     </body>
     </html>
