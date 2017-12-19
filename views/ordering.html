@@ -27,6 +27,13 @@
       <h1>Select Size<h1>
         <button v-on:click="showStart()">Homepage</button>
         <button v-on:click="showIngredients()">Choose Ingredients</button>
+
+        <br><br><button v-on:click="showStart()">Homepage</button>
+        <button v-on:click="showIngredients()">Ingredients</button>
+        <button v-on:click="showSize()">Select Size</button>
+        <button v-on:click="showCustomize()">Customize</button>
+        <button v-on:click="showExtras()">Extras</button>
+        <button v-on:click="showOverview()">Overview</button></br></br>
       </div>
 
       <div v-if="ingredientsShown">
@@ -86,6 +93,12 @@
     :key="key">
   </order-item>
 </div>
+<br><br><button v-on:click="showStart()">Homepage</button>
+<button v-on:click="showIngredients()">Ingredients</button>
+<button v-on:click="showSize()">Select Size</button>
+<button v-on:click="showCustomize()">Customize</button>
+<button v-on:click="showExtras()">Extras</button>
+<button v-on:click="showOverview()">Overview</button></br></br>
 </div>
 
 <div v-if="customizeShown">
@@ -93,6 +106,13 @@
   <h1>Customize<h1>
     <button v-on:click="showIngredients()">Choose Ingredients</button>
     <button v-on:click="showExtras()">Choose Extras</button>
+
+    <br><br><button v-on:click="showStart()">Homepage</button>
+    <button v-on:click="showIngredients()">Ingredients</button>
+    <button v-on:click="showSize()">Select Size</button>
+    <button v-on:click="showCustomize()">Customize</button>
+    <button v-on:click="showExtras()">Extras</button>
+    <button v-on:click="showOverview()">Overview</button></br></br>
   </div>
 
   <div v-if="extrasShown">
@@ -100,6 +120,13 @@
     <h1>Extras<h1>
       <button v-on:click="showCustomize()">Customize</button>
       <button v-on:click="showOverview()">Overview</button>
+
+      <br><br><button v-on:click="showStart()">Homepage</button>
+      <button v-on:click="showIngredients()">Ingredients</button>
+      <button v-on:click="showSize()">Select Size</button>
+      <button v-on:click="showCustomize()">Customize</button>
+      <button v-on:click="showExtras()">Extras</button>
+      <button v-on:click="showOverview()">Overview</button></br></br>
     </div>
 
     <div v-if="overviewShown">
@@ -107,6 +134,13 @@
       <h1>Your Order<h1>
         <button v-on:click="showExtras()">Choose Extras</button>
         <button v-on:click="showPay()">Pay 'n' Shake</button>
+
+        <br><br><button v-on:click="showStart()">Homepage</button>
+        <button v-on:click="showIngredients()">Ingredients</button>
+        <button v-on:click="showSize()">Select Size</button>
+        <button v-on:click="showCustomize()">Customize</button>
+        <button v-on:click="showExtras()">Extras</button>
+        <button v-on:click="showOverview()">Overview</button></br></br>
       </div>
 
       <div v-if="payShown">
