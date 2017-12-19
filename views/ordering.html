@@ -11,21 +11,26 @@
   <script src="js/ordering.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Welcome to Juicifer Craft Beverages!</h1>
-  </header>
+
 
   <div id="ordering">
     <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-    <button v-on:click="showSize()">Start</button>
+
+
+    <div v-if="startShown">
+      <h1>Welcome to Juicifer Craft Beverages!</h1>
+      <button v-on:click="showSize()">Start</button>
+    </div>
 
     <div v-if="sizeShown">
       <h1>Select Size<h1>
+        <button v-on:click="showStart()">Homepage</button>
         <button v-on:click="showIngredients()">Choose Ingredients</button>
       </div>
 
       <div v-if="ingredientsShown">
         <h1>{{ uiLabels.smoothie }}</h1>
+        <button v-on:click="showSize()">Select Size</button>
         <button v-on:click="showCustomize()">Customize</button>
         <ingredient
         ref="ingredient"
@@ -83,16 +88,19 @@
 
 <div v-if="customizeShown">
   <h1>Customize<h1>
+    <button v-on:click="showIngredients()">Choose Ingredients</button>
     <button v-on:click="showExtras()">Choose Extras</button>
   </div>
 
   <div v-if="extrasShown">
     <h1>Extras<h1>
+      <button v-on:click="showCustomize()">Customize</button>
       <button v-on:click="showOverview()">Overview</button>
     </div>
 
     <div v-if="overviewShown">
       <h1>Your Order<h1>
+        <button v-on:click="showExtras()">Choose Extras</button>
         <button v-on:click="showPay()">Pay 'n' Shake</button>
       </div>
 

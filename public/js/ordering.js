@@ -46,6 +46,7 @@ var vm = new Vue({
     chosenIngredients: [],
     volume: 0,
     price: 0,
+    startShown: true,
     sizeShown: false,
     ingredientsShown: false,
     customizeShown:false,
@@ -85,24 +86,39 @@ var vm = new Vue({
       this.chosenIngredients = [];
 
     },
+    showStart: function (){
+      this.startShown = true;
+      this.showSize = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
+    },
+
     showSize: function (){
       this.startShown = false;
+      this.ingredientsShown = false;
       this.sizeShown = true;
     },
     showIngredients: function (){
       this.sizeShown = false;
+      this.customizeShown = false;
       this.ingredientsShown = true;
     },
     showCustomize: function(){
       this.ingredientsShown = false;
+      this.extrasShown = false;
       this.customizeShown = true;
     },
     showExtras: function(){
       this.customizeShown = false;
+      this.overviewShown = false;
       this.extrasShown = true;
     },
     showOverview: function(){
       this.extrasShown = false;
+      this.payShown = false;
       this.overviewShown = true;
     },
     showPay: function(){
