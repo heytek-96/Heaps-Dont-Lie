@@ -46,7 +46,8 @@ var vm = new Vue({
     chosenIngredients: [],
     volume: 0,
     price: 0,
-    sizeShown: false
+    sizeShown: false,
+    ingredientsShown: false
   },
   methods: {
     addToOrder: function (item, type) {
@@ -81,7 +82,12 @@ var vm = new Vue({
 
     },
     showSize: function (){
+      this.startShown = false;
       this.sizeShown = true;
+    },
+    showIngredients: function (){
+      this.sizeShown = false;
+      this.ingredientsShown = true;
     }
   }
 });
