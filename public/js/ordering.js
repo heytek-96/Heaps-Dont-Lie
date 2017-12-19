@@ -47,7 +47,11 @@ var vm = new Vue({
     volume: 0,
     price: 0,
     sizeShown: false,
-    ingredientsShown: false
+    ingredientsShown: false,
+    customizeShown:false,
+    extrasShown: false,
+    overviewShown:false,
+    payShown: false
   },
   methods: {
     addToOrder: function (item, type) {
@@ -88,6 +92,22 @@ var vm = new Vue({
     showIngredients: function (){
       this.sizeShown = false;
       this.ingredientsShown = true;
+    },
+    showCustomize: function(){
+      this.ingredientsShown = false;
+      this.customizeShown = true;
+    },
+    showExtras: function(){
+      this.customizeShown = false;
+      this.extrasShown = true;
+    },
+    showOverview: function(){
+      this.extrasShown = false;
+      this.overviewShown = true;
+    },
+    showPay: function(){
+      this.overviewShown = false;
+      this.payShown = true;
     }
   }
 });

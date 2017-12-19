@@ -16,49 +16,62 @@
   </header>
 
   <div id="ordering">
-    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>    
+    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
     <button v-on:click="showSize()">Start</button>
 
-  <div v-if="sizeShown">
-    <h1>Select Size<h1>
-      <button v-on:click="showIngredients()">Choose Ingredients</button>
-    </div>
+    <div v-if="sizeShown">
+      <h1>Select Size<h1>
+        <button v-on:click="showIngredients()">Choose Ingredients</button>
+      </div>
 
-    <div v-if="ingredientsShown">
-      <h1>{{ uiLabels.smoothie }}</h1>
+      <div v-if="ingredientsShown">
+        <h1>{{ uiLabels.smoothie }}</h1>
+        <button v-on:click="showCustomize()">Customize</button>
+        <ingredient
+        ref="ingredient"
+        type="smoothie"
+        v-for="item in ingredients"
+        v-if="item.vol_smoothie > 0"
+        v-on:increment="addToOrder(item, 'smoothie')"
+        :item="item"
+        :lang="lang"
+        :key="item.ingredient_id">
+      </ingredient>
+
+      <h1>{{ uiLabels.juice }}</h1>
       <ingredient
       ref="ingredient"
-      type="smoothie"
+      type="juice"
       v-for="item in ingredients"
-      v-if="item.vol_smoothie > 0"
-      v-on:increment="addToOrder(item, 'smoothie')"
+      v-if="item.vol_juice > 0"
+      v-on:increment="addToOrder(item, 'juice')"
       :item="item"
       :lang="lang"
       :key="item.ingredient_id">
     </ingredient>
 
-    <h1>{{ uiLabels.juice }}</h1>
-    <ingredient
-    ref="ingredient"
-    type="juice"
-    v-for="item in ingredients"
-    v-if="item.vol_juice > 0"
-    v-on:increment="addToOrder(item, 'juice')"
-    :item="item"
-    :lang="lang"
-    :key="item.ingredient_id">
-  </ingredient>
+    <h1>{{ uiLabels.order }}</h1>
+    {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
+    <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
-  <h1>{{ uiLabels.order }}</h1>
-  {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
-  <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
-
-  <h1>{{ uiLabels.ordersInQueue }}</h1>
-  <h2>{{ uiLabels.smoothie }}</h2>
+    <h1>{{ uiLabels.ordersInQueue }}</h1>
+    <h2>{{ uiLabels.smoothie }}</h2>
+    <div>
+      <order-item
+      v-for="(order, key) in orders"
+      v-if="!order.done && order.type == 'smoothie'"
+      :order-id="key"
+      :order="order"
+      :ui-labels="uiLabels"
+      :lang="lang"
+      :key="key">
+    </order-item>
+  </div>
+  <h2>{{ uiLabels.juice }}</h2>
   <div>
     <order-item
     v-for="(order, key) in orders"
-    v-if="!order.done && order.type == 'smoothie'"
+    v-if="!order.done && order.type == 'juice'"
     :order-id="key"
     :order="order"
     :ui-labels="uiLabels"
@@ -66,19 +79,31 @@
     :key="key">
   </order-item>
 </div>
-<h2>{{ uiLabels.juice }}</h2>
-<div>
-  <order-item
-  v-for="(order, key) in orders"
-  v-if="!order.done && order.type == 'juice'"
-  :order-id="key"
-  :order="order"
-  :ui-labels="uiLabels"
-  :lang="lang"
-  :key="key">
-</order-item>
 </div>
-</div>
-</div>
-</body>
-</html>
+
+<div v-if="customizeShown">
+  <h1>Customize<h1>
+    <button v-on:click="showExtras()">Choose Extras</button>
+  </div>
+
+  <div v-if="extrasShown">
+    <h1>Extras<h1>
+      <button v-on:click="showOverview()">Overview</button>
+    </div>
+
+    <div v-if="overviewShown">
+      <h1>Your Order<h1>
+        <button v-on:click="showPay()">Pay 'n' Shake</button>
+      </div>
+
+      <div v-if="payShown">
+        <h1>Thanks!<h1>
+        </div>
+
+
+      </div>
+
+
+
+    </body>
+    </html>
