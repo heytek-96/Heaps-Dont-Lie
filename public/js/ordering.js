@@ -5,11 +5,11 @@
 Vue.component('ingredient', {
   props: ['item', 'type', 'lang'],
   template: ' <div class="ingredient">\
-                  <label>\
-                    <button v-on:click="incrementCounter">{{ counter }}</button>\
-                    {{item["ingredient_"+ lang]}} ({{ (type=="smoothie") ? item.vol_smoothie:item.vol_juice }} ml), {{item.selling_price}}:-, {{item.stock}} pcs\
-                  </label>\
-              </div>',
+  <label>\
+  <button v-on:click="incrementCounter">{{ counter }}</button>\
+  {{item["ingredient_"+ lang]}} ({{ (type=="smoothie") ? item.vol_smoothie:item.vol_juice }} ml), {{item.selling_price}}:-, {{item.stock}} pcs\
+  </label>\
+  </div>',
   data: function () {
     return {
       counter: 0
@@ -33,7 +33,7 @@ function getRandomInt(min, max) {
 }
 
 function getOrderNumber() {
-  // It's probably not a good idea to generate a random order number, client-side. 
+  // It's probably not a good idea to generate a random order number, client-side.
   // A better idea would be to let the server decide.
   return "#" + getRandomInt(1, 1000000);
 }
@@ -45,7 +45,8 @@ var vm = new Vue({
     type: '',
     chosenIngredients: [],
     volume: 0,
-    price: 0
+    price: 0,
+    sizeShown: false
   },
   methods: {
     addToOrder: function (item, type) {
@@ -61,12 +62,12 @@ var vm = new Vue({
     placeOrder: function () {
       var i,
       //Wrap the order in an object
-        order = {
-          ingredients: this.chosenIngredients,
-          volume: this.volume,
-          type: this.type,
-          price: this.price
-        };
+      order = {
+        ingredients: this.chosenIngredients,
+        volume: this.volume,
+        type: this.type,
+        price: this.price
+      };
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       socket.emit('order', {orderId: getOrderNumber(), order: order});
       //set all counters to 0. Notice the use of $refs
@@ -77,6 +78,10 @@ var vm = new Vue({
       this.price = 0;
       this.type = '';
       this.chosenIngredients = [];
+
+    },
+    showSize: function (){
+      this.sizeShown = true;
     }
   }
 });
