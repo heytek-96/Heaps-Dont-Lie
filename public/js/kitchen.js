@@ -65,7 +65,6 @@ var vm = new Vue({
     countOrders: function () {
         var counter = 0;
         for (var i in this.orders) {
-            console.log(i);
             if(!this.orders[i].done){
                 counter+=1;
             }    
@@ -75,6 +74,8 @@ var vm = new Vue({
       nextOrderToPrepare: function(){
           for(var i in this.orders){
               if(!this.orders[i].done){
+                  console.log(this.orders[i].orderId);
+                  console.log(i);
                   return(i);
                  
               }
