@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Juicifers kitchen</title>
+  <title>Juicifers Kitchen</title>
   <link rel="stylesheet" href="css/juicifer.css">
   <script src="/vue/vue.js" defer></script>
   <script src="/socket.io/socket.io.js" defer></script>
@@ -12,34 +12,34 @@
 </head>
 <body>
   <div id="orders">
-      
+
       <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-       
+
           <button v-on:click="showWaitingForOrderPage()"> Waiting for order </button>
           <button v-on:click="showWaitingOrders()"> Waiting orders (right) </button>
           <button v-on:click="showPreviousOrders()"> Previous orders (left) </button>
           <button v-on:click="showOrderToPrepare()"> Next order to prepare (ENTER) </button>
-      
+
       <div> Number of orders in queue: {{ countOrders() }}</div>
-    
-      
+
+
       <div v-if="waitingForOrder" >
         <header>Waiting for a juicy Order</header>
-    </div> 
-      
-      
+    </div>
+
+
     <div v-if="showListofWaitingOrders" >
         <header> Order waiting </header>
         <h1>{{ uiLabels.ordersInQueue }}</h1>
-        <h2>{{ uiLabels.smoothie }}</h2>      
+        <h2>{{ uiLabels.smoothie }}</h2>
         <div>
             <order-item-to-prepare
             v-for="(order, key) in orders"
             v-if="!order.done && order.type == 'smoothie'"
             v-on:done="markDone(key)"
-            v-on:cancel="sendCancel(key)" 
+            v-on:cancel="sendCancel(key)"
             :order-id="key"
-            :order="order" 
+            :order="order"
             :ui-labels="uiLabels"
             :lang="lang"
             :key="key"
@@ -61,7 +61,7 @@
             </order-item-to-prepare>
         </div>
 
-    </div>  
+    </div>
     <div v-if="showListOfPreviousOrders" >
         List of previous orders
         <h1>{{ uiLabels.ordersFinished }}</h1>
@@ -80,7 +80,7 @@
         <h2>{{ uiLabels.juice }}</h2>
         <div>
             <order-item
-            v-for="(order, key) in orders"          
+            v-for="(order, key) in orders"
             v-if="order.done && order.type == 'juice'"
             :order-id="key"
             :order="order"
@@ -88,19 +88,19 @@
             :ui-labels="uiLabels"
             :key="key">
             </order-item>
-            
+
         </div>
     </div>
-      
-      <div v-if="showNextOrder" >  
-        
+
+      <div v-if="showNextOrder" >
+
        nästa order: {{ nextOrderToPrepare() }}
 
        <order-item-to-prepare
-           
-        
+
+
             v-for="(order, key) in orders"
-            v-if="!order.done"                 
+            v-if="!order.done"
             v-on:done="markDone(key)"
             v-on:cancel="sendCancel(key)"
             :order-id="key"
@@ -108,11 +108,11 @@
             :ui-labels="uiLabels"
             :lang="lang"
             :key="key">
-         
-          
+
+
        </order-item-to-prepare>
-          
-          
+
+
     </div>
 
   </div>
