@@ -46,8 +46,13 @@ var vm = new Vue({
     chosenIngredients: [],
     volume: 0,
     price: 0,
+    startShown: true,
     sizeShown: false,
-    ingredientsShown: false
+    ingredientsShown: false,
+    customizeShown:false,
+    extrasShown: false,
+    overviewShown:false,
+    payShown: false
   },
   methods: {
     addToOrder: function (item, type) {
@@ -81,13 +86,69 @@ var vm = new Vue({
       this.chosenIngredients = [];
 
     },
+    showStart: function (){
+      this.startShown = true;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
+    },
+
     showSize: function (){
       this.startShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
       this.sizeShown = true;
     },
     showIngredients: function (){
+      this.startShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
       this.sizeShown = false;
       this.ingredientsShown = true;
+    },
+    showCustomize: function(){
+      this.startShown = false;
+      this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = true;
+    },
+    showExtras: function(){
+      this.startShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = true;
+    },
+    showOverview: function(){
+      this.startShown = false;
+      this.payShown = false;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
+      this.overviewShown = true;
+    },
+    showPay: function(){
+      this.startShown = false;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = true;
     }
   }
 });
