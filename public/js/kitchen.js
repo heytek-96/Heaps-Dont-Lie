@@ -75,7 +75,8 @@ var vm = new Vue({
       nextOrderToPrepare: function(){
           for(var i in this.orders){
               if(!this.orders[i].done){
-                  return this.orders[i];
+                  return(i);
+                 
               }
           }
       },
