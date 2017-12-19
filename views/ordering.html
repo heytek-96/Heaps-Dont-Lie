@@ -23,12 +23,14 @@
     </div>
 
     <div v-if="sizeShown">
+      <button v-on:click="showStart()">Restart Order</button>
       <h1>Select Size<h1>
         <button v-on:click="showStart()">Homepage</button>
         <button v-on:click="showIngredients()">Choose Ingredients</button>
       </div>
 
       <div v-if="ingredientsShown">
+        <button v-on:click="showStart()">Restart Order</button>
         <h1>{{ uiLabels.smoothie }}</h1>
         <button v-on:click="showSize()">Select Size</button>
         <button v-on:click="showCustomize()">Customize</button>
@@ -87,24 +89,28 @@
 </div>
 
 <div v-if="customizeShown">
+  <button v-on:click="showStart()">Restart Order</button>
   <h1>Customize<h1>
     <button v-on:click="showIngredients()">Choose Ingredients</button>
     <button v-on:click="showExtras()">Choose Extras</button>
   </div>
 
   <div v-if="extrasShown">
+    <button v-on:click="showStart()">Restart Order</button>
     <h1>Extras<h1>
       <button v-on:click="showCustomize()">Customize</button>
       <button v-on:click="showOverview()">Overview</button>
     </div>
 
     <div v-if="overviewShown">
+      <button v-on:click="showStart()">Restart Order</button>
       <h1>Your Order<h1>
         <button v-on:click="showExtras()">Choose Extras</button>
         <button v-on:click="showPay()">Pay 'n' Shake</button>
       </div>
 
       <div v-if="payShown">
+        <button v-on:click="showStart()">Restart Order</button>
         <h1>Thanks!<h1>
         </div>
 

@@ -88,7 +88,7 @@ var vm = new Vue({
     },
     showStart: function (){
       this.startShown = true;
-      this.showSize = false;
+      this.sizeShown = false;
       this.ingredientsShown = false;
       this.customizeShown = false;
       this.extrasShown = false;
@@ -99,29 +99,54 @@ var vm = new Vue({
     showSize: function (){
       this.startShown = false;
       this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
       this.sizeShown = true;
     },
     showIngredients: function (){
-      this.sizeShown = false;
+      this.startShown = false;
       this.customizeShown = false;
+      this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
+      this.sizeShown = false;
       this.ingredientsShown = true;
     },
     showCustomize: function(){
-      this.ingredientsShown = false;
+      this.startShown = false;
       this.extrasShown = false;
+      this.overviewShown = false;
+      this.payShown = false;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
       this.customizeShown = true;
     },
     showExtras: function(){
-      this.customizeShown = false;
+      this.startShown = false;
       this.overviewShown = false;
+      this.payShown = false;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
       this.extrasShown = true;
     },
     showOverview: function(){
-      this.extrasShown = false;
+      this.startShown = false;
       this.payShown = false;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
       this.overviewShown = true;
     },
     showPay: function(){
+      this.startShown = false;
+      this.sizeShown = false;
+      this.ingredientsShown = false;
+      this.customizeShown = false;
+      this.extrasShown = false;
       this.overviewShown = false;
       this.payShown = true;
     }
