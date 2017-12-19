@@ -31,6 +31,13 @@ app.get('/kitchen', function (req, res) {
   res.sendFile(path.join(__dirname, 'views/kitchen.html'));
 });
 
+
+//Serve kitchenStart.html as subpage
+app.get('/kitchenStart', function(req,res){
+    res.sendFile(path.join(__dirname, 'views/kitchenStart.html'));
+    
+});
+
 // Store data in an object to keep the global namespace clean
 function Data() {
   this.data = {};
@@ -83,22 +90,26 @@ Data.prototype.initializeData = function (table) {
   stock. If you have time, you should think a bit about whether
   this is the right moment to do this.
 */
+Data.prototype.makeTransaction = function(order, changeUnit) {
+       var transactions = this.data[transactionsDataName],
+        //find out the currently highest transaction id
+        transId =  transactions[transactions.length - 1].transaction_id,
+        i = order.ingredients,
+        k;
+        
+      for (k = 0; k < i.length; k += 1) {
+        transId += 1;
+        transactions.push({transaction_id: transId,
+                           ingredient_id: i[k].ingredient_id,
+                           change: changeUnit});
+      }
+    }
+
 Data.prototype.addOrder = function (order) {
-  this.orders[order.orderId] = order.order;
-  this.orders[order.orderId].done = false;
-  var transactions = this.data[transactionsDataName],
-    //find out the currently highest transaction id
-    transId =  transactions[transactions.length - 1].transaction_id,
-    i = order.order.ingredients,
-    k;
-    
-  for (k = 0; k < i.length; k += 1) {
-    transId += 1;
-    transactions.push({transaction_id: transId,
-                       ingredient_id: i[k].ingredient_id,
-                       change: -1});
-  }
-};
+      this.orders[order.orderId] = order.order;
+      this.orders[order.orderId].done = false;
+      this.makeTransaction(order.order, -1);
+    };
 
 Data.prototype.getAllOrders = function () {
   return this.orders;
@@ -107,6 +118,11 @@ Data.prototype.getAllOrders = function () {
 Data.prototype.markOrderDone = function (orderId) {
   this.orders[orderId].done = true;
 };
+
+Data.prototype.cancelOrder = function (orderId) {
+      this.orders[orderId].done = true;
+      this.makeTransaction(this.orders[orderId], 1);
+    };
 
 var data = new Data();
 // Load initial ingredients. If you want to add columns, do it in the CSV file.
@@ -136,6 +152,11 @@ io.on('connection', function (socket) {
     data.markOrderDone(orderId);
     io.emit('currentQueue', {orders: data.getAllOrders() });
   });
+  socket.on('cancelOrder', function (orderId) {
+      data.cancelOrder(orderId);
+      io.emit('currentQueue', {orders: data.getAllOrders(),
+                              ingredients: data.getIngredients() });
+    })    
 });
 
 var server = http.listen(app.get('port'), function () {
