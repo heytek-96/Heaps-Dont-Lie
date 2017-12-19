@@ -97,13 +97,17 @@
 
        <order-item-to-prepare
            
+        
             v-for="(order, key) in orders"
-            v-if= "order.done"                  
+            v-if="!order.done"
+            v-on:done="markDone(key)"
+            v-on:cancel="sendCancel(key)"
             :order-id="key"
-            :order="order"                  
-            :lang="lang"
+            :order="order"
             :ui-labels="uiLabels"
+            :lang="lang"
             :key="key">
+         
           
        </order-item-to-prepare>
           

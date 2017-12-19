@@ -10,5 +10,6 @@
   "with" : "med",
   "ready" : "Klart",
   "order" : "Min beställning",
-  "language" : "English"
+  "language" : "English",
+  "cancel": "Avbryt"    
 }
