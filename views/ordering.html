@@ -39,6 +39,9 @@
       <div v-if="ingredientsShown">
         <button v-on:click="showStart()">Restart Order</button>
         <h1>Ingredients</h1>
+        <button v-on:click="showSize()">Select Size</button>
+        <button v-on:click="showCustomize()">Customize</button>
+
         <h1>Base</h1>
         <ingredient
         ref="ingredient"
