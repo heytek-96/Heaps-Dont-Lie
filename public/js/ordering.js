@@ -66,17 +66,17 @@ var vm = new Vue({
       } else if (type === "green") {
         this.volume += +item.vol_juice;
       }
-     else if (type === "base") {
-      this.volume += +item.vol_juice;
-    }
-    else if (type === "boost") {
-     this.volume += +item.vol_juice;
-   }
-   else if (type === "topping") {
-    this.volume += +item.vol_juice;
-  }
-    this.price += +item.selling_price;
-  },
+      else if (type === "base") {
+        this.volume += +item.vol_juice;
+      }
+      else if (type === "boost") {
+        this.volume += +item.vol_juice;
+      }
+      else if (type === "topping") {
+        this.volume += +item.vol_juice;
+      }
+      this.price += +item.selling_price;
+    },
     placeOrder: function () {
       var i,
       //Wrap the order in an object
@@ -84,7 +84,7 @@ var vm = new Vue({
         ingredients: this.chosenIngredients,
         volume: this.volume,
         type: this.type,
-        price: this.price
+        price: this.price,
       };
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       socket.emit('order', {orderId: getOrderNumber(), order: order});
@@ -98,6 +98,7 @@ var vm = new Vue({
       this.chosenIngredients = [];
 
     },
+
     showStart: function (){
       this.startShown = true;
       this.sizeShown = false;
@@ -161,15 +162,14 @@ var vm = new Vue({
       this.extrasShown = false;
       this.overviewShown = false;
       this.payShown = true;
-    }
-    /* Detta kan bli användbart när vi ska skicka info till kök osv. //CE
+    },
 
     chooseSmall: function(){
       this.mediumChosen = false;
       this.largeChosen = false;
       this.smallChosen = true;
-
     },
+
     chooseMedium: function(){
       this.smallChosen = false;
       this.largeChosen = false;
@@ -180,6 +180,5 @@ var vm = new Vue({
       this.mediumChosen = false;
       this.largeChosen = true;
     }
-    */
   }
 });
