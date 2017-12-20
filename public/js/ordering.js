@@ -52,7 +52,10 @@ var vm = new Vue({
     customizeShown:false,
     extrasShown: false,
     overviewShown:false,
-    payShown: false
+    payShown: false,
+    smallChosen: false,
+    mediumChosen: false,
+    largeChosen: false,
   },
   methods: {
     addToOrder: function (item, type) {
@@ -158,6 +161,28 @@ var vm = new Vue({
       this.extrasShown = false;
       this.overviewShown = false;
       this.payShown = true;
+    },
+    chooseSmall: function(){
+      this.mediumChosen = false;
+      this.largeChosen = false;
+      this.smallChosen = true;
+      document.getElementById("medium").disabled = true;
+      document.getElementById("large").disabled = true;
+
+    },
+    chooseMedium: function(){
+      this.smallChosen = false;
+      this.largeChosen = false;
+      this.mediumChosen = true;
+      document.getElementById("small").disabled = true;
+      document.getElementById("large").disabled = true;
+    },
+    chooseLarge: function(){
+      this.smallChosen = false;
+      this.mediumChosen = false;
+      this.largeChosen = true;
+      document.getElementById("small").disabled = true;
+      document.getElementById("medium").disabled = true;
     }
   }
 });
