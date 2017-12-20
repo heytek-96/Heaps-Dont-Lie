@@ -39,60 +39,84 @@
       <div v-if="ingredientsShown">
         <button v-on:click="showStart()">Restart Order</button>
         <h1>Ingredients</h1>
-        <h1>Fruit & Berries</h1>
-        <button v-on:click="showSize()">Select Size</button>
-        <button v-on:click="showCustomize()">Customize</button>
+        <h1>Base</h1>
         <ingredient
         ref="ingredient"
-        type="fruit"
+        type="base"
         v-for="item in ingredients"
-        v-if="item.fruit > 0"
-        v-on:increment="addToOrder(item, 'fruit')"
+        v-if="item.base > 0"
+        v-on:increment="addToOrder(item, 'base')"
         :item="item"
         :lang="lang"
         :key="item.ingredient_id">
       </ingredient>
 
-      <h1>Greens</h1>
+      <h1>Fruit & Berries</h1>
+      <button v-on:click="showSize()">Select Size</button>
+      <button v-on:click="showCustomize()">Customize</button>
       <ingredient
       ref="ingredient"
-      type="green"
+      type="fruit"
       v-for="item in ingredients"
-      v-if="item.green > 0"
-      v-on:increment="addToOrder(item, 'green')"
+      v-if="item.fruit > 0"
+      v-on:increment="addToOrder(item, 'fruit')"
       :item="item"
       :lang="lang"
       :key="item.ingredient_id">
     </ingredient>
 
-    <h1>{{ uiLabels.order }}</h1>
-    {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
-    <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+    <h1>Greens</h1>
+    <ingredient
+    ref="ingredient"
+    type="green"
+    v-for="item in ingredients"
+    v-if="item.green > 0"
+    v-on:increment="addToOrder(item, 'green')"
+    :item="item"
+    :lang="lang"
+    :key="item.ingredient_id">
+  </ingredient>
 
-    <h1>{{ uiLabels.ordersInQueue }}</h1>
-    <h2>Fruit and berries</h2>
-    <div>
-      <order-item
-      v-for="(order, key) in orders"
-      v-if="!order.done && order.type == 'fruit'"
-      :order-id="key"
-      :order="order"
-      :ui-labels="uiLabels"
-      :lang="lang"
-      :key="key">
-    </order-item>
-  </div>
-  <h2>Greens</h2>
+  <h1>{{ uiLabels.order }}</h1>
+  {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
+  <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+
+  <h1>{{ uiLabels.ordersInQueue }}</h1>
+  <h2>Base</h2>
   <div>
     <order-item
     v-for="(order, key) in orders"
-    v-if="!order.done && order.type == 'green'"
+    v-if="!order.done && order.type == 'base'"
     :order-id="key"
     :order="order"
     :ui-labels="uiLabels"
     :lang="lang"
     :key="key">
   </order-item>
+</div>
+<h2>Fruit and berries</h2>
+<div>
+  <order-item
+  v-for="(order, key) in orders"
+  v-if="!order.done && order.type == 'fruit'"
+  :order-id="key"
+  :order="order"
+  :ui-labels="uiLabels"
+  :lang="lang"
+  :key="key">
+</order-item>
+</div>
+<h2>Greens</h2>
+<div>
+  <order-item
+  v-for="(order, key) in orders"
+  v-if="!order.done && order.type == 'green'"
+  :order-id="key"
+  :order="order"
+  :ui-labels="uiLabels"
+  :lang="lang"
+  :key="key">
+</order-item>
 </div>
 <br><br><button v-on:click="showStart()">Homepage</button>
 <button v-on:click="showSize()">Select Size</button>

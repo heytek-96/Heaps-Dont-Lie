@@ -63,8 +63,11 @@ var vm = new Vue({
       } else if (type === "green") {
         this.volume += +item.vol_juice;
       }
+     else if (type === "base") {
+      this.volume += +item.vol_juice;
       this.price += +item.selling_price;
-    },
+    }
+  },
     placeOrder: function () {
       var i,
       //Wrap the order in an object
