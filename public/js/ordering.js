@@ -66,6 +66,12 @@ var vm = new Vue({
      else if (type === "base") {
       this.volume += +item.vol_juice;
     }
+    else if (type === "boost") {
+     this.volume += +item.vol_juice;
+   }
+   else if (type === "topping") {
+    this.volume += +item.vol_juice;
+  }
     this.price += +item.selling_price;
   },
     placeOrder: function () {

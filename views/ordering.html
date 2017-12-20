@@ -82,9 +82,11 @@
   {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
   <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
+
   <h1>{{ uiLabels.ordersInQueue }}</h1>
   <h2>Base</h2>
   <div>
+    <!--order.type == "base" behöver ändras sen, för det är från att man kunde välja Juice/Smoothie i Mikaels skelett förut /Clara-->
     <order-item
     v-for="(order, key) in orders"
     v-if="!order.done && order.type == 'base'"
@@ -146,6 +148,60 @@
     <h1>Extras<h1>
       <button v-on:click="showCustomize()">Customize</button>
       <button v-on:click="showOverview()">Overview</button>
+
+      <h1>Boosts</h1>
+      <ingredient
+      ref="ingredient"
+      type="boost"
+      v-for="item in ingredients"
+      v-if="item.boost > 0"
+      v-on:increment="addToOrder(item, 'boost')"
+      :item="item"
+      :lang="lang"
+      :key="item.ingredient_id">
+    </ingredient>
+
+    <h1>Toppings</h1>
+    <ingredient
+    ref="ingredient"
+    type="topping"
+    v-for="item in ingredients"
+    v-if="item.topping > 0"
+    v-on:increment="addToOrder(item, 'topping')"
+    :item="item"
+    :lang="lang"
+    :key="item.ingredient_id">
+  </ingredient>
+
+  <h1>{{ uiLabels.order }}</h1>
+  {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
+  <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+
+  <h1>{{ uiLabels.ordersInQueue }}</h1>
+  <h2>Boosts</h2>
+  <div>
+    <order-item
+    v-for="(order, key) in orders"
+    v-if="!order.done && order.type == 'boost'"
+    :order-id="key"
+    :order="order"
+    :ui-labels="uiLabels"
+    :lang="lang"
+    :key="key">
+  </order-item>
+</div>
+<h2>Toppings</h2>
+<div>
+  <order-item
+  v-for="(order, key) in orders"
+  v-if="!order.done && order.type == 'topping'"
+  :order-id="key"
+  :order="order"
+  :ui-labels="uiLabels"
+  :lang="lang"
+  :key="key">
+</order-item>
+</div>
 
       <br><br><button v-on:click="showStart()">Homepage</button>
       <button v-on:click="showSize()">Select Size</button>
