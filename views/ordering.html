@@ -87,7 +87,7 @@
 
       <h1>{{ uiLabels.order }}</h1>
       {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
-      <!-- Det som står nedan går säkert att göra snyggare men det funkar i alla fall//CE-->
+      <!-- Det som står nedan går säkert att göra snyggare men det funkar i alla fall.//CE-->
       <div v-if="smallChosen">
         Size: Small
       </div>
@@ -197,6 +197,15 @@
 
     <h1>{{ uiLabels.order }}</h1>
     {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
+    <div v-if="smallChosen">
+      Size: Small
+    </div>
+    <div v-if="mediumChosen">
+      Size: Medium
+    </div>
+    <div v-if="largeChosen">
+      Size: Large
+    </div>
     <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
     <h1>{{ uiLabels.ordersInQueue }}</h1>

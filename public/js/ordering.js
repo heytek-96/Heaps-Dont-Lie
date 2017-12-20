@@ -54,7 +54,7 @@ var vm = new Vue({
     overviewShown:false,
     payShown: false,
     smallChosen: false,
-    mediumChosen: false,
+    mediumChosen: true,
     largeChosen: false,
   },
   methods: {
@@ -117,6 +117,8 @@ var vm = new Vue({
       this.overviewShown = false;
       this.payShown = false;
       this.sizeShown = true;
+      var btn = document.getElementById("smallSize");
+      console.log(btn);
     },
     showIngredients: function (){
       this.startShown = false;
