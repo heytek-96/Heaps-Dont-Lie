@@ -161,28 +161,25 @@ var vm = new Vue({
       this.extrasShown = false;
       this.overviewShown = false;
       this.payShown = true;
-    },
+    }
+    /* Detta kan bli användbart när vi ska skicka info till kök osv. //CE
+
     chooseSmall: function(){
       this.mediumChosen = false;
       this.largeChosen = false;
       this.smallChosen = true;
-      document.getElementById("medium").disabled = true;
-      document.getElementById("large").disabled = true;
 
     },
     chooseMedium: function(){
       this.smallChosen = false;
       this.largeChosen = false;
       this.mediumChosen = true;
-      document.getElementById("small").disabled = true;
-      document.getElementById("large").disabled = true;
     },
     chooseLarge: function(){
       this.smallChosen = false;
       this.mediumChosen = false;
       this.largeChosen = true;
-      document.getElementById("small").disabled = true;
-      document.getElementById("medium").disabled = true;
     }
+    */
   }
 });

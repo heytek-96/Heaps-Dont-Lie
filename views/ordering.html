@@ -26,10 +26,10 @@
       <button v-on:click="showStart()">Restart Order</button>
       <h1>Select Size<h1>
         <div>
-        <button id = "small" v-on:click="chooseSmall()">Small</button>
-        <button id = "medium" v-on:click="chooseMedium()">Medium</button>
-        <button id = "large" v-on:click="chooseLarge()">Large</button>
-      </div>
+          <input type="radio" name="size" value="small">Small<br>
+          <input type="radio" name="size" value="medium">Medium<br>
+          <input type="radio" name="size" value="large">Large<br>
+        </div>
 
         <div><button v-on:click="showStart()">Homepage</button>
         <button v-on:click="showIngredients()">Choose Ingredients</button></div>
