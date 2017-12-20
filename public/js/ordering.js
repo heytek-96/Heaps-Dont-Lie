@@ -59,14 +59,14 @@ var vm = new Vue({
       this.chosenIngredients.push(item);
       this.type = type;
       if (type === "fruit") {
-        this.volume += +item.vol_smoothie;
+        this.volume += +item.vol_smoothie; // Det här är egentligen för om man har valt Smoothie/Juice. Det är därför det blir "0ml" bredvid ibland när vi kör. /Clara
       } else if (type === "green") {
         this.volume += +item.vol_juice;
       }
      else if (type === "base") {
       this.volume += +item.vol_juice;
-      this.price += +item.selling_price;
     }
+    this.price += +item.selling_price;
   },
     placeOrder: function () {
       var i,
