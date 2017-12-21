@@ -51,12 +51,14 @@ var vm = new Vue({
     maxIngred: 0,
     volume: 0,
     price: 0,
+    priceTot: 0,
     size: "",
     startShown: true,
     sizeShown: false,
     ingredientsShown: false,
     customizeShown:false,
     extrasShown: false,
+    extraHasBeenShown: false,
     overviewShown:false,
     payShown: false
   },
@@ -80,10 +82,12 @@ var vm = new Vue({
       else if (type === "boost") {
         this.volume += +item.vol_juice;
         this.chosenBoost = item.ingredient_en;
+        this.priceTot += 7;
       }
       else if (type === "topping") {
         this.volume += +item.vol_juice;
         this.chosenTopping = item.ingredient_en;
+        this.priceTot += 10;
       }
       this.price += +item.selling_price;
     },
@@ -95,6 +99,7 @@ var vm = new Vue({
         volume: this.volume,
         type: this.type,
         price: this.price,
+        priceTot: this.priceTot,
         size: this.size,
         chosenBase: this.chosenBase,
         chosenTopping: this.chosenTopping,
@@ -109,6 +114,7 @@ var vm = new Vue({
       }
       this.volume = 0;
       this.price = 0;
+      this.priceTot = 0;
       this.type = '';
       this.chosenIngredients = [];
       this.size='';
@@ -120,8 +126,10 @@ var vm = new Vue({
     },
 
     showStart: function (){
+      //Resettar allting //CE
       this.volume = 0;
       this.price = 0;
+      this.priceTot = 0;
       this.type = '';
       this.chosenIngredients = [];
       this.size='';
@@ -151,12 +159,21 @@ var vm = new Vue({
     showIngredients: function (){
       if(this.size==="small"){
         this.maxIngred = 2;
+        if(this.extraHasBeenShown===false){ //För att priset inte ska ändras om man har lagt till topping/boost
+          this.priceTot = 35;
+        }
       }
       else if(this.size==="medium"){
         this.maxIngred = 3;
+        if(this.extraHasBeenShown===false){
+          this.priceTot = 40;
+        }
       }
       else if(this.size==="large"){
         this.maxIngred = 4;
+        if(this.extraHasBeenShown===false){
+          this.priceTot = 45;
+        }
       }
 
       this.startShown = false;
@@ -184,6 +201,7 @@ var vm = new Vue({
       this.ingredientsShown = false;
       this.customizeShown = false;
       this.extrasShown = true;
+      this.extraHasBeenShown = true;
     },
     showOverview: function(){
       this.startShown = false;
