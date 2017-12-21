@@ -48,6 +48,7 @@ var vm = new Vue({
     chosenBase:"",
     chosenTopping:"",
     chosenBoost:"",
+    maxIngred: 0,
     volume: 0,
     price: 0,
     size: "",
@@ -132,6 +133,17 @@ var vm = new Vue({
       this.sizeShown = true;
     },
     showIngredients: function (){
+      //nedan funkar inte eftersom detta är en funktion som bara utförs i början när man kommer till sidan //CE
+      /*if(this.size="small"){
+        this.maxIngred = 2;
+      }
+      if(this.size="medium"){
+        this.maxIngred = 3;
+      }
+      if(this.size="large"){
+        this.maxIngred = 4;
+      } */
+
       this.startShown = false;
       this.customizeShown = false;
       this.extrasShown = false;
@@ -175,6 +187,7 @@ var vm = new Vue({
       this.extrasShown = false;
       this.overviewShown = false;
       this.payShown = true;
+
     },
       
     doYouWantToRestart: function(){
@@ -190,5 +203,6 @@ var vm = new Vue({
        resetOrder: function()  {
            //sätt in funktion för att reseta hela ordern
   }
-  }
+
+    }
 });
