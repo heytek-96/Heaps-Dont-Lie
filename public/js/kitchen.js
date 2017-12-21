@@ -78,14 +78,6 @@ var vm = new Vue({
           }
       },
     
-   /* orderIsWaiting: function (){
-        if (this.countOrders()!=0){
-          this.showOrderToPrepare();
-          console.log(this.countOrders());
-      }
-        
-        
-    },*/
     sendCancel: function (orderid) {
     socket.emit("cancelOrder", orderid);
     },

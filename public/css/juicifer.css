@@ -23,3 +23,14 @@ h1 {
 	border: 1px solid #cdc;
 	padding: 1em;
 }
+
+table, th, td {
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+tr:hover{
+     background-color: #ffa;
+    
+}
