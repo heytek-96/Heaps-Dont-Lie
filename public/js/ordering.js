@@ -163,6 +163,16 @@ var vm = new Vue({
       this.extrasShown = false;
       this.overviewShown = false;
       this.payShown = true;
-    }
+    },
+      
+    doYouWantToRestart: function(){
+         var wantsRestart = confirm("Are you sure you want to restart your order?\n Press OK to restart, or cancel to continue");
+    if (wantsRestart == true) {
+        this.showStart();
+    } else {
+        return  
+    } 
+          
+      }
   }
 });
