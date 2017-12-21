@@ -49,7 +49,7 @@
           <div v-if="ingredientsShown">
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Ingredients</h1>
-            <div v-if="smallChosen">
+            <!--<div v-if="smallChosen">
               Select 1 base & max 2 fruit/greens
             </div>
             <div v-if="mediumChosen">
@@ -57,7 +57,7 @@
             </div>
             <div v-if="largeChosen">
               Select 1 base & max 4 fruit/greens
-            </div>
+            </div> -->
 
             <h1>Base</h1>
             <ingredient
@@ -97,16 +97,6 @@
 
       <h1>{{ uiLabels.order }}</h1>
       {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
-      <!-- Det som står nedan går säkert att göra snyggare men det funkar i alla fall.//CE-->
-      <div v-if="smallChosen">
-        Size: Small
-      </div>
-      <div v-if="mediumChosen">
-        Size: Medium
-      </div>
-      <div v-if="largeChosen">
-        Size: Large
-      </div>
       <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
 
