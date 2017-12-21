@@ -46,6 +46,8 @@ var vm = new Vue({
     chosenIngredients: [],
     chosenFruitGreens: [],
     chosenBase:"",
+    chosenTopping:"",
+    chosenBoost:"",
     volume: 0,
     price: 0,
     size: "",
@@ -72,9 +74,11 @@ var vm = new Vue({
       }
       else if (type === "boost") {
         this.volume += +item.vol_juice;
+        this.chosenBoost = item.ingredient_en;
       }
       else if (type === "topping") {
         this.volume += +item.vol_juice;
+        this.chosenTopping = item.ingredient_en;
       }
       this.price += +item.selling_price;
     },
@@ -87,7 +91,8 @@ var vm = new Vue({
         type: this.type,
         price: this.price,
         size: this.size,
-        chosenBase: this.base
+        chosenBase: this.base,
+        chosenTopping: this.topping
       };
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       socket.emit('order', {orderId: getOrderNumber(), order: order});
@@ -101,6 +106,7 @@ var vm = new Vue({
       this.chosenIngredients = [];
       this.size='';
       this.chosenBase='';
+      this.chosenTopping='';
 
     },
 
