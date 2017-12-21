@@ -47,6 +47,7 @@ var vm = new Vue({
     volume: 0,
     price: 0,
     size: "",
+    maxIngred:0,
     startShown: true,
     sizeShown: false,
     ingredientsShown: false,
@@ -83,6 +84,7 @@ var vm = new Vue({
         volume: this.volume,
         type: this.type,
         price: this.price,
+        size: this.size
       };
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       socket.emit('order', {orderId: getOrderNumber(), order: order});
@@ -94,6 +96,7 @@ var vm = new Vue({
       this.price = 0;
       this.type = '';
       this.chosenIngredients = [];
+      this.size='';
 
     },
 
