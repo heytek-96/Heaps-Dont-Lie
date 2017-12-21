@@ -37,7 +37,7 @@
           <button v-on:click="showIngredients()":disabled="size.length < 1">Choose Ingredients</button></div>
 
         <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare. //CE-->
-          <div><button v-on:click="showStart()" >Homepage</button>
+          <div>
             <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
             <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
             <button v-on:click="showCustomize()" disabled>Customize</button>
@@ -96,7 +96,8 @@
       </ingredient>
 
       <h1>{{ uiLabels.order }}</h1>
-      {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}
+      {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }}
+
       <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
 
@@ -143,7 +144,7 @@
   <button v-on:click="showCustomize()" :disabled="price < 1">Customize</button>
 </div>
 
-<div><button v-on:click="showStart()">Homepage</button>
+<div>
   <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
   <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
   <button v-on:click="showCustomize()"disabled>Customize</button>
@@ -157,7 +158,7 @@
     <button v-on:click="showIngredients()">Choose Ingredients</button>
     <button v-on:click="showExtras()">Choose Extras</button>
 
-    <div><button v-on:click="showStart()">Homepage</button>
+    <div>
       <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
       <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
       <button v-on:click="showCustomize()">Customize</button>
@@ -226,7 +227,7 @@
 <button v-on:click="showCustomize()">Customize</button>
 <button v-on:click="showOverview()">Overview</button>
 
-<div><button v-on:click="showStart()">Homepage</button>
+<div>
   <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
   <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
   <button v-on:click="showCustomize()">Customize</button>
@@ -240,7 +241,7 @@
     <button v-on:click="showExtras()">Choose Extras</button>
     <button v-on:click="showPay()">Pay 'n' Shake</button>
 
-    <div><button v-on:click="showStart()">Homepage</button>
+    <div>
       <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
       <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
       <button v-on:click="showCustomize()">Customize</button>
