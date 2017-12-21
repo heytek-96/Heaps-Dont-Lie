@@ -48,6 +48,7 @@ var vm = new Vue({
     chosenBase:"",
     chosenTopping:"",
     chosenBoost:"",
+    maxIngred: 0,
     volume: 0,
     price: 0,
     size: "",
@@ -132,6 +133,16 @@ var vm = new Vue({
       this.sizeShown = true;
     },
     showIngredients: function (){
+      if(this.size="small"){
+        this.maxIngred = 2;
+      }
+      if(this.size="medium"){
+        this.maxIngred = 3;
+      }
+      if(this.size="large"){
+        this.maxIngred = 4;
+      }
+
       this.startShown = false;
       this.customizeShown = false;
       this.extrasShown = false;
