@@ -74,14 +74,21 @@
 
       <div v-if="showNextOrder && countOrders()!=0" >
 
-       nästa order: {{ nextOrderToPrepare().orderId }}
+       nästa order: {{ nextOrderToPrepare().orderId }} <br>
+       orderType: {{ nextOrderToPrepare().order.type }} 
 
           <ul>
               
           <li v-for="ingr in nextOrderToPrepare().order.ingredients" >
         
               
-          {{ingr.ingredient_en}} 
+          {{ingr.ingredient_en}}
+          base:{{ingr.base}} 
+          boost:{{ingr.boost}} 
+          fruit:{{ingr.fruit}} 
+          green:{{ingr.green}}
+              
+              
 
               </li>
           </ul>
