@@ -39,7 +39,7 @@
         <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
           <div>
             <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-            <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
+            <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
             <button v-on:click="showCustomize()" disabled>Customize</button>
             <button v-on:click="showExtras()" disabled>Extras</button>
             <button v-on:click="showOverview()" disabled>Overview</button></div>
@@ -132,12 +132,12 @@
 </div>
 <div>
   <button v-on:click="showSize()">Select Size</button>
-  <button v-on:click="showCustomize()" :disabled="price < 1">Customize</button>
+  <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1">Customize</button>
 </div>
 
 <div>
   <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-  <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
+  <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
   <button v-on:click="showCustomize()"disabled>Customize</button>
   <button v-on:click="showExtras()"disabled>Extras</button>
   <button v-on:click="showOverview()"disabled>Overview</button></div>
@@ -151,7 +151,7 @@
 
     <div>
       <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-      <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
+      <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
       <button v-on:click="showCustomize()">Customize</button>
       <button v-on:click="showExtras()"disabled>Extras</button>
       <button v-on:click="showOverview()"disabled>Overview</button></div>
@@ -220,7 +220,7 @@
 
 <div>
   <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-  <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
+  <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
   <button v-on:click="showCustomize()">Customize</button>
   <button v-on:click="showExtras()">Extras</button>
   <button v-on:click="showOverview()"disabled>Overview</button></div>
@@ -229,12 +229,16 @@
 <div v-if="overviewShown">
   <button v-on:click="showStart()">Restart Order</button>
   <h1>Your Order<h1>
+    <p>Base: {{ chosenBase }}</p>
+    <p>Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}</p>
+    <p>Topping: {{ chosenTopping }}</p>
+    <p>Boost: {{ chosenBoost }}</p>
     <button v-on:click="showExtras()">Choose Extras</button>
     <button v-on:click="showPay()">Pay 'n' Shake</button>
 
     <div>
       <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-      <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
+      <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
       <button v-on:click="showCustomize()">Customize</button>
       <button v-on:click="showExtras()">Extras</button>
       <button v-on:click="showOverview()">Overview</button></div>
