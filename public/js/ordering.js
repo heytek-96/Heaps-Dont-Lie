@@ -91,8 +91,9 @@ var vm = new Vue({
         type: this.type,
         price: this.price,
         size: this.size,
-        chosenBase: this.base,
-        chosenTopping: this.topping
+        chosenBase: this.chosenBase,
+        chosenTopping: this.chosenTopping,
+        chosenBoost: this.chosenBoost
       };
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       socket.emit('order', {orderId: getOrderNumber(), order: order});
