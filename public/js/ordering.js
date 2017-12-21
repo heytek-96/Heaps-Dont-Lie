@@ -107,6 +107,7 @@ var vm = new Vue({
       this.size='';
       this.chosenBase='';
       this.chosenTopping='';
+      this.chosenBoost='';
 
     },
 
