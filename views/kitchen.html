@@ -9,6 +9,11 @@
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="js/juicifer-main.js" defer></script>
   <script src="js/kitchen.js" defer></script>
+    <!-- 
+<link href="noUiSlider-master/distribute/nouislider.min.css" rel="stylesheet">
+
+ 
+<script src="noUiSlider-master/distribute/nouislider.min.js" defer></script> -->
 </head>
 <body>
   <div id="orders">
@@ -29,13 +34,13 @@
 
 
     <div v-if="showListofWaitingOrders" >
-        <header> Order waiting </header>
+
         <h1>{{ uiLabels.ordersInQueue }}</h1>
-        <h2>{{ uiLabels.smoothie }}</h2>
+
         <div>
             <order-item-to-prepare
             v-for="(order, key) in orders"
-            v-if="!order.done && order.type == 'smoothie'"
+            v-if="!order.done"
             v-on:done="markDone(key)"
             v-on:cancel="sendCancel(key)"
             :order-id="key"
@@ -46,30 +51,17 @@
                        >
             </order-item-to-prepare>
         </div>
-    <h2>{{ uiLabels.juice }}</h2>
-        <div>
-            <order-item-to-prepare
-            v-for="(order, key) in orders"
-            v-if="!order.done && order.type == 'juice'"
-            v-on:done="markDone(key)"
-            v-on:cancel="sendCancel(key)"
-            :order-id="key"
-            :order="order"
-            :ui-labels="uiLabels"
-            :lang="lang"
-            :key="key">
-            </order-item-to-prepare>
-        </div>
+
 
     </div>
     <div v-if="showListOfPreviousOrders" >
         List of previous orders
         <h1>{{ uiLabels.ordersFinished }}</h1>
-        <h2>{{ uiLabels.smoothie }}</h2>
+   
         <div>
             <order-item
             v-for="(order, key) in orders"
-            v-if="order.done && order.type == 'smoothie'"
+            v-if="order.done"
             :order-id="key"
             :order="order"
             :lang="lang"
@@ -77,33 +69,39 @@
             :key="key">
             </order-item>
         </div>
-        <h2>{{ uiLabels.juice }}</h2>
-        <div>
-            <order-item
-            v-for="(order, key) in orders"
-            v-if="order.done && order.type == 'juice'"
-            :order-id="key"
-            :order="order"
-            :lang="lang"
-            :ui-labels="uiLabels"
-            :key="key">
-            </order-item>
 
-        </div>
     </div>
 
-      <div v-if="showNextOrder" >
+      <div v-if="showNextOrder && countOrders()!=0" >
 
-       nästa order: {{ nextOrderToPrepare().orderId }}
+       nästa order: {{ nextOrderToPrepare().orderId }} <br>
+       orderType: {{ nextOrderToPrepare().order.type }} 
 
           <ul>
-          <li v-for="ingr in nextOrderToPrepare().order.ingredients">{{ingr.ingredient_en}} 
+              
+          <li v-for="ingr in nextOrderToPrepare().order.ingredients" >
+        
+              
+          {{ingr.ingredient_en}}
+          base:{{ingr.base}} 
+          boost:{{ingr.boost}} 
+          fruit:{{ingr.fruit}} 
+          green:{{ingr.green}}
+              
+              
+
               </li>
           </ul>
+          <button v-on:click="markDone(nextOrderToPrepare().orderId)">
+            {{uiLabels.ready}}
+          </button>
+          <button v-on:click="sendCancel(nextOrderToPrepare().orderId)">
+            {{uiLabels.cancel}}
+          </button>
           
-          <!-- lägg till done- och cancel-knappar i ordern-->
 
     </div>
+    <!--  <div id=slider-color> Här ska slider in</div> -->
 
   </div>
 </body>
