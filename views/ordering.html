@@ -36,7 +36,7 @@
         <div><button v-on:click="showStart()">Homepage</button>
           <button v-on:click="showIngredients()":disabled="size.length < 1">Choose Ingredients</button></div>
 
-        <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare. //CE-->
+        <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
           <div>
             <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
             <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
@@ -48,8 +48,7 @@
           <div v-if="ingredientsShown">
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Ingredients</h1>
-            <!--Får inte {{ maxIngred }} att funka. Det gör så att size fastnar så man inte kan byta //CE-->
-            <div> Select 1 base and max  fruit/greens </div>
+            <p>Select 1 base and max {{maxIngred}} fruit/greens</p>
 
             <h1>Base</h1>
             <ingredient
@@ -88,7 +87,7 @@
       </ingredient>
 
       <h1>{{ uiLabels.order }}</h1>
-      {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }}
+      {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }} <br>
 
       <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 

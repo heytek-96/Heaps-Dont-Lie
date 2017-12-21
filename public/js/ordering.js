@@ -133,16 +133,15 @@ var vm = new Vue({
       this.sizeShown = true;
     },
     showIngredients: function (){
-      //nedan funkar inte eftersom detta är en funktion som bara utförs i början när man kommer till sidan //CE
-      /*if(this.size="small"){
+      if(this.size==="small"){
         this.maxIngred = 2;
       }
-      if(this.size="medium"){
+      else if(this.size==="medium"){
         this.maxIngred = 3;
       }
-      if(this.size="large"){
+      else if(this.size==="large"){
         this.maxIngred = 4;
-      } */
+      }
 
       this.startShown = false;
       this.customizeShown = false;
