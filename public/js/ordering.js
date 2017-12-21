@@ -7,7 +7,7 @@ Vue.component('ingredient', {
   template: ' <div class="ingredient">\
   <label>\
   <button v-on:click="incrementCounter">{{ counter }}</button>\
-  {{item["ingredient_"+ lang]}} ({{ (type=="smoothie") ? item.vol_smoothie:item.vol_juice }} ml), {{item.selling_price}}:-, {{item.stock}} pcs\
+  {{item["ingredient_"+ lang]}} ({{ (type=="fruit") ? item.vol_smoothie:item.vol_juice }} ml), {{item.selling_price}}:-, {{item.stock}} pcs\
   </label>\
   </div>',
   data: function () {
@@ -46,6 +46,7 @@ var vm = new Vue({
     chosenIngredients: [],
     volume: 0,
     price: 0,
+    size: "",
     startShown: true,
     sizeShown: false,
     ingredientsShown: false,
@@ -58,9 +59,18 @@ var vm = new Vue({
     addToOrder: function (item, type) {
       this.chosenIngredients.push(item);
       this.type = type;
-      if (type === "smoothie") {
-        this.volume += +item.vol_smoothie;
-      } else if (type === "juice") {
+      if (type === "fruit") {
+        this.volume += +item.vol_smoothie; // Det här är egentligen för om man har valt Smoothie/Juice. Det är därför det blir "0ml" bredvid ibland när vi kör. /Clara
+      } else if (type === "green") {
+        this.volume += +item.vol_juice;
+      }
+      else if (type === "base") {
+        this.volume += +item.vol_juice;
+      }
+      else if (type === "boost") {
+        this.volume += +item.vol_juice;
+      }
+      else if (type === "topping") {
         this.volume += +item.vol_juice;
       }
       this.price += +item.selling_price;
@@ -72,7 +82,7 @@ var vm = new Vue({
         ingredients: this.chosenIngredients,
         volume: this.volume,
         type: this.type,
-        price: this.price
+        price: this.price,
       };
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       socket.emit('order', {orderId: getOrderNumber(), order: order});
@@ -86,6 +96,7 @@ var vm = new Vue({
       this.chosenIngredients = [];
 
     },
+
     showStart: function (){
       this.startShown = true;
       this.sizeShown = false;
