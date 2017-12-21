@@ -44,10 +44,13 @@ var vm = new Vue({
   data: {
     type: '',
     chosenIngredients: [],
+    chosenFruitGreens: [],
+    chosenBase:"",
+    chosenTopping:"",
+    chosenBoost:"",
     volume: 0,
     price: 0,
     size: "",
-    maxIngred:0,
     startShown: true,
     sizeShown: false,
     ingredientsShown: false,
@@ -67,12 +70,15 @@ var vm = new Vue({
       }
       else if (type === "base") {
         this.volume += +item.vol_juice;
+        this.chosenBase = item.ingredient_en; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
       }
       else if (type === "boost") {
         this.volume += +item.vol_juice;
+        this.chosenBoost = item.ingredient_en;
       }
       else if (type === "topping") {
         this.volume += +item.vol_juice;
+        this.chosenTopping = item.ingredient_en;
       }
       this.price += +item.selling_price;
     },
@@ -84,7 +90,10 @@ var vm = new Vue({
         volume: this.volume,
         type: this.type,
         price: this.price,
-        size: this.size
+        size: this.size,
+        chosenBase: this.chosenBase,
+        chosenTopping: this.chosenTopping,
+        chosenBoost: this.chosenBoost
       };
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       socket.emit('order', {orderId: getOrderNumber(), order: order});
@@ -97,6 +106,9 @@ var vm = new Vue({
       this.type = '';
       this.chosenIngredients = [];
       this.size='';
+      this.chosenBase='';
+      this.chosenTopping='';
+      this.chosenBoost='';
 
     },
 
