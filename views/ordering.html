@@ -34,7 +34,7 @@
         <p>Your choice: {{size}}</p>
 
         <div><button v-on:click="showStart()">Homepage</button>
-          <button v-on:click="showIngredients()">Choose Ingredients</button></div>
+          <button v-on:click="showIngredients()":disabled="size.length < 1">Choose Ingredients</button></div>
 
         <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare. //CE-->
           <div><button v-on:click="showStart()" >Homepage</button>
@@ -139,7 +139,7 @@
 </div>
 <div>
   <button v-on:click="showSize()">Select Size</button>
-  <button v-on:click="showCustomize()">Customize</button>
+  <button v-on:click="showCustomize()" :disabled="price < 1">Customize</button>
 </div>
 
 <div><button v-on:click="showStart()">Homepage</button>
