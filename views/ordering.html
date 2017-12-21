@@ -15,7 +15,6 @@
 
   <div id="ordering">
     <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-    <button v-on:click="doYouWantToRestart()"> Restart Order</button>  
 
 
     <div v-if="startShown">
@@ -24,6 +23,7 @@
     </div>
 
     <div v-if="sizeShown">
+      <button v-on:click="showStart()">Restart Order</button>
       <h1>Select Size<h1>
         <!-- Måste vara radio för att man ska kunna välja bara en men vi kan ta bort cirkeln senare//CE-->
         <div>
@@ -46,18 +46,10 @@
           </div>
 
           <div v-if="ingredientsShown">
+            <button v-on:click="showStart()">Restart Order</button>
             <h1>Ingredients</h1>
-            <div> Select 1 base and max {{ maxIngred }} fruit/greens </div>
-
-            <!--<div v-if="smallChosen">
-              Select 1 base & max 2 fruit/greens
-            </div>
-            <div v-if="mediumChosen">
-              Select 1 base & max 3 fruit/greens
-            </div>
-            <div v-if="largeChosen">
-              Select 1 base & max 4 fruit/greens
-            </div> -->
+            <!--Får inte {{ maxIngred }} att funka. Det gör så att size fastnar så man inte kan byta //CE-->
+            <div> Select 1 base and max  fruit/greens </div>
 
             <h1>Base</h1>
             <ingredient
@@ -167,6 +159,7 @@
     </div>
 
     <div v-if="extrasShown">
+      <button v-on:click="showStart()">Restart Order</button>
       <h1>Extras<h1>
 
         <h1>Boosts</h1>
@@ -235,6 +228,7 @@
 </div>
 
 <div v-if="overviewShown">
+  <button v-on:click="showStart()">Restart Order</button>
   <h1>Your Order<h1>
     <button v-on:click="showExtras()">Choose Extras</button>
     <button v-on:click="showPay()">Pay 'n' Shake</button>
@@ -248,12 +242,15 @@
     </div>
 
     <div v-if="payShown">
+      <button v-on:click="showStart()">Restart Order</button>
       <h1>Thanks!<h1>
         <button v-on:click="showStart()">Go back to start </button>
       </div>
 
 
     </div>
+
+
 
   </body>
   </html>

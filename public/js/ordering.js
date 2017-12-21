@@ -133,7 +133,8 @@ var vm = new Vue({
       this.sizeShown = true;
     },
     showIngredients: function (){
-      if(this.size="small"){
+      //nedan funkar inte eftersom detta är en funktion som bara utförs i början när man kommer till sidan //CE
+      /*if(this.size="small"){
         this.maxIngred = 2;
       }
       if(this.size="medium"){
@@ -141,7 +142,7 @@ var vm = new Vue({
       }
       if(this.size="large"){
         this.maxIngred = 4;
-      }
+      } */
 
       this.startShown = false;
       this.customizeShown = false;
@@ -186,16 +187,6 @@ var vm = new Vue({
       this.extrasShown = false;
       this.overviewShown = false;
       this.payShown = true;
-    },
-      
-    doYouWantToRestart: function(){
-         var wantsRestart = confirm("Are you sure you want to restart your order?\n Press OK to restart, or cancel to continue");
-    if (wantsRestart == true) {
-        this.showStart();
-    } else {
-        return  
-    } 
-          
-      }
+    }
   }
 });
