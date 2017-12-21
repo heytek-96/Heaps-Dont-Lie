@@ -9,6 +9,11 @@
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="js/juicifer-main.js" defer></script>
   <script src="js/kitchen.js" defer></script>
+    <!-- 
+<link href="noUiSlider-master/distribute/nouislider.min.css" rel="stylesheet">
+
+ 
+<script src="noUiSlider-master/distribute/nouislider.min.js" defer></script> -->
 </head>
 <body>
   <div id="orders">
@@ -92,18 +97,25 @@
         </div>
     </div>
 
-      <div v-if="showNextOrder" >
+      <div v-if="showNextOrder && countOrders()!=0" >
 
        nästa order: {{ nextOrderToPrepare().orderId }}
 
           <ul>
           <li v-for="ingr in nextOrderToPrepare().order.ingredients">{{ingr.ingredient_en}} 
+              
               </li>
           </ul>
+          <button v-on:click="markDone(nextOrderToPrepare().orderId)">
+            {{uiLabels.ready}}
+          </button>
+          <button v-on:click="sendCancel(nextOrderToPrepare().orderId)">
+            {{uiLabels.cancel}}
+          </button>
           
-          <!-- lägg till done- och cancel-knappar i ordern-->
 
     </div>
+    <!--  <div id=slider-color> Här ska slider in</div> -->
 
   </div>
 </body>
