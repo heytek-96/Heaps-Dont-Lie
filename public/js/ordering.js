@@ -22,7 +22,7 @@ Vue.component('ingredient', {
     },
     resetCounter: function () {
       this.counter = 0;
-    }
+    },
   }
 });
 
@@ -120,6 +120,16 @@ var vm = new Vue({
     },
 
     showStart: function (){
+      this.volume = 0;
+      this.price = 0;
+      this.type = '';
+      this.chosenIngredients = [];
+      this.size='';
+      this.chosenBase='';
+      this.chosenTopping='';
+      this.chosenBoost='';
+      this.chosenFruitGreens=[];
+
       this.startShown = true;
       this.sizeShown = false;
       this.ingredientsShown = false;
