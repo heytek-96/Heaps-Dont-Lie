@@ -62,13 +62,17 @@ var vm = new Vue({
   },
   methods: {
     addToOrder: function (item, type) {
-      this.chosenIngredients.push(item);
+      this.chosenIngredients.push(item); //Lägger till item till ingredienslistan
       this.type = type;
-      if (type === "fruit") {
+      if(type==="fruit"||type==="green"){
+        this.chosenFruitGreens.push(item);
+        this.volume += +item.vol_smoothie;
+      }
+      /*if (type === "fruit") {
         this.volume += +item.vol_smoothie; // Det här är egentligen för om man har valt Smoothie/Juice. Det är därför det blir "0ml" bredvid ibland när vi kör. /Clara
       } else if (type === "green") {
         this.volume += +item.vol_juice;
-      }
+      }*/
       else if (type === "base") {
         this.volume += +item.vol_juice;
         this.chosenBase = item.ingredient_en; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
@@ -94,7 +98,8 @@ var vm = new Vue({
         size: this.size,
         chosenBase: this.chosenBase,
         chosenTopping: this.chosenTopping,
-        chosenBoost: this.chosenBoost
+        chosenBoost: this.chosenBoost,
+        chosenFruitGreens: this.chosenFruitGreens
       };
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       socket.emit('order', {orderId: getOrderNumber(), order: order});
@@ -110,6 +115,7 @@ var vm = new Vue({
       this.chosenBase='';
       this.chosenTopping='';
       this.chosenBoost='';
+      this.chosenFruitGreens=[];
 
     },
 
