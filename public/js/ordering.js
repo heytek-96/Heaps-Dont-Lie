@@ -46,16 +46,14 @@ var vm = new Vue({
     chosenIngredients: [],
     volume: 0,
     price: 0,
+    size: "medium",
     startShown: true,
     sizeShown: false,
     ingredientsShown: false,
     customizeShown:false,
     extrasShown: false,
     overviewShown:false,
-    payShown: false,
-    smallChosen: false,
-    mediumChosen: true,
-    largeChosen: false,
+    payShown: false
   },
   methods: {
     addToOrder: function (item, type) {
@@ -117,8 +115,6 @@ var vm = new Vue({
       this.overviewShown = false;
       this.payShown = false;
       this.sizeShown = true;
-      var btn = document.getElementById("smallSize");
-      console.log(btn);
     },
     showIngredients: function (){
       this.startShown = false;
@@ -164,23 +160,6 @@ var vm = new Vue({
       this.extrasShown = false;
       this.overviewShown = false;
       this.payShown = true;
-    },
-
-    chooseSmall: function(){
-      this.mediumChosen = false;
-      this.largeChosen = false;
-      this.smallChosen = true;
-    },
-
-    chooseMedium: function(){
-      this.smallChosen = false;
-      this.largeChosen = false;
-      this.mediumChosen = true;
-    },
-    chooseLarge: function(){
-      this.smallChosen = false;
-      this.mediumChosen = false;
-      this.largeChosen = true;
     }
   }
 });

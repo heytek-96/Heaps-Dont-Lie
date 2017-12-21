@@ -28,10 +28,11 @@
         <!-- Måste vara radio för att man ska kunna välja bara en men vi kan ta bort cirkeln senare//CE-->
         <!-- En knapp måste vara "checked" för att det ska fungera att gå till chooseSmall osv, vet inte varför //CE-->
         <div>
-          <input type="radio" name="size" id = "sizeSmall" value="small" v-on:click="chooseSmall()">Small<br>
-          <input type="radio" name="size" id = "sizeMedium" value="medium"  v-on:click="chooseMedium()" checked>Medium<br>
-          <input type="radio" name="size" id = "sizeLarge" value="large" v-on:click="chooseLarge()">Large<br>
+          <input type="radio" v-model="size" value="small" >Small<br>
+          <input type="radio" v-model="size" value="medium">Medium<br>
+          <input type="radio" v-model="size" value="large">Large<br>
         </div>
+        <p>Your choice: {{size}}</p>
 
         <div><button v-on:click="showStart()">Homepage</button>
           <button v-on:click="showIngredients()">Choose Ingredients</button></div>
