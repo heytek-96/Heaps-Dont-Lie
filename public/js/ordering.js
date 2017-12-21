@@ -181,10 +181,14 @@ var vm = new Vue({
          var wantsRestart = confirm("Are you sure you want to restart your order?\n Press OK to restart, or cancel to continue");
     if (wantsRestart == true) {
         this.showStart();
+        this.resetOrder();
     } else {
         return  
-    } 
+    }   
           
-      }
+      },
+       resetOrder: function()  {
+           //sätt in funktion för att reseta hela ordern
+  }
   }
 });
