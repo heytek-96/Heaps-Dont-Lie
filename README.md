@@ -5,6 +5,8 @@ With only fundamental pattern matching abilities and basic HTML/CSS/JS knowledge
 
 Do not use this skeleton code for creating production apps. Security and stability have not been considered.
 
+Test merge conflict w00p
+
 ## Getting started
 
 1. Install [Node JS](https://nodejs.org)
