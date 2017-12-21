@@ -36,6 +36,7 @@
     <div v-if="showListofWaitingOrders" >
 
         <h1>{{ uiLabels.ordersInQueue }}</h1>
+        
 
         <div>
             <order-item-to-prepare
@@ -51,7 +52,42 @@
                        >
             </order-item-to-prepare>
         </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th> Order no</th>
+                    <th> Type</th>
+                    <th> Ingredients</th>
+                    <th> Done</th>
+                    <th> Cancel</th>
+                    
+                </tr>
+                </thead>
+            <tbody>
+                
+                <tr v-for= "(order, key) in orders" v-if="!order.done">
+                    <td> {{ key }}</td>
+                    <td> {{order.type}}</td>
+                    <td>
+                        <ol>
+              
+          <li v-for="ingr in order.ingredients">
+              
+            {{ingr.ingredient_en}}
+           
 
+              </li>
+          </ol>
+                        </td>
+                    <td> <button v-on:click="markDone(key)"> {{uiLabels.ready}} </button> </td>
+                    <td><button v-on:click="sendCancel(key)"> {{uiLabels.cancel}} </button> </td>      
+                </tr>
+            
+            </tbody>
+        
+        </table> 
+               
 
     </div>
     <div v-if="showListOfPreviousOrders" >
@@ -82,14 +118,11 @@
 
           <li v-for="ingr in nextOrderToPrepare().order.ingredients" >
 
-
           {{ingr.ingredient_en}}
           base:{{ingr.base}}
           boost:{{ingr.boost}}
           fruit:{{ingr.fruit}}
           green:{{ingr.green}}
-
-
 
               </li>
           </ul>
