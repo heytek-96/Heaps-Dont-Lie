@@ -48,6 +48,7 @@
           <div v-if="ingredientsShown">
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Ingredients</h1>
+
             <!--<div v-if="smallChosen">
               Select 1 base & max 2 fruit/greens
             </div>
@@ -95,7 +96,7 @@
       </ingredient>
 
       <h1>{{ uiLabels.order }}</h1>
-      {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr
+      {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}
       <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
 
@@ -244,7 +245,7 @@
       <button v-on:click="showIngredients()" :disabled="price < 1">Ingredients</button>
       <button v-on:click="showCustomize()">Customize</button>
       <button v-on:click="showExtras()">Extras</button>
-      <button v-on:click="showOverview()"disabled>Overview</button></div>
+      <button v-on:click="showOverview()">Overview</button></div>
     </div>
 
     <div v-if="payShown">
