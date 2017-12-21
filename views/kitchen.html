@@ -115,8 +115,11 @@
        orderType: {{ nextOrderToPrepare().order.type }} <br>
        Size: {{nextOrderToPrepare().order.size}} <br>
        Base: {{nextOrderToPrepare().order.chosenBase}} <br>
-       Topping: {{nextOrderToPrepare().order.chosenTopping}} <br>
+       Fruit/Greens: {{nextOrderToPrepare().order.chosenFruitGreens.map(item => item["ingredient_en"]).join(', ')}} <br>
        Boost: {{nextOrderToPrepare().order.chosenBoost}} <br>
+       Topping: {{nextOrderToPrepare().order.chosenTopping}}
+
+
 
           <ul>
 
