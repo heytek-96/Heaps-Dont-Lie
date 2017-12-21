@@ -46,7 +46,7 @@ var vm = new Vue({
     chosenIngredients: [],
     volume: 0,
     price: 0,
-    size: "medium",
+    size: "",
     startShown: true,
     sizeShown: false,
     ingredientsShown: false,
