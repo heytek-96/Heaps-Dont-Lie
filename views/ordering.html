@@ -1,260 +1,194 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Juicifer Craft Beverages </title>
-  <link rel="stylesheet" href="css/juicifer.css">
-  <script src="/vue/vue.js" defer></script>
-  <script src="/socket.io/socket.io.js" defer></script>
-  <script src="js/juicifer-main.js" defer></script>
-  <script src="js/ordering.js" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Juicifer Craft Beverages </title>
+    <link rel="stylesheet" href="css/juicifer.css">
+    <script src="/vue/vue.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="js/juicifer-main.js" defer></script>
+    <script src="js/ordering.js" defer></script>
 </head>
+
 <body>
 
+    <div id="ordering">
 
-  <div id="ordering">
-    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+        <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
 
 
-    <div v-if="startShown">
-      <h1>Welcome to Juicifer Craft Beverages!</h1>
-      <button v-on:click="showSize()" >Start</button>
-    </div>
-
-    <div v-if="sizeShown">
-      <button v-on:click="showStart()">Restart Order</button>
-      <h1>Select Size<h1>
-        <!-- Måste vara radio för att man ska kunna välja bara en men vi kan ta bort cirkeln senare//CE-->
-        <div>
-          <input type="radio" v-model="size" value="small" >Small<br>
-          <input type="radio" v-model="size" value="medium">Medium<br>
-          <input type="radio" v-model="size" value="large">Large<br>
+        <div v-if="startShown">
+            <h1>Welcome to Juicifer Craft Beverages!</h1>
+            <button v-on:click="showSize()">Start</button>
         </div>
-        <p>Your choice: {{size}}</p>
 
-        <div><button v-on:click="showStart()">Homepage</button>
-          <button v-on:click="showIngredients()":disabled="size.length < 1">Choose Ingredients</button></div>
+        <div v-if="sizeShown">
+            <button v-on:click="showStart()">Restart Order</button>
+            <h1>Select Size</h1>
+            <!-- Måste vara radio för att man ska kunna välja bara en men vi kan ta bort cirkeln senare//CE-->
+            <div>
+                <input type="radio" v-model="size" value="small">Small<br>
+                <input type="radio" v-model="size" value="medium">Medium<br>
+                <input type="radio" v-model="size" value="large">Large<br>
+            </div>
+            <p>Your choice: {{size}}</p>
 
-        <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
-          <div>
-            <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-            <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-            <button v-on:click="showCustomize()" disabled>Customize</button>
-            <button v-on:click="showExtras()" disabled>Extras</button>
-            <button v-on:click="showOverview()" disabled>Overview</button></div>
-          </div>
+            <div>
+                <button v-on:click="showStart()">Homepage</button>
+                <button v-on:click="showIngredients()" :disabled="size.length < 1">Choose Ingredients</button>
+            </div>
 
-          <div v-if="ingredientsShown">
+            <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
+            <div>
+                <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+                <button v-on:click="showCustomize()" disabled>Customize</button>
+                <button v-on:click="showExtras()" disabled>Extras</button>
+                <button v-on:click="showOverview()" disabled>Overview</button>
+            </div>
+
+        </div>
+
+        <div v-if="ingredientsShown">
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Ingredients</h1>
             <p>Select 1 base and max {{maxIngred}} fruit/greens</p>
 
             <h1>Base</h1>
-            <ingredient
-            ref="ingredient"
-            type="base"
-            v-for="item in ingredients"
-            v-if="item.base > 0"
-            v-on:increment="addToOrder(item, 'base')"
-            :item="item"
-            :lang="lang"
-            :key="item.ingredient_id">
-          </ingredient>
+            <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:increment="addToOrder(item, 'base')" :item="item" :lang="lang" :key="item.ingredient_id">
+            </ingredient>
 
-          <h1>Fruit & Berries</h1>
-          <ingredient
-          ref="ingredient"
-          type="fruit"
-          v-for="item in ingredients"
-          v-if="item.fruit > 0"
-          v-on:increment="addToOrder(item, 'fruit')"
-          :item="item"
-          :lang="lang"
-          :key="item.ingredient_id">
-        </ingredient>
+            <h1>Fruit &amp; Berries</h1>
+            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:increment="addToOrder(item, 'fruit')" :item="item" :lang="lang" :key="item.ingredient_id">
+            </ingredient>
 
-        <h1>Greens</h1>
-        <ingredient
-        ref="ingredient"
-        type="green"
-        v-for="item in ingredients"
-        v-if="item.green > 0"
-        v-on:increment="addToOrder(item, 'green')"
-        :item="item"
-        :lang="lang"
-        :key="item.ingredient_id">
-      </ingredient>
+            <h1>Greens</h1>
+            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:increment="addToOrder(item, 'green')" :item="item" :lang="lang" :key="item.ingredient_id">
+            </ingredient>
 
-      <h1>{{ uiLabels.order }}</h1>
-      {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}, Price: {{priceTot}}<br>
+            <h1>{{ uiLabels.order }}</h1>
+            {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}, Price: {{priceTot}}<br>
 
-      <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+            <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
 
-      <h1>{{ uiLabels.ordersInQueue }}</h1>
-      <h2>Base</h2>
-      <div>
-        <!--order.type == "base" behöver ändras sen, för det är från att man kunde välja Juice/Smoothie i Mikaels skelett förut /Clara-->
-        <order-item
-        v-for="(order, key) in orders"
-        v-if="!order.done && order.type == 'base'"
-        :order-id="key"
-        :order="order"
-        :ui-labels="uiLabels"
-        :lang="lang"
-        :key="key">
-      </order-item>
-    </div>
-    <h2>Fruit and berries</h2>
-    <div>
-      <order-item
-      v-for="(order, key) in orders"
-      v-if="!order.done && order.type == 'fruit'"
-      :order-id="key"
-      :order="order"
-      :ui-labels="uiLabels"
-      :lang="lang"
-      :key="key">
-    </order-item>
-  </div>
-  <h2>Greens</h2>
-  <div>
-    <order-item
-    v-for="(order, key) in orders"
-    v-if="!order.done && order.type == 'green'"
-    :order-id="key"
-    :order="order"
-    :ui-labels="uiLabels"
-    :lang="lang"
-    :key="key">
-  </order-item>
-</div>
-<div>
-  <button v-on:click="showSize()">Select Size</button>
-  <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1">Customize</button>
-</div>
+            <h1>{{ uiLabels.ordersInQueue }}</h1>
+            <h2>Base</h2>
+            <div>
+                <!--order.type == "base" behöver ändras sen, för det är från att man kunde välja Juice/Smoothie i Mikaels skelett förut /Clara-->
+                <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'base'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                </order-item>
+            </div>
+            <h2>Fruit and berries</h2>
+            <div>
+                <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'fruit'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                </order-item>
+            </div>
+            <h2>Greens</h2>
+            <div>
+                <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'green'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                </order-item>
+            </div>
+            <div>
+                <button v-on:click="showSize()">Select Size</button>
+                <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1">Customize</button>
+            </div>
 
-<div>
-  <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-  <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-  <button v-on:click="showCustomize()"disabled>Customize</button>
-  <button v-on:click="showExtras()"disabled>Extras</button>
-  <button v-on:click="showOverview()"disabled>Overview</button></div>
-</div>
+            <div>
+                <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+                <button v-on:click="showCustomize()" disabled>Customize</button>
+                <button v-on:click="showExtras()" disabled>Extras</button>
+                <button v-on:click="showOverview()" disabled>Overview</button></div>
+        </div>
 
-<div v-if="customizeShown">
-  <button v-on:click="showStart()">Restart Order</button>
-  <h1>Customize<h1>
-    <button v-on:click="showIngredients()">Choose Ingredients</button>
-    <button v-on:click="showExtras()">Choose Extras</button>
+        <div v-if="customizeShown">
+            <button v-on:click="showStart()">Restart Order</button>
+            <h1>Customize</h1>
+            <button v-on:click="showIngredients()">Choose Ingredients</button>
+            <button v-on:click="showExtras()">Choose Extras</button>
 
-    <div>
-      <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-      <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-      <button v-on:click="showCustomize()">Customize</button>
-      <button v-on:click="showExtras()"disabled>Extras</button>
-      <button v-on:click="showOverview()"disabled>Overview</button></div>
-    </div>
+            <div>
+                <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+                <button v-on:click="showCustomize()">Customize</button>
+                <button v-on:click="showExtras()" disabled>Extras</button>
+                <button v-on:click="showOverview()" disabled>Overview</button></div>
+        </div>
 
-    <div v-if="extrasShown">
-      <button v-on:click="showStart()">Restart Order</button>
-      <h1>Extras<h1>
+        <div v-if="extrasShown">
+            <button v-on:click="showStart()">Restart Order</button>
+            <h1>Extras</h1>
 
-        <h1>Boosts</h1>
-        <ingredient
-        ref="ingredient"
-        type="boost"
-        v-for="item in ingredients"
-        v-if="item.boost > 0"
-        v-on:increment="addToOrder(item, 'boost')"
-        :item="item"
-        :lang="lang"
-        :key="item.ingredient_id">
-      </ingredient>
+                    <h1>Boosts</h1>
+                    <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:increment="addToOrder(item, 'boost')" :item="item" :lang="lang" :key="item.ingredient_id">
+                    </ingredient>
 
-      <h1>Toppings</h1>
-      <ingredient
-      ref="ingredient"
-      type="topping"
-      v-for="item in ingredients"
-      v-if="item.topping > 0"
-      v-on:increment="addToOrder(item, 'topping')"
-      :item="item"
-      :lang="lang"
-      :key="item.ingredient_id">
-    </ingredient>
+                    <h1>Toppings</h1>
+                    <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:increment="addToOrder(item, 'topping')" :item="item" :lang="lang" :key="item.ingredient_id">
+                    </ingredient>
 
-    <h1>{{ uiLabels.order }}</h1>
-    {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}, Topping: {{ chosenTopping }}, Boost: {{ chosenBoost }}, Price: {{priceTot}}<br>
-    <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+                    <h1>{{ uiLabels.order }}</h1>
+                    {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}, Topping: {{ chosenTopping }}, Boost: {{ chosenBoost }}, Price: {{priceTot}}<br>
+                    <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
-    <h1>{{ uiLabels.ordersInQueue }}</h1>
-    <h2>Boosts</h2>
-    <div>
-      <order-item
-      v-for="(order, key) in orders"
-      v-if="!order.done && order.type == 'boost'"
-      :order-id="key"
-      :order="order"
-      :ui-labels="uiLabels"
-      :lang="lang"
-      :key="key">
-    </order-item>
-  </div>
-  <h2>Toppings</h2>
-  <div>
-    <order-item
-    v-for="(order, key) in orders"
-    v-if="!order.done && order.type == 'topping'"
-    :order-id="key"
-    :order="order"
-    :ui-labels="uiLabels"
-    :lang="lang"
-    :key="key">
-  </order-item>
-</div>
+                    <h1>{{ uiLabels.ordersInQueue }}</h1>
+                    <h2>Boosts</h2>
+                    <div>
+                        <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'boost'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                        </order-item>
+                    </div>
+                    <h2>Toppings</h2>
+                    <div>
+                        <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'topping'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                        </order-item>
+                    </div>
 
-<button v-on:click="showCustomize()">Customize</button>
-<button v-on:click="showOverview()">Overview</button>
+                    <button v-on:click="showCustomize()">Customize</button>
+                    <button v-on:click="showOverview()">Overview</button>
 
-<div>
-  <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-  <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-  <button v-on:click="showCustomize()">Customize</button>
-  <button v-on:click="showExtras()">Extras</button>
-  <button v-on:click="showOverview()"disabled>Overview</button></div>
-</div>
+                    <div>
+                        <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+                        <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+                        <button v-on:click="showCustomize()">Customize</button>
+                        <button v-on:click="showExtras()">Extras</button>
+                        <button v-on:click="showOverview()" disabled>Overview</button>
+                    </div>
+        </div>
 
-<div v-if="overviewShown">
-  <button v-on:click="showStart()">Restart Order</button>
-  <h1>Your Order<h1>
-    <p>Base: {{ chosenBase }}</p>
-    <p>Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}</p>
-    <p>Topping: {{ chosenTopping }}</p>
-    <p>Boost: {{ chosenBoost }}</p>
-    <p>Price: {{priceTot}} kr</p>
-    <button v-on:click="showExtras()">Choose Extras</button>
-    <button v-on:click="showPay()">Pay 'n' Shake</button>
+        <div v-if="overviewShown">
+            <button v-on:click="showStart()">Restart Order</button>
+            <h1>Your Order</h1>
+            <p>Base: {{ chosenBase }}</p>
+            <p>Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}</p>
+            <p>Topping: {{ chosenTopping }}</p>
+            <p>Boost: {{ chosenBoost }}</p>
+            <p>Price: {{priceTot}} kr</p>
+            <button v-on:click="showExtras()">Choose Extras</button>
+            <button v-on:click="showPay()">Pay 'n' Shake</button>
 
-    <div>
-      <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-      <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-      <button v-on:click="showCustomize()">Customize</button>
-      <button v-on:click="showExtras()">Extras</button>
-      <button v-on:click="showOverview()">Overview</button></div>
-    </div>
+            <div>
+                <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+                <button v-on:click="showCustomize()">Customize</button>
+                <button v-on:click="showExtras()">Extras</button>
+                <button v-on:click="showOverview()">Overview</button>
+            </div>
+        </div>
 
-    <div v-if="payShown">
-      <button v-on:click="showStart()">Restart Order</button>
-      <h1>Thanks!<h1>
-        <button v-on:click="showStart()">Go back to start </button>
-      </div>
+        <div v-if="payShown">
+            <button v-on:click="showStart()">Restart Order</button>
+            <h1>Thanks!</h1>
+                    <button v-on:click="showStart()">Go back to start </button>
+        </div>
 
 
     </div>
 
 
 
-  </body>
-  </html>
+</body>
+
+</html>
