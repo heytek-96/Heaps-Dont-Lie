@@ -59,7 +59,6 @@ var vm = new Vue({
     customizeShown:false,
     extrasShown: false,
     extraHasBeenShown: false,
-    payHasBeenShown: false,
     payShown: false
   },
   methods: {

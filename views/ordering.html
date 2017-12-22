@@ -69,7 +69,12 @@
             </ingredient>
 
             <h1>{{ uiLabels.order }}</h1>
-            {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}, Price: {{priceTot}}<br>
+            {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}
+<!-- Nedan kan säkert göras snyggare men funkar for now //CE-->
+            <div v-if="extraHasBeenShown">
+              Topping: {{chosenTopping}}, Boost: {{chosenBoost}}
+            </div>
+            Price: {{priceTot}}
 
             <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
@@ -131,7 +136,12 @@
                     </ingredient>
 
                     <h1>{{ uiLabels.order }}</h1>
-                    {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}, Topping: {{ chosenTopping }}, Boost: {{ chosenBoost }}, Price: {{priceTot}}<br>
+                    {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}<br>
+                    <div>
+                      Topping: {{chosenTopping}}, Boost: {{chosenBoost}}
+                    </div>
+                    Price: {{priceTot}}
+
                     <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
                     <h1>{{ uiLabels.ordersInQueue }}</h1>
