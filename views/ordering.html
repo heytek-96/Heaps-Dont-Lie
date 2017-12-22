@@ -59,15 +59,15 @@
 
 
             <h1>Base</h1>
-            <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="addToOrder(item, type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
+            <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="addToOrder(item, type)" v-on:checkbox-untick="removeFromOrder(item,type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
             </ingredient>
             
             <h1>Fruits</h1>
-            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="addToOrder(item, type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
+            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="addToOrder(item, type)" v-on:checkbox-untick="removeFromOrder(item,type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
             </ingredient>
             
             <h1>Greens</h1>
-            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="addToOrder(item, type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
+            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="addToOrder(item, type)" v-on:checkbox-untick="removeFromOrder(item,type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
             </ingredient>
 
             <h1>{{ uiLabels.order }}</h1>

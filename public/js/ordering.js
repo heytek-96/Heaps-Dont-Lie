@@ -14,13 +14,24 @@ Vue.component('ingredient', {
     props: ['item', 'type'],
     template: '<div class="ingredient">\
   <label>\
-  <input type="checkbox" @change="checkboxEvent()">\
+  <input type="checkbox" @change="checkboxEvent(checkboxstate)">\
   {{item["ingredient_en"]}}, {{item.stock}} pcs\
   </label>\
   </div>',
+    data: function () {
+        return {
+            checkboxstate: false
+        }
+    },
     methods: {
-        checkboxEvent: function () {
-            this.$emit('checkbox-tick'); //funkar med v-on:checkboxTick=... i html-delen /Patrik
+        checkboxEvent: function (checkboxstate) {
+            if (checkboxstate) {
+                this.checkboxstate=false;
+                this.emit('checkbox-untick')
+            } else {
+                this.checkboxstate=true;
+                this.$emit('checkbox-tick'); //funkar med v-on:checkboxTick=... i html-delen /Patrik
+            }
         }
     }
 
@@ -66,7 +77,10 @@ var vm = new Vue({
         payShown: false
     },
     methods: {
-        addToOrder: function (item, type) { //Notis om att den här inte längre anropas /patrik
+        removeFromOrder: function(item, type){
+            //lägg till / ta bort grejer
+        },
+        addToOrder: function (item, type) { //jobbar här
             this.chosenIngredients.push(item); //Lägger till item till ingredienslistan
             this.type = type;
             if (type === "fruit" || type === "green") {
