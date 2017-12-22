@@ -13,7 +13,6 @@
 </head>
 
 <body>
-    <img src="http://cdn1-www.dogtime.com/assets/uploads/2011/03/puppy-development-300x200.jpg">
 
     <div id="ordering">
 
@@ -37,13 +36,13 @@
             <p>Your choice: {{size}}</p>
 
             <div>
-                <button v-on:click="showStart()" class="backButton">Homepage</button>
-                <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton">Choose Ingredients</button>
+                <button v-on:click="showStart()">Homepage</button>
+                <button v-on:click="showIngredients()" :disabled="size.length < 1">Choose Ingredients</button>
             </div>
 
             <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
-            <div class="navBar">
-                <button v-on:click="showSize()" disabled class="activePageButton">Select Size</button>
+            <div>
+                <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                 <button v-on:click="showCustomize()" disabled>Customize</button>
                 <button v-on:click="showExtras()" disabled>Extras</button>
@@ -56,17 +55,19 @@
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Ingredients</h1>
             <p>Select 1 base and max {{maxIngred}} fruit/greens</p>
+            
+
 
             <h1>Base</h1>
-            <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:increment="addToOrder(item, 'base')" :item="item" :lang="lang" :key="item.ingredient_id">
+            <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="addToOrder(item, type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
             </ingredient>
-
-            <h1>Fruit &amp; Berries</h1>
-            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:increment="addToOrder(item, 'fruit')" :item="item" :lang="lang" :key="item.ingredient_id">
+            
+            <h1>Fruits</h1>
+            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="addToOrder(item, type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
             </ingredient>
-
+            
             <h1>Greens</h1>
-            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:increment="addToOrder(item, 'green')" :item="item" :lang="lang" :key="item.ingredient_id">
+            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="addToOrder(item, type)" :item="item" :key="getIngredientKey(type, item.ingredient_id)" >
             </ingredient>
 
             <h1>{{ uiLabels.order }}</h1>
@@ -93,13 +94,13 @@
                 </order-item>
             </div>
             <div>
-                <button v-on:click="showSize()" class="backButton">Select Size</button>
-                <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton">Customize</button>
+                <button v-on:click="showSize()">Select Size</button>
+                <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1">Customize</button>
             </div>
 
-            <div class="navBar">
+            <div>
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-                <button v-on:click="showIngredients()" disabled class="activePageButton">Ingredients</button>
+                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                 <button v-on:click="showCustomize()" disabled>Customize</button>
                 <button v-on:click="showExtras()" disabled>Extras</button>
                 <button v-on:click="showOverview()" disabled>Overview</button></div>
@@ -108,13 +109,13 @@
         <div v-if="customizeShown">
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Customize</h1>
-            <button v-on:click="showIngredients()" class="backButton">Choose Ingredients</button>
-            <button v-on:click="showExtras()" class="nextButton">Choose Extras</button>
+            <button v-on:click="showIngredients()">Choose Ingredients</button>
+            <button v-on:click="showExtras()">Choose Extras</button>
 
-            <div class="navBar">
+            <div>
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                <button v-on:click="showCustomize()" disabled class="activePageButton">Customize</button>
+                <button v-on:click="showCustomize()">Customize</button>
                 <button v-on:click="showExtras()" disabled>Extras</button>
                 <button v-on:click="showOverview()" disabled>Overview</button></div>
         </div>
@@ -147,14 +148,14 @@
                         </order-item>
                     </div>
 
-                    <button v-on:click="showCustomize()" class="backButton">Customize</button>
-                    <button v-on:click="showOverview()" class="nextButton">Overview</button>
+                    <button v-on:click="showCustomize()">Customize</button>
+                    <button v-on:click="showOverview()">Overview</button>
 
-                    <div class="navBar">
+                    <div>
                         <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                         <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                         <button v-on:click="showCustomize()">Customize</button>
-                        <button v-on:click="showExtras()" disabled class="activePageButton">Extras</button>
+                        <button v-on:click="showExtras()">Extras</button>
                         <button v-on:click="showOverview()" disabled>Overview</button>
                     </div>
         </div>
@@ -167,15 +168,15 @@
             <p>Topping: {{ chosenTopping }}</p>
             <p>Boost: {{ chosenBoost }}</p>
             <p>Price: {{priceTot}} kr</p>
-            <button v-on:click="showExtras()" class="backButton">Choose Extras</button>
-            <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
+            <button v-on:click="showExtras()">Choose Extras</button>
+            <button v-on:click="showPay()">Pay 'n' Shake</button>
 
-            <div class="navBar">
+            <div>
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                 <button v-on:click="showCustomize()">Customize</button>
                 <button v-on:click="showExtras()">Extras</button>
-                <button v-on:click="showOverview()" disabled class="activePageButton">Overview</button>
+                <button v-on:click="showOverview()">Overview</button>
             </div>
         </div>
 
