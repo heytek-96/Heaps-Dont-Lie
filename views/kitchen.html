@@ -9,13 +9,16 @@
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="js/juicifer-main.js" defer></script>
   <script src="js/kitchen.js" defer></script>
-    <!--
-<link href="noUiSlider-master/distribute/nouislider.min.css" rel="stylesheet">
 
 
-<script src="noUiSlider-master/distribute/nouislider.min.js" defer></script> -->
+<link href="distribute/nouislider.min.css" rel="stylesheet">
+ <script src="distribute/nouislider.min.js" defer></script> 
+
+
 </head>
 <body>
+    
+  <div id=slider-color> Här ska slider in</div>  
   <div id="orders">
 
           <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
@@ -139,8 +142,10 @@
 
 
     </div>
-    <!--  <div id=slider-color> Här ska slider in</div> -->
+      
 
   </div>
+    
+    
 </body>
 </html>

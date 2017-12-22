@@ -110,7 +110,7 @@ var vm = new Vue({
   }
 });
 
-/*var slider = document.getElementById('slider-color');
+var slider = document.getElementById('slider-color');
 
 noUiSlider.create(slider, {
 	start: [ 4000, 8000, 12000, 16000 ],
@@ -124,8 +124,7 @@ noUiSlider.create(slider, {
 var connect = slider.querySelectorAll('.noUi-connect');
 var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
 
-for ( var i = 0; i < connect.length; i++ ) {
+for ( vari = 0; i < connect.length; i++ ) {
     connect[i].classList.add(classes[i]);
 }
-*/
 

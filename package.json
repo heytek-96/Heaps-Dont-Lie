@@ -11,7 +11,7 @@
   "dependencies": {
     "csvtojson": "^1.1.9",
     "express": "^4.16.2",
-    "nouislider": "^10.1.0",
+    "nouislider": "file:nouislider",
     "socket.io": "^2.0.4",
     "vue": "^2.5.2"
   }
