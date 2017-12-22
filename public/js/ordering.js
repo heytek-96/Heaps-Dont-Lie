@@ -57,8 +57,11 @@ var vm = new Vue({
     sizeShown: false,
     ingredientsShown: false,
     customizeShown:false,
+    customizeHasBeenShown:false,
     extrasShown: false,
     extraHasBeenShown: false,
+    overviewShown: false,
+    overviewHasBeenShown: false,
     payShown: false
   },
   methods: {
@@ -137,6 +140,8 @@ var vm = new Vue({
       this.chosenBoost='';
       this.chosenFruitGreens=[];
       this.extraHasBeenShown = false;
+      this.customizeHasBeenShown = false;
+      this.overviewHasBeenShown = false;
 
       this.startShown = true;
       this.sizeShown = false;
@@ -192,6 +197,7 @@ var vm = new Vue({
       this.sizeShown = false;
       this.ingredientsShown = false;
       this.customizeShown = true;
+      this.customizeHasBeenShown = true;
     },
     showExtras: function(){
       this.startShown = false;
@@ -211,6 +217,7 @@ var vm = new Vue({
       this.customizeShown = false;
       this.extrasShown = false;
       this.overviewShown = true;
+      this.overviewHasBeenShown = true;
     },
     showPay: function(){
       this.startShown = false;

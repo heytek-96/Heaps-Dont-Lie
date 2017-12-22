@@ -44,9 +44,9 @@
             <div class="navBar">
                 <button v-on:click="showSize()" disabled class="activePageButton">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                <button v-on:click="showCustomize()" disabled>Customize</button>
-                <button v-on:click="showExtras()" disabled>Extras</button>
-                <button v-on:click="showOverview()" disabled>Overview</button>
+                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
+                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
+                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
             </div>
 
         </div>
@@ -104,9 +104,9 @@
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" disabled class="activePageButton">Ingredients</button>
-                <button v-on:click="showCustomize()" disabled>Customize</button>
-                <button v-on:click="showExtras()" disabled>Extras</button>
-                <button v-on:click="showOverview()" disabled>Overview</button></div>
+                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
+                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
+                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button></div>
         </div>
 
         <div v-if="customizeShown">
@@ -118,9 +118,9 @@
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                <button v-on:click="showCustomize()" disabled class="activePageButton">Customize</button>
-                <button v-on:click="showExtras()" disabled>Extras</button>
-                <button v-on:click="showOverview()" disabled>Overview</button></div>
+                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false" class="activePageButton">Customize</button>
+                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
+                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button></div>
         </div>
 
         <div v-if="extrasShown">
@@ -162,9 +162,9 @@
                     <div class="navBar">
                         <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                         <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                        <button v-on:click="showCustomize()">Customize</button>
-                        <button v-on:click="showExtras()" disabled class="activePageButton">Extras</button>
-                        <button v-on:click="showOverview()" disabled>Overview</button>
+                        <button v-on:click="showCustomize()":disabled="customizeHasBeenShown===false">Customize</button>
+                        <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false" class="activePageButton">Extras</button>
+                        <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
                     </div>
         </div>
 
@@ -182,9 +182,9 @@
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                <button v-on:click="showCustomize()">Customize</button>
-                <button v-on:click="showExtras()">Extras</button>
-                <button v-on:click="showOverview()" disabled class="activePageButton">Overview</button>
+                <button v-on:click="showCustomize()":disabled="customizeHasBeenShown===false">Customize</button>
+                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
+                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false" class="activePageButton">Overview</button>
             </div>
         </div>
 
