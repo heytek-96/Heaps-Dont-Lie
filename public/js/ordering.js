@@ -59,7 +59,7 @@ var vm = new Vue({
     customizeShown:false,
     extrasShown: false,
     extraHasBeenShown: false,
-    overviewShown:false,
+    payHasBeenShown: false,
     payShown: false
   },
   methods: {
@@ -137,6 +137,7 @@ var vm = new Vue({
       this.chosenTopping='';
       this.chosenBoost='';
       this.chosenFruitGreens=[];
+      this.extraHasBeenShown = false;
 
       this.startShown = true;
       this.sizeShown = false;
