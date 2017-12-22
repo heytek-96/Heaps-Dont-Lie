@@ -118,7 +118,7 @@
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false" class="activePageButton">Customize</button>
+                <button v-on:click="showCustomize()" disabled class="activePageButton">Customize</button>
                 <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
                 <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button></div>
         </div>
@@ -163,7 +163,7 @@
                         <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                         <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                         <button v-on:click="showCustomize()":disabled="customizeHasBeenShown===false">Customize</button>
-                        <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false" class="activePageButton">Extras</button>
+                        <button v-on:click="showExtras()" disabled class="activePageButton">Extras</button>
                         <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
                     </div>
         </div>
@@ -184,7 +184,7 @@
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                 <button v-on:click="showCustomize()":disabled="customizeHasBeenShown===false">Customize</button>
                 <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false" class="activePageButton">Overview</button>
+                <button v-on:click="showOverview()" disabled class="activePageButton">Overview</button>
             </div>
         </div>
 
