@@ -10,12 +10,13 @@
   </div>',*/
 
 
+
 Vue.component('ingredient', {
-    props: ['item', 'type'],
+    props: ['item', 'type', 'id'],
     template: '<div class="ingredient">\
   <label>\
-  <input type="checkbox" @change="checkboxEvent(checkboxstate)">\
-  {{item["ingredient_en"]}}, {{item.stock}} pcs\
+  <input :id="id" :class="type" type="checkbox" @change="checkboxEvent(checkboxstate)">\
+  {{item["ingredient_en"]}}\
   </label>\
   </div>',
     data: function () {
@@ -26,14 +27,17 @@ Vue.component('ingredient', {
     methods: {
         checkboxEvent: function (checkboxstate) {
             if (checkboxstate) {
-                this.checkboxstate=false;
-                this.emit('checkbox-untick')
+                this.checkboxstate = false;
+                this.$emit('checkbox-untick')
             } else {
-                this.checkboxstate=true;
+                this.checkboxstate = true;
                 this.$emit('checkbox-tick'); //funkar med v-on:checkboxTick=... i html-delen /Patrik
             }
-        }
+        },
+
+
     }
+
 
 });
 
@@ -77,35 +81,88 @@ var vm = new Vue({
         payShown: false
     },
     methods: {
-        removeFromOrder: function(item, type){
-            //lägg till / ta bort grejer
+
+        adjustClickable: function (item, type) {
+            if (type === "bassssssssssssssssss") {
+                var baseBoxes = document.getElementsByClassName("base");
+                var thisBox = document.getElementById(item["ingredient_en"]);
+
+                if (this.chosenBase === "") {
+                    for (var i = 0; i < baseBoxes.length; i++) {
+                        baseBoxes[i].disabled = false;
+                    }
+                } else {
+                    for (var i = 0; i < baseBoxes.length; i++) {
+                        baseBoxes[i].disabled = true;
+                    }
+
+                }
+                thisBox.disabled = false;
+
+            } else if (type === "fruit" || type === "green") {
+
+            }
+
         },
+
+        removeFromOrder: function (item, type) {
+            var index = this.chosenIngredients.indexOf(item);
+            if (index > -1) {
+                this.chosenIngredients.splice(index);
+            }
+            if (type === "base" && this.chosenBase === item.ingredient_en) { //funkar inte heller
+                this.chosenBase = ""; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
+            } else if (type === "boost") {
+                this.chosenBoost = "";
+                this.priceTot -= 7;
+            } else if (type === "topping") {
+                this.chosenTopping = "";
+                this.priceTot -= 10;
+            }
+            this.adjustClickable(item, type);
+        },
+
         addToOrder: function (item, type) { //jobbar här
+            console.log(this.chosenBase);
             this.chosenIngredients.push(item); //Lägger till item till ingredienslistan
             this.type = type;
-            if (type === "fruit" || type === "green") {
-                this.chosenFruitGreens.push(item);
-                this.volume += +item.vol_smoothie;
-            }
+
+            /* if (type === "fruit" || type === "green") { Ser inte riktigt varför vi skulle behöva chosenFruitGreens /P
+                 this.chosenFruitGreens.push(item);
+                 this.volume += +item.vol_smoothie; Vi borde fixa volume i slidern /P
+            } */
             /*if (type === "fruit") {
               this.volume += +item.vol_smoothie; // Det här är egentligen för om man har valt Smoothie/Juice. Det är därför det blir "0ml" bredvid ibland när vi kör. /Clara
             } else if (type === "green") {
               this.volume += +item.vol_juice;
             }*/
-            else if (type === "base") {
-                this.volume += +item.vol_juice;
-                this.chosenBase = item.ingredient_en; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
+            /* else */
+            if (this.type === "base") { //här är det fel
+                // this.volume += +item.vol_juice; samma här, volume sen. 
+                if (this.chosenBase === "") {
+                    this.chosenBase = item.ingredient_en;
+                } else {
+                    var oldBase;
+                    for (var i = 0; i < this.chosenIngredients.length; i++) {
+                        if (this.chosenBase === this.chosenIngredients[i].ingredient_en) {
+                            oldBase = this.chosenIngredients[i]
+                        }
+                    }
+                    this.removeFromOrder(oldBase, this.type)
+                    this.chosenBase = item.ingredient_en; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
+                }
+
             } else if (type === "boost") {
-                this.volume += +item.vol_juice;
+                // this.volume += +item.vol_juice;
                 this.chosenBoost = item.ingredient_en;
                 this.priceTot += 7;
             } else if (type === "topping") {
-                this.volume += +item.vol_juice;
+                // this.volume += +item.vol_juice;
                 this.chosenTopping = item.ingredient_en;
                 this.priceTot += 10;
             }
-            this.price += +item.selling_price;
-
+            // this.price += +item.selling_price;
+            this.adjustClickable(item, type);
         },
         placeOrder: function () {
             var i,
