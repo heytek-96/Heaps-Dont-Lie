@@ -10,7 +10,7 @@
   </div>',*/
 
 
-
+//Såhär såg det ut hos mig när jag mergade
 Vue.component('ingredient', {
     props: ['item', 'type', 'id', 'iddiv'],
     template: '<div class="ingredient" :id="iddiv">\
