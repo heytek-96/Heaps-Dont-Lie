@@ -2,21 +2,21 @@
 /*global sharedVueStuff, Vue, socket */
 'use strict';
 
-/*' <div class="ingredient">\
-  <label>\
-  <button v-on:click="incrementCounter">{{ counter }}</button>\
-  {{item["ingredient_"+ lang]}} ({{ (type=="fruit") ? item.vol_smoothie:item.vol_juice }} ml), {{item.selling_price}}:-, {{item.stock}} pcs\
-  </label>\
-  </div>',*/
+//Två listor, ungefär som det ser ut.
+var priceList = {small: 35,
+                medium: 40,
+                large: 45};
+var maxIngredList = {small: 2,
+                    medium: 3,
+                    large: 4};
 
-
-
+// Det här var lite slitigt att få till men det är alltså labelelementet som är klickbart. Och customid är unikt för varje ingrediens så sök inte på det.
 Vue.component('ingredient', {
     props: ['item', 'type', 'customid'],
     template: '<div class=ingred>\
   <label :class="customid" :for="id" style="display: block;">\
   <input :class="customid" :id="id" type="checkbox" @change="checkboxEvent(this.checkboxstate)" :checked="checkboxstate">\
-  {{item["ingredient_en"]}}\
+  <p>{{item["ingredient_en"]}}</p>\
   </label>\
   </div>',
     data: function () {
@@ -26,24 +26,29 @@ Vue.component('ingredient', {
         }
     },
     mounted: function () {
-        this.id = this._uid;
+        this.id = this._uid; //Krävs för att slippa ange idn själv.
     },
     methods: {
-        checkboxEvent: function () {
+        checkboxEvent: function () { //Om ni lägger till något här som inte funkar kan det vara ordningen som är fel. /P
+            /* Varje gång den osynliga checkboxen ändras sker detta. Det går också att köra funktionen rakt av. */
             if (this.checkboxstate) {
                 this.checkboxstate = false;
+                document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color:aliceblue;");
+                //Verkar som att eventuell styling bör ske innan emit. 
                 this.$emit('checkbox-untick');
-                document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color: #efe;");
             } else {
                 this.checkboxstate = true;
-                this.$emit('checkbox-tick'); //funkar med v-on:checkboxTick=... i html-delen /Patrik
                 document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color: #ee99acad;");
+                
+                this.$emit('checkbox-tick');
             }
         },
-
-
+        unclick: function () { //Kör en klick, men bara om knappen är vald
+            if (this.checkboxstate) {
+                this.checkboxEvent();
+            }
+        }
     }
-
 
 });
 
@@ -90,30 +95,25 @@ var vm = new Vue({
     },
     methods: {
 
-        adjustClickable: function (item, type) { //Används inte just nu så bry er inte om den.
-            if (type === "bassssssssssssssssss") {
-                var baseBoxes = document.getElementsByClassName("base");
-                var thisBox = document.getElementById(item["ingredient_en"]);
-
-                if (this.chosenBase === "") {
-                    for (var i = 0; i < baseBoxes.length; i++) {
-                        baseBoxes[i].disabled = false;
-                    }
-                } else {
-                    for (var i = 0; i < baseBoxes.length; i++) {
-                        baseBoxes[i].disabled = true;
-                    }
-
-                }
-                thisBox.disabled = false;
-
-            } else if (type === "fruit" || type === "green") {
-
+        selectSize: function(size){
+            /*   Justerar antagligen inte priset på rätt sätt om en boost/topping är vald.   */
+            this.size = size;
+            var newMaxIngred = maxIngredList[size];
+            if (newMaxIngred < this.chosenFruitGreens.length){
+                this.resetIngredientSelection();
+                alert("Your order did not fit the new size, please choose ingredients again.");
             }
-
+            this.maxIngred = newMaxIngred;
+            if (this.extraHasBeenShown === false){
+                this.priceTot = priceList[size]; 
+            }
+            
+            this.showIngredients();
+            
         },
-
-        newSinglechoiceSelected: function (item, type) {
+        
+        newSinglechoiceSelected: function (item, type) { 
+            /* Tar först bort det gamla valet och lägger sedan till det nya i listan. Uppdelat i två funktioner för att spara plats */
             if (!((type === "base" && this.chosenBase === "") || (type === "topping" && this.chosenTopping === "") || (type === "boost" && this.chosenBoost === ""))) {
                 this.replaceChoice(type);
             }
@@ -121,6 +121,7 @@ var vm = new Vue({
         },
 
         replaceChoice: function (type) {
+            //* Tar bort det gamla valet. Själva ersättandet sker dock först när nästa item läggs till i funktionen ovan. 
             var oldChoice;
             var chosenOld;
             if (type === "base") {
@@ -139,15 +140,27 @@ var vm = new Vue({
             this.$refs.ingredient[box - 1].checkboxEvent();
         },
 
+        newFruitGreenSelected: function(item, type){
+            /*Lägger till frukt/grönt om det finns plats. Denna och newSingleChoiceSelected anropas från html via vue. */
+            if (this.chosenFruitGreens.length < this.maxIngred){
+                this.addToOrder(item, type);
+            } else {
+                alert("Too many fruits/greens! Deselect first or change size");
+                var box = document.getElementsByClassName(type + item.ingredient_en)[1].id;
+                this.$refs.ingredient[box-1].unclick();
+            }
+            
+        },
 
 
         removeFromOrder: function (item, type) {
+            /* Gör som namnet antyder */
             var index = this.chosenIngredients.indexOf(item);
             if (index > -1) {
                 this.chosenIngredients.splice(index, 1);
 
                 if (type === "base") {
-                    this.chosenBase = ""; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
+                    this.chosenBase = ""; 
                 } else if (type === "boost") {
                     this.chosenBoost = "";
                     this.priceTot -= 7;
@@ -161,89 +174,81 @@ var vm = new Vue({
                     }
                 }
             }
-            // this.adjustClickable(item, type);
         },
 
-        addToOrder: function (item, type) { //jobbar här
-            this.chosenIngredients.push(item); //Lägger till item till ingredienslistan
+        addToOrder: function (item, type) { //Tog bort allt tråk med volume, det känns ändå som att det är fel siffror. I övrigt är den ganska basic, men om vi ropar direkt på den kommer knappvalen inte att påverkas osv. /Patrik.
+            
+            this.chosenIngredients.push(item); 
             this.type = type;
 
             if (type === "fruit" || type === "green") {
                 this.chosenFruitGreens.push(item);
-                // this.volume += +item.vol_smoothie; Vi borde fixa volume i slidern /P
             }
-            /*if (type === "fruit") {
-              this.volume += +item.vol_smoothie; // Det här är egentligen för om man har valt Smoothie/Juice. Det är därför det blir "0ml" bredvid ibland när vi kör. /Clara
-            } else if (type === "green") {
-              this.volume += +item.vol_juice;
-            }*/
             else if (this.type === "base") {
-                // this.volume += +item.vol_juice; samma här, volume sen. 
-
                 this.chosenBase = item.ingredient_en;
-
-
             } else if (type === "boost") {
-                // this.volume += +item.vol_juice;
                 this.chosenBoost = item.ingredient_en;
                 this.priceTot += 7;
             } else if (type === "topping") {
-                // this.volume += +item.vol_juice;
                 this.chosenTopping = item.ingredient_en;
                 this.priceTot += 10;
             }
-            // this.price += +item.selling_price;
-            // this.adjustClickable(item, type);
         },
-        placeOrder: function () {
-            var i,
-                //Wrap the order in an object
-                order = {
-                    ingredients: this.chosenIngredients,
-                    volume: this.volume,
-                    type: this.type,
-                    price: this.price,
-                    priceTot: this.priceTot,
-                    size: this.size,
-                    chosenBase: this.chosenBase,
-                    chosenTopping: this.chosenTopping,
-                    chosenBoost: this.chosenBoost,
-                    chosenFruitGreens: this.chosenFruitGreens
-                };
+        placeOrder: function () { //Småfixar /P
+            var order = {
+                ingredients: this.chosenIngredients,
+                volume: this.volume,
+                type: this.type,
+                price: this.price,
+                priceTot: this.priceTot,
+                size: this.size,
+                chosenBase: this.chosenBase,
+                chosenTopping: this.chosenTopping,
+                chosenBoost: this.chosenBoost,
+                chosenFruitGreens: this.chosenFruitGreens
+            };
             // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
             socket.emit('order', {
                 orderId: getOrderNumber(),
                 order: order
             });
-            //set all counters to 0. Notice the use of $refs
-            //for (i = 0; i < this.$refs.ingredient.length; i += 1) {
-            //   this.$refs.ingredient[i].resetCounter();
-            //}
+            this.resetIngredientSelection(); //Har inte fixat så att den hamnar på rätt sida.
+            this.showIngredients();
+        },
+
+        resetIngredientSelection: function () {
+            /* Tror att denna ger samma resultat som att trycka på f5, trycka på start och välja samma size */
+            for (var i = 0; i < this.$refs.ingredient.length; i++) {
+                this.$refs.ingredient[i].unclick();
+            }
+
             this.volume = 0;
             this.price = 0;
             this.priceTot = 0;
             this.type = '';
             this.chosenIngredients = [];
-            this.size = '';
             this.chosenBase = '';
             this.chosenTopping = '';
             this.chosenBoost = '';
             this.chosenFruitGreens = [];
+            
+            this.extraHasBeenShown = false;
+            this.customizeHasBeenShown = false;
+            this.overviewHasBeenShown = false;
+            
+            //Notera avsaknad av size och maxIngred
+
+
 
         },
 
         showStart: function () {
-            //Resettar allting //CE
-            this.volume = 0;
-            this.price = 0;
-            this.priceTot = 0;
-            this.type = '';
-            this.chosenIngredients = [];
-            this.size = '';
-            this.chosenBase = '';
-            this.chosenTopping = '';
-            this.chosenBoost = '';
-            this.chosenFruitGreens = [];
+            //Resettar förhoppningsvis fortfarande allting /Patrik
+            
+            this.resetIngredientSelection();
+            this.size='';
+            this.maxIngred=0;
+          
             this.extraHasBeenShown = false;
             this.customizeHasBeenShown = false;
             this.overviewHasBeenShown = false;
@@ -267,23 +272,6 @@ var vm = new Vue({
             this.sizeShown = true;
         },
         showIngredients: function () {
-            if (this.size === "small") {
-                this.maxIngred = 2;
-                if (this.extraHasBeenShown === false) { //För att priset inte ska ändras om man har lagt till topping/boost
-                    this.priceTot = 35;
-                }
-            } else if (this.size === "medium") {
-                this.maxIngred = 3;
-                if (this.extraHasBeenShown === false) {
-                    this.priceTot = 40;
-                }
-            } else if (this.size === "large") {
-                this.maxIngred = 4;
-                if (this.extraHasBeenShown === false) {
-                    this.priceTot = 45;
-                }
-            }
-
             this.startShown = false;
             this.customizeShown = false;
             this.extrasShown = false;

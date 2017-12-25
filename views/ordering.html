@@ -16,7 +16,7 @@
 
     <div id="ordering">
 
-        <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+        <button v-on:click="switchLang()">{{ uiLabels.language }}</button> <!-- Kanske ta bort? /P -->
 
 
         <div v-if="startShown">
@@ -27,11 +27,16 @@
         <div v-if="sizeShown">
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Select Size</h1>
-            <!-- Måste vara radio för att man ska kunna välja bara en men vi kan ta bort cirkeln senare//CE-->
-            <div>
-                <input type="radio" v-model="size" value="small">Small<br>
-                <input type="radio" v-model="size" value="medium">Medium<br>
-                <input type="radio" v-model="size" value="large">Large<br>
+            <div class="sizeButtons">  <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
+                <label for="small">
+                    <input type="button" id="small" v-on:click="selectSize('small')"><p>Small</p>
+                </label>
+                <label for="medium">
+                    <input type="button" id="medium" v-on:click="selectSize('medium')"><p>Medium</p>
+                </label>
+                <label for="large">
+                    <input type="button" id="large" v-on:click="selectSize('large')"><p>Large</p>
+                </label>
             </div>
             <p>Your choice: {{size}}</p>
 
@@ -51,28 +56,27 @@
 
         </div>
 
-        <div v-show="ingredientsShown">
+        <div v-show="ingredientsShown"> <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Ingredients</h1>
             <p>Select 1 base and max {{maxIngred}} fruit/greens</p>
-            <p>(checkboxarna syns bara för testning /patrik)</p>
 
-            <!-- getUniqueId skapar numrerade ids utifrån ingrediensidn. Om någon hittar en snyggare lösning vore det kanske kul. För stunden används 1-9. -->
+            <!-- Här har vi ingredinsknapparna. Förutom hur dom genereras är det mesta annorlunda. Jag behövde läsa på om Vue.component för att öht fatta något. /P -->
 
             <h1>Base</h1>
             <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :customid="'base'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 1)">
             </ingredient>
 
             <h1>Fruits</h1>
-            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="addToOrder(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :customid="item.ingredient_en+'fruit'" :key="getUniqueId(item.ingredient_id, 2)">
+            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :customid="'fruit'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 2)">
             </ingredient>
 
             <h1>Greens</h1>
-            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="addToOrder(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :customid="item.ingredient_en+'green'" :key="getUniqueId(item.ingredient_id, 3)">
+            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :customid="'green'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 3)">
             </ingredient>
 
             <h1>{{ uiLabels.order }}</h1>
-            {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}
+            {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ price }} kr, Size: {{ size }}, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}
             <!-- Nedan kan säkert göras snyggare men funkar for now //CE-->
             <div v-if="extraHasBeenShown">
                 Topping: {{chosenTopping}}, Boost: {{chosenBoost}}
@@ -127,11 +131,11 @@
 
         </div>
 
-        <div v-show="extrasShown">
+        <div v-show="extrasShown"> <!-- Samma här som ovan, v-show istället för v-if -->
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Extras</h1>
-            <h2>Det här funkar inte än /Patrik</h2>
-
+            
+            <!-- Samma sorts knappar som övriga ingredienser -->
             <h1>Boosts</h1>
             <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'boost')" v-on:checkbox-untick="removeFromOrder(item, 'boost')" :item="item" :customid="'boost'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 4)">
             </ingredient>
