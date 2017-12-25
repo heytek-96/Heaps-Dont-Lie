@@ -12,28 +12,32 @@
 
 
 Vue.component('ingredient', {
-    props: ['item', 'type', 'id', 'iddiv'],
-    template: '<div class="ingredient" :id="iddiv">\
-  <label class="inglabel" :for="id" style="display: block;">\
-  <input :id="id" type="checkbox" @change="checkboxEvent(checkboxstate)">\
+    props: ['item', 'type', 'customid'],
+    template: '<div class=ingred>\
+  <label :class="customid" :for="id" style="display: block;">\
+  <input :class="customid" :id="id" type="checkbox" @change="checkboxEvent(this.checkboxstate)" :checked="checkboxstate">\
   {{item["ingredient_en"]}}\
   </label>\
   </div>',
     data: function () {
         return {
-            checkboxstate: false
+            checkboxstate: false,
+            id: null
         }
     },
+    mounted: function () {
+        this.id = this._uid;
+    },
     methods: {
-        checkboxEvent: function (checkboxstate) {
-            if (checkboxstate) {
+        checkboxEvent: function () {
+            if (this.checkboxstate) {
                 this.checkboxstate = false;
-                this.$emit('checkbox-untick')
-                document.getElementById(this.iddiv).setAttribute("style", "background-color: #efe;");
+                this.$emit('checkbox-untick');
+                document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color: #efe;");
             } else {
                 this.checkboxstate = true;
                 this.$emit('checkbox-tick'); //funkar med v-on:checkboxTick=... i html-delen /Patrik
-                document.getElementById(this.iddiv).setAttribute("style", "background-color: #a9e;");
+                document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color: #ee99acad;");
             }
         },
 
@@ -86,7 +90,7 @@ var vm = new Vue({
     },
     methods: {
 
-        adjustClickable: function (item, type) {
+        adjustClickable: function (item, type) { //Används inte just nu så bry er inte om den.
             if (type === "bassssssssssssssssss") {
                 var baseBoxes = document.getElementsByClassName("base");
                 var thisBox = document.getElementById(item["ingredient_en"]);
@@ -109,25 +113,52 @@ var vm = new Vue({
 
         },
 
+        newSinglechoiceSelected: function (item, type) {
+            if (!((type === "base" && this.chosenBase === "") || (type === "topping" && this.chosenTopping === "") || (type === "boost" && this.chosenBoost === ""))) {
+                this.replaceChoice(type);
+            }
+            this.addToOrder(item, type);
+        },
+
+        replaceChoice: function (type) {
+            var oldChoice;
+            var chosenOld;
+            if (type === "base") {
+                chosenOld = this.chosenBase;
+            } else if (type === "topping") {
+                chosenOld = this.chosenTopping;
+            } else if (type === "boost") {
+                chosenOld = this.chosenBoost;
+            }
+            for (var i = 0; i < this.chosenIngredients.length; i++) {
+                if (chosenOld === this.chosenIngredients[i].ingredient_en) {
+                    oldChoice = this.chosenIngredients[i];
+                }
+            }
+            var box = document.getElementsByClassName(type + oldChoice.ingredient_en)[1].id;
+            this.$refs.ingredient[box - 1].checkboxEvent();
+        },
+
 
 
         removeFromOrder: function (item, type) {
             var index = this.chosenIngredients.indexOf(item);
             if (index > -1) {
                 this.chosenIngredients.splice(index, 1);
-            }
-            if (type === "base" && this.chosenBase === item.ingredient_en) {
-                this.chosenBase = ""; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
-            } else if (type === "boost") {
-                this.chosenBoost = "";
-                this.priceTot -= 7;
-            } else if (type === "topping") {
-                this.chosenTopping = "";
-                this.priceTot -= 10;
-            } else if (type === "fruit" || type === "green") {
-                var index = this.chosenFruitGreens.indexOf(item);
-                if (index > -1) {
-                    this.chosenFruitGreens.splice(index, 1);
+
+                if (type === "base") {
+                    this.chosenBase = ""; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
+                } else if (type === "boost") {
+                    this.chosenBoost = "";
+                    this.priceTot -= 7;
+                } else if (type === "topping") {
+                    this.chosenTopping = "";
+                    this.priceTot -= 10;
+                } else if (type === "fruit" || type === "green") {
+                    var index = this.chosenFruitGreens.indexOf(item);
+                    if (index > -1) {
+                        this.chosenFruitGreens.splice(index, 1);
+                    }
                 }
             }
             // this.adjustClickable(item, type);
@@ -148,18 +179,9 @@ var vm = new Vue({
             }*/
             else if (this.type === "base") {
                 // this.volume += +item.vol_juice; samma här, volume sen. 
-                if (this.chosenBase === "") {
-                    this.chosenBase = item.ingredient_en;
-                } else {
-                    var oldBase;
-                    for (var i = 0; i < this.chosenIngredients.length; i++) {
-                        if (this.chosenBase === this.chosenIngredients[i].ingredient_en) {
-                            oldBase = this.chosenIngredients[i];
-                        }
-                    }
-                    this.removeFromOrder(oldBase, this.type);
-                    this.chosenBase = item.ingredient_en; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
-                }
+
+                this.chosenBase = item.ingredient_en;
+
 
             } else if (type === "boost") {
                 // this.volume += +item.vol_juice;
@@ -310,9 +332,10 @@ var vm = new Vue({
             this.payShown = true;
         },
 
-        getUniqueId: function (key, magnitude) { //jag lyckas inte lösa knapparna utan att använda sjukt många ids /P
+        getUniqueId: function (key, magnitude) { //Löser problem med duplicate keys. Säg till om ni behöver använda detta så gör vi system.
             return key + (magnitude * 100);
         }
+
     }
 
 
