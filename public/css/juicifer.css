@@ -19,9 +19,14 @@ h1 {
 	width: 40em;
 }
 
-.ingredient {
+.ingredient { /* Ingredient och inglabel är tillfällig styling för ingrediensknapparna. Vi döljer checkboxarna senare.  */
 	border: 1px solid #cdc;
-	padding: 1em;
+	padding: 0px;
+    margin: 2px;
+}
+
+.inglabel {
+    height: 5vh;
 }
 
 table, th, td {

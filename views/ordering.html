@@ -55,19 +55,20 @@
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Ingredients</h1>
             <p>Select 1 base and max {{maxIngred}} fruit/greens</p>
-            
+            <p>(checkboxarna syns bara för testning /patrik)</p>
 
+            <!-- getUniqueId skapar numrerade ids utifrån ingrediensidn. Om någon hittar en snyggare lösning vore det kanske kul. För stunden används 1-9. -->
 
             <h1>Base</h1>
-            <ingredient class="basebutton" ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="addToOrder(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :id="item['ingredient_en']" :key="getIngredientKey('base', item.ingredient_id)" >
+            <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="addToOrder(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :id="getUniqueId(item.ingredient_id, 1)" :iddiv="getUniqueId(item.ingredient_id, 2)" :key="getUniqueId(item.ingredient_id, 3)">
             </ingredient>
-            
+
             <h1>Fruits</h1>
-            <ingredient class="fruitbutton" ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="addToOrder(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :key="getIngredientKey('fruit', item.ingredient_id)" >
+            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="addToOrder(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :id="getUniqueId(item.ingredient_id, 4)" :iddiv="getUniqueId(item.ingredient_id, 5)" :key="getUniqueId(item.ingredient_id, 6)">
             </ingredient>
-            
+
             <h1>Greens</h1>
-            <ingredient class="greenbutton" ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="addToOrder(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :key="getIngredientKey('green', item.ingredient_id)" >
+            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="addToOrder(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :id="getUniqueId(item.ingredient_id, 7)" :iddiv="getUniqueId(item.ingredient_id, 8)" :key="getUniqueId(item.ingredient_id, 9)">
             </ingredient>
 
             <h1>{{ uiLabels.order }}</h1>
@@ -124,40 +125,40 @@
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Extras</h1>
 
-                    <h1>Boosts</h1>
-                    <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:increment="addToOrder(item, 'boost')" :item="item" :lang="lang" :key="item.ingredient_id">
-                    </ingredient>
+            <h1>Boosts</h1>
+            <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:increment="addToOrder(item, 'boost')" :item="item" :lang="lang" :key="item.ingredient_id">
+            </ingredient>
 
-                    <h1>Toppings</h1>
-                    <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:increment="addToOrder(item, 'topping')" :item="item" :lang="lang" :key="item.ingredient_id">
-                    </ingredient>
+            <h1>Toppings</h1>
+            <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:increment="addToOrder(item, 'topping')" :item="item" :lang="lang" :key="item.ingredient_id">
+            </ingredient>
 
-                    <h1>{{ uiLabels.order }}</h1>
-                    {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}, Topping: {{ chosenTopping }}, Boost: {{ chosenBoost }}, Price: {{priceTot}}<br>
-                    <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+            <h1>{{ uiLabels.order }}</h1>
+            {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }} {{ volume }} ml, {{ price }} kr, Base: {{ chosenBase }}, Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}, Topping: {{ chosenTopping }}, Boost: {{ chosenBoost }}, Price: {{priceTot}}<br>
+            <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
-                    <h1>{{ uiLabels.ordersInQueue }}</h1>
-                    <h2>Boosts</h2>
-                    <div>
-                        <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'boost'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
-                        </order-item>
-                    </div>
-                    <h2>Toppings</h2>
-                    <div>
-                        <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'topping'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
-                        </order-item>
-                    </div>
+            <h1>{{ uiLabels.ordersInQueue }}</h1>
+            <h2>Boosts</h2>
+            <div>
+                <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'boost'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                </order-item>
+            </div>
+            <h2>Toppings</h2>
+            <div>
+                <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'topping'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                </order-item>
+            </div>
 
-                    <button v-on:click="showCustomize()">Customize</button>
-                    <button v-on:click="showOverview()">Overview</button>
+            <button v-on:click="showCustomize()">Customize</button>
+            <button v-on:click="showOverview()">Overview</button>
 
-                    <div>
-                        <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-                        <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                        <button v-on:click="showCustomize()">Customize</button>
-                        <button v-on:click="showExtras()">Extras</button>
-                        <button v-on:click="showOverview()" disabled>Overview</button>
-                    </div>
+            <div>
+                <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+                <button v-on:click="showCustomize()">Customize</button>
+                <button v-on:click="showExtras()">Extras</button>
+                <button v-on:click="showOverview()" disabled>Overview</button>
+            </div>
         </div>
 
         <div v-if="overviewShown">
@@ -183,7 +184,7 @@
         <div v-if="payShown">
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Thanks!</h1>
-                    <button v-on:click="showStart()">Go back to start </button>
+            <button v-on:click="showStart()">Go back to start </button>
         </div>
 
 

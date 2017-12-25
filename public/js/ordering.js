@@ -12,10 +12,10 @@
 
 
 Vue.component('ingredient', {
-    props: ['item', 'type', 'id'],
-    template: '<div class="ingredient">\
-  <label>\
-  <input :id="id" :class="type" type="checkbox" @change="checkboxEvent(checkboxstate)">\
+    props: ['item', 'type', 'id', 'iddiv'],
+    template: '<div class="ingredient" :id="iddiv">\
+  <label class="inglabel" :for="id" style="display: block;">\
+  <input :id="id" type="checkbox" @change="checkboxEvent(checkboxstate)">\
   {{item["ingredient_en"]}}\
   </label>\
   </div>',
@@ -29,9 +29,11 @@ Vue.component('ingredient', {
             if (checkboxstate) {
                 this.checkboxstate = false;
                 this.$emit('checkbox-untick')
+                document.getElementById(this.iddiv).setAttribute("style", "background-color: #efe;");
             } else {
                 this.checkboxstate = true;
                 this.$emit('checkbox-tick'); //funkar med v-on:checkboxTick=... i html-delen /Patrik
+                document.getElementById(this.iddiv).setAttribute("style", "background-color: #a9e;");
             }
         },
 
@@ -105,12 +107,14 @@ var vm = new Vue({
 
         },
 
+
+
         removeFromOrder: function (item, type) {
             var index = this.chosenIngredients.indexOf(item);
             if (index > -1) {
-                this.chosenIngredients.splice(index);
+                this.chosenIngredients.splice(index, 1);
             }
-            if (type === "base" && this.chosenBase === item.ingredient_en) { //funkar inte heller
+            if (type === "base" && this.chosenBase === item.ingredient_en) {
                 this.chosenBase = ""; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
             } else if (type === "boost") {
                 this.chosenBoost = "";
@@ -118,26 +122,29 @@ var vm = new Vue({
             } else if (type === "topping") {
                 this.chosenTopping = "";
                 this.priceTot -= 10;
+            } else if (type === "fruit" || type === "green") {
+                var index = this.chosenFruitGreens.indexOf(item);
+                if (index > -1) {
+                    this.chosenFruitGreens.splice(index, 1);
+                }
             }
-            this.adjustClickable(item, type);
+            // this.adjustClickable(item, type);
         },
 
         addToOrder: function (item, type) { //jobbar här
-            console.log(this.chosenBase);
             this.chosenIngredients.push(item); //Lägger till item till ingredienslistan
             this.type = type;
 
-            /* if (type === "fruit" || type === "green") { Ser inte riktigt varför vi skulle behöva chosenFruitGreens /P
-                 this.chosenFruitGreens.push(item);
-                 this.volume += +item.vol_smoothie; Vi borde fixa volume i slidern /P
-            } */
+            if (type === "fruit" || type === "green") {
+                this.chosenFruitGreens.push(item);
+                // this.volume += +item.vol_smoothie; Vi borde fixa volume i slidern /P
+            }
             /*if (type === "fruit") {
               this.volume += +item.vol_smoothie; // Det här är egentligen för om man har valt Smoothie/Juice. Det är därför det blir "0ml" bredvid ibland när vi kör. /Clara
             } else if (type === "green") {
               this.volume += +item.vol_juice;
             }*/
-            /* else */
-            if (this.type === "base") { //här är det fel
+            else if (this.type === "base") {
                 // this.volume += +item.vol_juice; samma här, volume sen. 
                 if (this.chosenBase === "") {
                     this.chosenBase = item.ingredient_en;
@@ -145,10 +152,10 @@ var vm = new Vue({
                     var oldBase;
                     for (var i = 0; i < this.chosenIngredients.length; i++) {
                         if (this.chosenBase === this.chosenIngredients[i].ingredient_en) {
-                            oldBase = this.chosenIngredients[i]
+                            oldBase = this.chosenIngredients[i];
                         }
                     }
-                    this.removeFromOrder(oldBase, this.type)
+                    this.removeFromOrder(oldBase, this.type);
                     this.chosenBase = item.ingredient_en; // Tar bara det engelska namnet. Behövs bara en eftersom vi bara tillåter en bas //CE
                 }
 
@@ -162,7 +169,7 @@ var vm = new Vue({
                 this.priceTot += 10;
             }
             // this.price += +item.selling_price;
-            this.adjustClickable(item, type);
+            // this.adjustClickable(item, type);
         },
         placeOrder: function () {
             var i,
@@ -296,16 +303,8 @@ var vm = new Vue({
             this.payShown = true;
         },
 
-        getIngredientKey: function (type, key) { //löste duplicate key errors på det här sättet /P
-            if (type === "base") {
-                return key;
-            }
-            if (type === "fruit") {
-                return key + 100;
-            }
-            if (type === "green") {
-                return key + 1000;
-            }
+        getUniqueId: function (key, magnitude) { //jag lyckas inte lösa knapparna utan att använda sjukt många ids /P
+            return key + (magnitude * 100);
         }
     }
 });
