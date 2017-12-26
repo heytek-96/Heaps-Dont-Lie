@@ -17,7 +17,7 @@
 </head>
 <body>
     
-  <div id=slider-color> Här ska slider in</div>  
+
   <div id="orders">
 
           <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
@@ -141,9 +141,13 @@
           <button v-on:click="sendCancel(nextOrderToPrepare().orderId)">
             {{uiLabels.cancel}}
           </button>
+          
+                
 
 
     </div>
+      
+   <div id=slider-color> </div> 
       
 
   </div>

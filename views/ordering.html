@@ -75,22 +75,11 @@
 
 
             <h1>{{ uiLabels.ordersInQueue }}</h1>
-            <h2>Base</h2>
             <div>
-                <!--order.type == "base" behöver ändras sen, för det är från att man kunde välja Juice/Smoothie i Mikaels skelett förut /Clara-->
-                <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'base'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
                 </order-item>
             </div>
-            <h2>Fruit and berries</h2>
-            <div>
-                <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'fruit'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
-                </order-item>
-            </div>
-            <h2>Greens</h2>
-            <div>
-                <order-item v-for="(order, key) in orders" v-if="!order.done && order.type == 'green'" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
-                </order-item>
-            </div>
+
             <div>
                 <button v-on:click="showSize()" class="backButton">Select Size</button>
                 <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton">Customize</button>
