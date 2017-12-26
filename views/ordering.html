@@ -41,12 +41,12 @@
             <p>Your choice: {{size}}</p>
 
             <div>
-                <button v-on:click="showStart()">Homepage</button>
-                <button v-on:click="showIngredients()" :disabled="size.length < 1">Choose Ingredients</button>
+                <button v-on:click="showStart()" class="backButton">Homepage</button>
+                <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton">Choose Ingredients</button>
             </div>
 
             <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
-            <div>
+            <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                 <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
@@ -104,11 +104,11 @@
                 </order-item>
             </div>
             <div>
-                <button v-on:click="showSize()">Select Size</button>
-                <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1">Customize</button>
+                <button v-on:click="showSize()" class="backButton">Select Size</button>
+                <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton">Customize</button>
             </div>
 
-            <div>
+            <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" disabled class="activePageButton">Ingredients</button>
                 <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
@@ -119,10 +119,10 @@
         <div v-if="customizeShown">
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Customize</h1>
-            <button v-on:click="showIngredients()">Choose Ingredients</button>
-            <button v-on:click="showExtras()">Choose Extras</button>
+            <button v-on:click="showIngredients()" class="backButton">Choose Ingredients</button>
+            <button v-on:click="showExtras()" class="nextButton">Choose Extras</button>
 
-            <div>
+            <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                 <button v-on:click="showCustomize()" disabled class="activePageButton">Customize</button>
@@ -186,10 +186,10 @@
             <p>Topping: {{ chosenTopping }}</p>
             <p>Boost: {{ chosenBoost }}</p>
             <p>Price: {{priceTot}} kr</p>
-            <button v-on:click="showExtras()">Choose Extras</button>
-            <button v-on:click="showPay()">Pay 'n' Shake</button>
+            <button v-on:click="showExtras()" class="backButton">Choose Extras</button>
+            <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
 
-            <div>
+            <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                 <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
