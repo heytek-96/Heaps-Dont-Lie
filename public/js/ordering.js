@@ -3,17 +3,21 @@
 'use strict';
 
 //Två listor, ungefär som det ser ut.
-var priceList = {small: 35,
-                medium: 40,
-                large: 45};
-var maxIngredList = {small: 2,
-                    medium: 3,
-                    large: 4};
+var priceList = {
+    small: 35,
+    medium: 40,
+    large: 45
+};
+var maxIngredList = {
+    small: 2,
+    medium: 3,
+    large: 4
+};
 
 // Det här var lite slitigt att få till men det är alltså labelelementet som är klickbart. Och customid är unikt för varje ingrediens, men det finns exempel i funktioner längre ner hur det går att komma åt specefika element. /P
 Vue.component('ingredient', {
     props: ['item', 'type', 'customid'],
-    template: '<div class=ingred>\
+    template: '<div class=ingred v-show="anyleft">\
   <label :class="customid" :for="id" style="display: block;">\
   <input :class="customid" :id="id" type="checkbox" @change="checkboxEvent(this.checkboxstate)" :checked="checkboxstate">\
   <p>{{item["ingredient_en"]}}</p>\
@@ -25,12 +29,23 @@ Vue.component('ingredient', {
             id: null
         }
     },
+    computed: {
+        anyleft: function() { //Nu funkar det att ingredienser försvinner när dom är slut, men jag vet inte vad som händer om lagret fylls på /P
+            if (typeof vm === 'undefined') { 
+                console.log(vm);
+                return true;
+            } else {
+                return (vm.ingredients[vm.ingredients.indexOf(this.item)].stock > 0)
+            }
+        }
+    },
     mounted: function () {
         this.id = this._uid; //Krävs för att slippa ange idn själv.
     },
     methods: {
         checkboxEvent: function () { //Om ni lägger till något här som inte funkar kan det vara ordningen som är fel. /P
             /* Varje gång den osynliga checkboxen ändras sker detta. Det går också att köra funktionen rakt av. */
+            console.log((vm.ingredients[vm.ingredients.indexOf(this.item)].stock > 0));
             if (this.checkboxstate) {
                 this.checkboxstate = false;
                 document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color:aliceblue;");
@@ -39,7 +54,7 @@ Vue.component('ingredient', {
             } else {
                 this.checkboxstate = true;
                 document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color: #ee99acad;");
-                
+
                 this.$emit('checkbox-tick');
             }
         },
@@ -95,24 +110,24 @@ var vm = new Vue({
     },
     methods: {
 
-        selectSize: function(size){
+        selectSize: function (size) {
             /*   Justerar antagligen inte priset på rätt sätt om en boost/topping är vald.   */
             this.size = size;
             var newMaxIngred = maxIngredList[size];
-            if (newMaxIngred < this.chosenFruitGreens.length){
+            if (newMaxIngred < this.chosenFruitGreens.length) {
                 this.resetIngredientSelection();
                 alert("Your order did not fit the new size, please choose ingredients again.");
             }
             this.maxIngred = newMaxIngred;
-            if (this.extraHasBeenShown === false){
-                this.priceTot = priceList[size]; 
+            if (this.extraHasBeenShown === false) {
+                this.priceTot = priceList[size];
             }
-            
+
             this.showIngredients();
-            
+
         },
-        
-        newSinglechoiceSelected: function (item, type) { 
+
+        newSinglechoiceSelected: function (item, type) {
             /* Tar först bort det gamla valet och lägger sedan till det nya i listan. Uppdelat i två funktioner för att spara plats */
             if (!((type === "base" && this.chosenBase === "") || (type === "topping" && this.chosenTopping === "") || (type === "boost" && this.chosenBoost === ""))) {
                 this.replaceChoice(type);
@@ -140,16 +155,16 @@ var vm = new Vue({
             this.$refs.ingredient[box - 1].checkboxEvent();
         },
 
-        newFruitGreenSelected: function(item, type){
+        newFruitGreenSelected: function (item, type) {
             /*Lägger till frukt/grönt om det finns plats. Denna och newSingleChoiceSelected anropas från html via vue. */
-            if (this.chosenFruitGreens.length < this.maxIngred){
+            if (this.chosenFruitGreens.length < this.maxIngred) {
                 this.addToOrder(item, type);
             } else {
                 alert("Too many fruits/greens! Deselect first or change size");
                 var box = document.getElementsByClassName(type + item.ingredient_en)[1].id;
-                this.$refs.ingredient[box-1].unclick();
+                this.$refs.ingredient[box - 1].unclick();
             }
-            
+
         },
 
 
@@ -160,7 +175,7 @@ var vm = new Vue({
                 this.chosenIngredients.splice(index, 1);
 
                 if (type === "base") {
-                    this.chosenBase = ""; 
+                    this.chosenBase = "";
                 } else if (type === "boost") {
                     this.chosenBoost = "";
                     this.priceTot -= 7;
@@ -177,14 +192,13 @@ var vm = new Vue({
         },
 
         addToOrder: function (item, type) { //Tog bort allt tråk med volume, det känns ändå som att det är fel siffror. I övrigt är den ganska basic, men om vi ropar direkt på den kommer knappvalen inte att påverkas osv. /Patrik.
-            
-            this.chosenIngredients.push(item); 
+
+            this.chosenIngredients.push(item);
             this.type = type;
 
             if (type === "fruit" || type === "green") {
                 this.chosenFruitGreens.push(item);
-            }
-            else if (this.type === "base") {
+            } else if (this.type === "base") {
                 this.chosenBase = item.ingredient_en;
             } else if (type === "boost") {
                 this.chosenBoost = item.ingredient_en;
@@ -206,7 +220,7 @@ var vm = new Vue({
                 chosenTopping: this.chosenTopping,
                 chosenBoost: this.chosenBoost,
                 chosenFruitGreens: this.chosenFruitGreens
-                
+
             };
             // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
             socket.emit('order', {
@@ -232,11 +246,11 @@ var vm = new Vue({
             this.chosenTopping = '';
             this.chosenBoost = '';
             this.chosenFruitGreens = [];
-            
+
             this.extraHasBeenShown = false;
             this.customizeHasBeenShown = false;
             this.overviewHasBeenShown = false;
-            
+
             //Notera avsaknad av size och maxIngred
 
 
@@ -245,11 +259,11 @@ var vm = new Vue({
 
         showStart: function () {
             //Resettar förhoppningsvis fortfarande allting /Patrik
-            
+
             this.resetIngredientSelection();
-            this.size='';
-            this.maxIngred=0;
-          
+            this.size = '';
+            this.maxIngred = 0;
+
             this.extraHasBeenShown = false;
             this.customizeHasBeenShown = false;
             this.overviewHasBeenShown = false;
@@ -384,25 +398,24 @@ var vm = new Vue({
 var slider = document.getElementById('slider-color');
 
 noUiSlider.create(slider, {
-	start: [33, 66],
-	connect: [true, true, true],
-  orientation: 'vertical',
-  margin: 20,
-  direction: 'rtl',
-  padding: 20,
-	range: {
-		'min': [  0 ],
-		'max': [ 100 ]
-	}
+    start: [33, 66],
+    connect: [true, true, true],
+    orientation: 'vertical',
+    margin: 20,
+    direction: 'rtl',
+    padding: 20,
+    range: {
+        'min': [0],
+        'max': [100]
+    }
 });
 
 var connect = slider.querySelectorAll('.noUi-connect');
 var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
 
-for ( var i = 0; i < connect.length; i++ ) {
+for (var i = 0; i < connect.length; i++) {
     connect[i].classList.add(classes[i]);
 }
-
 }
 
 createSlider(); */

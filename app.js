@@ -108,7 +108,7 @@ Data.prototype.makeTransaction = function(order, changeUnit) {
 Data.prototype.addOrder = function (order) {
       this.orders[order.orderId] = order.order;
       this.orders[order.orderId].done = false;
-      this.makeTransaction(order.order, -1);
+      this.makeTransaction(order.order, -5); //Här har jag satt att allt tar slut så fort något beställs.
     };
 
 Data.prototype.getAllOrders = function () {
