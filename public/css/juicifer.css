@@ -10,13 +10,13 @@
 
 
 body {
-    background: #efe;
-    color: #353;
+    background: #f2f9ff;
+    color: #3a3e63;
     font-size: 90%;
 }
 
 h1 {
-    color: #670;
+    color: #3a3e63;
     text-transform: uppercase;
     letter-spacing: 2pt;
 }
@@ -40,6 +40,7 @@ h1 {
     width: 30em;
     display: block;
     text-align: center;
+    vertical-align: 
     color: black;
     background-color: lavender;
 }

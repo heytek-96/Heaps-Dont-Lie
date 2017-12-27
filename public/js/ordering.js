@@ -32,7 +32,6 @@ Vue.component('ingredient', {
     computed: {
         anyleft: function() { //Nu funkar det att ingredienser försvinner när dom är slut, men jag vet inte vad som händer om lagret fylls på /P
             if (typeof vm === 'undefined') { 
-                console.log(vm);
                 return true;
             } else {
                 return (vm.ingredients[vm.ingredients.indexOf(this.item)].stock > 0)
@@ -45,7 +44,6 @@ Vue.component('ingredient', {
     methods: {
         checkboxEvent: function () { //Om ni lägger till något här som inte funkar kan det vara ordningen som är fel. /P
             /* Varje gång den osynliga checkboxen ändras sker detta. Det går också att köra funktionen rakt av. */
-            console.log((vm.ingredients[vm.ingredients.indexOf(this.item)].stock > 0));
             if (this.checkboxstate) {
                 this.checkboxstate = false;
                 document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color:aliceblue;");
