@@ -10,7 +10,7 @@ var maxIngredList = {small: 2,
                     medium: 3,
                     large: 4};
 
-// Det här var lite slitigt att få till men det är alltså labelelementet som är klickbart. Och customid är unikt för varje ingrediens så sök inte på det.
+// Det här var lite slitigt att få till men det är alltså labelelementet som är klickbart. Och customid är unikt för varje ingrediens, men det finns exempel i funktioner längre ner hur det går att komma åt specefika element. /P
 Vue.component('ingredient', {
     props: ['item', 'type', 'customid'],
     template: '<div class=ingred>\
@@ -271,7 +271,7 @@ var vm = new Vue({
             this.payShown = false;
             this.sizeShown = true;
         },
-        showIngredients: function () {
+        showIngredients: function () { //Effekterna av size sker nu i selectSize istället /P
             this.startShown = false;
             this.customizeShown = false;
             this.extrasShown = false;
