@@ -289,6 +289,7 @@ var vm = new Vue({
             this.ingredientsShown = false;
             this.customizeShown = true;
             this.customizeHasBeenShown = true;
+            this.createSlider();
         },
         showExtras: function () {
             this.startShown = false;
@@ -322,13 +323,62 @@ var vm = new Vue({
 
         getUniqueId: function (key, magnitude) { //Löser problem med duplicate keys. Säg till om ni behöver använda detta så gör vi system.
             return key + (magnitude * 100);
+        },
+        createSlider: function(){
+            
+        var startArray= [];
+        var connectArray=[];
+            
+        for(var i=1; i<this.chosenIngredients.length; i++){
+            startArray.push(100*i/(this.chosenIngredients.length)); 
+        }    
+        for(var i=0; i<this.chosenIngredients.length; i++) {
+            connectArray.push(true);
+        } 
+        
+        console.log(startArray);
+        console.log(connectArray);    
+
+        var slider = document.getElementById('slider-color');
+
+        console.log(this.chosenIngredients);    
+        this.chosenIngredients.length    
+
+        noUiSlider.create(slider, {
+     
+        start: startArray,
+	    connect: connectArray,
+                          
+           
+        orientation: 'vertical',
+                margin: 10,
+                direction: 'rtl',
+       padding: 10,
+	    range: {
+		 'min': [  0 ],
+		 'max': [ 100 ]
+	   }
+            });
+
+            var connect = slider.querySelectorAll('.noUi-connect');
+            var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
+
+        for ( var i = 0; i < connect.length; i++ ) {
+        connect[i].classList.add(classes[i]);
         }
 
-    }
+        },
+        
+        destroySlider: function(){
+            this.slider.noUiSlider.destroy();
+        }
 
-});
 
+        }
 
+        });
+
+/*function createSlider(){
 
 var slider = document.getElementById('slider-color');
 
@@ -352,5 +402,9 @@ for ( var i = 0; i < connect.length; i++ ) {
     connect[i].classList.add(classes[i]);
 }
 
-console.log(slider.noUiSlider.get()); 
+}
+
+createSlider(); */
+
+//console.log(slider.noUiSlider.get()); 
 

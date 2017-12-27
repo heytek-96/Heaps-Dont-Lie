@@ -134,7 +134,7 @@ tr:hover {
 }
 
 
-#sliderContainer{
+#sliderPic{
   /*background-image:url(http://moziru.com/images/jar-clipart-8.png);*/
   background-repeat: no-repeat;
   background-position: center;
@@ -144,8 +144,10 @@ tr:hover {
 
 }
 
+
+
 #slider-color{
-  left: 355px;
+  left: 45px;
   height:280px;
   width: 180px;
   position:absolute;

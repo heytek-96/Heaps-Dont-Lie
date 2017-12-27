@@ -131,11 +131,14 @@
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Customize</h1>
             <div id=sliderContainer>
+                
+            <div id=sliderPic>
             
             <img src="http://moziru.com/images/jar-clipart-8.png" height= "400">
  
                 </div> 
             <div id=slider-color> </div> 
+            </div>    
             <button v-on:click="showIngredients()" class="backButton">Choose Ingredients</button>
             <button v-on:click="showExtras()" class="nextButton">Choose Extras</button>
 
@@ -171,7 +174,7 @@
             </div>
 
             <div>
-                <button v-on:click="showCustomize()" class="backButton">Customize</button>
+                <button v-on:click="showCustomize()"  class="backButton">Customize</button>
                 <button v-on:click="showOverview()" class="nextButton">Overview</button>
             </div>
 
