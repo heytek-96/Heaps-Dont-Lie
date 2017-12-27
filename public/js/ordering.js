@@ -326,5 +326,31 @@ var vm = new Vue({
 
     }
 
-
 });
+
+
+
+var slider = document.getElementById('slider-color');
+
+noUiSlider.create(slider, {
+	start: [33, 66],
+	connect: [true, true, true],
+  orientation: 'vertical',
+  margin: 20,
+  direction: 'rtl',
+  padding: 20,
+	range: {
+		'min': [  0 ],
+		'max': [ 100 ]
+	}
+});
+
+var connect = slider.querySelectorAll('.noUi-connect');
+var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
+
+for ( var i = 0; i < connect.length; i++ ) {
+    connect[i].classList.add(classes[i]);
+}
+
+console.log(slider.noUiSlider.get()); 
+

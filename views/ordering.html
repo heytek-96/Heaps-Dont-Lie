@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Juicifer Craft Beverages </title>
+     <link href="css/nouislider.min.css" rel="stylesheet">
+    <script src="js/nouislider.min.js" defer></script> 
     <link rel="stylesheet" href="css/juicifer.css">
     <script src="/vue/vue.js" defer></script>
     <script src="/socket.io/socket.io.js" defer></script>
@@ -124,9 +126,16 @@
                 <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button></div>
         </div>
 
-        <div class="composingOrder" v-if="customizeShown">
+        <div class="composingOrder" v-show="customizeShown">
+
             <button v-on:click="showStart()">Restart Order</button>
             <h1>Customize</h1>
+            <div id=sliderContainer>
+            
+            <img src="http://moziru.com/images/jar-clipart-8.png" height= "400">
+ 
+                </div> 
+            <div id=slider-color> </div> 
             <button v-on:click="showIngredients()" class="backButton">Choose Ingredients</button>
             <button v-on:click="showExtras()" class="nextButton">Choose Extras</button>
 

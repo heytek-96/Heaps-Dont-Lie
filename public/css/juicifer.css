@@ -133,22 +133,29 @@ tr:hover {
     background-color: lightcoral;
 }
 
-.c-1-color {
-    background: red;
+
+#sliderContainer{
+  /*background-image:url(http://moziru.com/images/jar-clipart-8.png);*/
+  background-repeat: no-repeat;
+  background-position: center;
+  height:400px;
+  position:relative;
+  z-index: 0;
+
 }
 
-.c-2-color {
-    background: yellow;
-}
+#slider-color{
+  left: 355px;
+  height:280px;
+  width: 180px;
+  position:absolute;
+  top:230px;
+  z-index:1;
+  }
 
-.c-3-color {
-    background: green;
-}
+.c-1-color { background: red; }
+.c-2-color { background: yellow; }
+.c-3-color { background: green; }
+.c-4-color { background: blue; }
+.c-5-color { background: purple; }
 
-.c-4-color {
-    background: blue;
-}
-
-.c-5-color {
-    background: purple;
-}

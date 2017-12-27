@@ -76,7 +76,7 @@
 .noUi-vertical .noUi-handle {
   width: 28px;
   height: 34px;
-  left: -6px;
+  left: -6px; 
   top: -17px;
 }
 /* Styling;
@@ -132,7 +132,7 @@
 .noUi-vertical .noUi-handle:after {
   width: 14px;
   height: 1px;
-  left: 6px;
+  left: 6px;    
   top: 14px;
 }
 .noUi-vertical .noUi-handle:after {
@@ -258,3 +258,4 @@
   top: 50%;
   right: 120%;
 }
+
