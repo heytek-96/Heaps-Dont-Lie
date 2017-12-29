@@ -41,7 +41,7 @@ h1 {
     width: 30em;
     display: block;
     text-align: center;
-    vertical-align: 
+    vertical-align:
     color: black;
     background-color: lavender;
 }
@@ -167,3 +167,33 @@ tr:hover {
 .c-4-color { background: blue; }
 .c-5-color { background: purple; }
 
+/* Popup */
+.popup {
+   position: relative;
+   display: inline-block;
+   width: 20px;
+   margin-left: 400px;
+   border: solid pink;
+   border-width:medium;
+   background-color: pink;
+   text-align: center;
+   border-radius: 6px;
+}
+
+/* Popup-text */
+.popup .popuptext {
+   visibility: hidden;
+   background-color: #555;
+   color: #fff;
+   text-align: center;
+   border-radius: 6px;
+   padding: 8px 8px;
+   margin: auto;
+   position: absolute;
+   right: 100%;
+
+}
+
+.popup .show {
+   visibility: visible;
+}

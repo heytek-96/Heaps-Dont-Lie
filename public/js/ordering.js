@@ -50,7 +50,7 @@ Vue.component('ingredient', {
             if (this.checkboxstate) {
                 this.checkboxstate = false;
                 document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color:aliceblue;");
-                //Verkar som att eventuell styling bör ske innan emit. 
+                //Verkar som att eventuell styling bör ske innan emit.
                 this.$emit('checkbox-untick');
             } else {
                 this.checkboxstate = true;
@@ -68,7 +68,14 @@ Vue.component('ingredient', {
 
 });
 
-
+function helpSize() {
+    var popup = document.getElementById("helpSize");
+    popup.classList.toggle("show");
+}
+function helpIngred() {
+    var popup = document.getElementById("helpIngred");
+    popup.classList.toggle("show");
+}
 
 
 function getRandomInt(min, max) {
@@ -148,7 +155,7 @@ var vm = new Vue({
         },
 
         replaceChoice: function (type) {
-            //* Tar bort det gamla valet. Själva ersättandet sker dock först när nästa item läggs till i funktionen ovan. 
+            //* Tar bort det gamla valet. Själva ersättandet sker dock först när nästa item läggs till i funktionen ovan.
             var oldChoice;
             var chosenOld;
             if (type === "base") {
