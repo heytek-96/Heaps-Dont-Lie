@@ -20,7 +20,7 @@ Vue.component('ingredient', {
     template: '<div class=ingred v-show="anyleft">\
   <label :class="customid" :for="id" style="display: block;">\
   <input :class="customid" :id="id" type="checkbox" @change="checkboxEvent(this.checkboxstate)" :checked="checkboxstate">\
-  <p>{{item["ingredient_en"]}}</p>\
+  <p>{{item["ingredient_en"]}}{{amountleft}}</p>\
   </label>\
   </div>',
     data: function () {
@@ -30,12 +30,15 @@ Vue.component('ingredient', {
         }
     },
     computed: {
-        anyleft: function() { //Nu funkar det att ingredienser försvinner när dom är slut, men jag vet inte vad som händer om lagret fylls på /P
-            if (typeof vm === 'undefined') { 
+        anyleft: function () { //Nu funkar det att ingredienser försvinner när dom är slut, men jag vet inte vad som händer om lagret fylls på /P
+            if (typeof vm === 'undefined' || true) {
                 return true;
             } else {
                 return (vm.ingredients[vm.ingredients.indexOf(this.item)].stock > 0)
             }
+        },
+        amountleft: function () {
+            return vm.ingredients[vm.ingredients.indexOf(this.item)].stock;
         }
     },
     mounted: function () {
@@ -107,6 +110,17 @@ var vm = new Vue({
         payShown: false
     },
     methods: {
+
+        checkIngredientsLeft: function () {
+            for (var i = 0; i < this.chosenIngredients.length; i++) {
+                if (this.noneleft.indexOf(this.chosenIngredients[i]) > -1) {
+                    alert('We just ran out of some of your selected ingredients, please start over!');
+                    this.showStart();
+                    return false;
+                }
+            }
+            return true;
+        },
 
         selectSize: function (size) {
             /*   Justerar antagligen inte priset på rätt sätt om en boost/topping är vald.   */
@@ -206,27 +220,31 @@ var vm = new Vue({
                 this.priceTot += 10;
             }
         },
-        placeOrder: function () { //Småfixar /P
-            var order = {
-                ingredients: this.chosenIngredients,
-                volume: this.volume,
-                type: this.type,
-                price: this.price,
-                priceTot: this.priceTot,
-                size: this.size,
-                chosenBase: this.chosenBase,
-                chosenTopping: this.chosenTopping,
-                chosenBoost: this.chosenBoost,
-                chosenFruitGreens: this.chosenFruitGreens
+        placeOrder: function () {
 
-            };
-            // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
-            socket.emit('order', {
-                orderId: getOrderNumber(),
-                order: order
-            });
-            this.resetIngredientSelection(); //Har inte fixat så att den hamnar på rätt sida.
-            this.showIngredients();
+            if (this.checkIngredientsLeft()) { //Kollar att allt finns kvar. Kör den här för tillfället.
+
+                var order = {
+                    ingredients: this.chosenIngredients,
+                    volume: this.volume,
+                    type: this.type,
+                    price: this.price,
+                    priceTot: this.priceTot,
+                    size: this.size,
+                    chosenBase: this.chosenBase,
+                    chosenTopping: this.chosenTopping,
+                    chosenBoost: this.chosenBoost,
+                    chosenFruitGreens: this.chosenFruitGreens
+
+                };
+                // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
+                socket.emit('order', {
+                    orderId: getOrderNumber(),
+                    order: order
+                });
+                this.resetIngredientSelection();
+                this.showIngredients();
+            }
         },
 
         resetIngredientSelection: function () {
@@ -239,11 +257,11 @@ var vm = new Vue({
             this.price = 0;
             this.priceTot = 0;
             this.type = '';
-            this.chosenIngredients = [];
-            this.chosenBase = '';
-            this.chosenTopping = '';
-            this.chosenBoost = '';
-            this.chosenFruitGreens = [];
+            // this.chosenIngredients = [];
+            // this.chosenBase = '';
+            //  this.chosenTopping = '';
+            //  this.chosenBoost = '';
+            // this.chosenFruitGreens = [];
 
             this.extraHasBeenShown = false;
             this.customizeHasBeenShown = false;
@@ -255,9 +273,10 @@ var vm = new Vue({
 
         },
 
+
+
         showStart: function () {
             //Resettar förhoppningsvis fortfarande allting /Patrik
-
             this.resetIngredientSelection();
             this.size = '';
             this.maxIngred = 0;
@@ -337,59 +356,59 @@ var vm = new Vue({
         getUniqueId: function (key, magnitude) { //Löser problem med duplicate keys. Säg till om ni behöver använda detta så gör vi system.
             return key + (magnitude * 100);
         },
-        createSlider: function(){
-            
-        var startArray= [];
-        var connectArray=[];
-            
-        for(var i=1; i<this.chosenIngredients.length; i++){
-            startArray.push(100*i/(this.chosenIngredients.length)); 
-        }    
-        for(var i=0; i<this.chosenIngredients.length; i++) {
-            connectArray.push(true);
-        } 
-        
-        console.log(startArray);
-        console.log(connectArray);    
+        createSlider: function () {
 
-        var slider = document.getElementById('slider-color');
+            var startArray = [];
+            var connectArray = [];
 
-        console.log(this.chosenIngredients);    
-        this.chosenIngredients.length    
+            for (var i = 1; i < this.chosenIngredients.length; i++) {
+                startArray.push(100 * i / (this.chosenIngredients.length));
+            }
+            for (var i = 0; i < this.chosenIngredients.length; i++) {
+                connectArray.push(true);
+            }
 
-        noUiSlider.create(slider, {
-     
-        start: startArray,
-	    connect: connectArray,
-                          
-           
-        orientation: 'vertical',
+            console.log(startArray);
+            console.log(connectArray);
+
+            var slider = document.getElementById('slider-color');
+
+            console.log(this.chosenIngredients);
+            this.chosenIngredients.length
+
+            noUiSlider.create(slider, {
+
+                start: startArray,
+                connect: connectArray,
+
+
+                orientation: 'vertical',
                 margin: 10,
                 direction: 'rtl',
-       padding: 10,
-	    range: {
-		 'min': [  0 ],
-		 'max': [ 100 ]
-	   }
+                padding: 10,
+                range: {
+                    'min': [0],
+                    'max': [100]
+                }
             });
 
             var connect = slider.querySelectorAll('.noUi-connect');
             var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
 
-        for ( var i = 0; i < connect.length; i++ ) {
-        connect[i].classList.add(classes[i]);
-        }
+            for (var i = 0; i < connect.length; i++) {
+                connect[i].classList.add(classes[i]);
+            }
 
         },
-        
-        destroySlider: function(){
+
+        destroySlider: function () {
             this.slider.noUiSlider.destroy();
         }
 
 
-        }
+    }
 
-        });
+});
 
 /*function createSlider(){
 
@@ -418,5 +437,4 @@ for (var i = 0; i < connect.length; i++) {
 
 createSlider(); */
 
-//console.log(slider.noUiSlider.get()); 
-
+//console.log(slider.noUiSlider.get());

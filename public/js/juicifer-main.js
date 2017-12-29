@@ -16,7 +16,8 @@ var sharedVueStuff = {
         orders: {},
         uiLabels: {},
         ingredients: {},
-        lang: "en"
+        lang: "en",
+        noneleft: []
     },
     created: function () {
         socket.on('initialize', function (data) {
@@ -33,7 +34,11 @@ var sharedVueStuff = {
             this.orders = data.orders;
             if (typeof data.ingredients !== 'undefined') {
                 this.ingredients = data.ingredients;
+                this.noneleft = this.ingredients.filter(function (obj) {
+                    return obj.stock < 1;
+                });
             }
+
         }.bind(this));
     },
     methods: {

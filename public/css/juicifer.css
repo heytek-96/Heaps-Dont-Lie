@@ -33,10 +33,11 @@ h1 {
 }
 
 .sizeButtons label {
-    /* Tål nog inte resize av fönster */
     border: 2px solid black;
     margin-bottom: 2px;
+    min-height: 10em;
     height: 10em;
+    min-width: 30em;
     width: 30em;
     display: block;
     text-align: center;
@@ -69,14 +70,17 @@ h1 {
     /* Själva lådorna som ingrediensknapparna ligger i */
     border: 1px solid #cdc;
     padding: 0px;
-    width: 30vh;
+    min-width: 15em;
+    width: 15em;
+    min-height: 3em;
+    height: 3em;
     margin-bottom: 0px;
-    height: 4vh;
 }
 
 .ingred label {
     /* Ingrediensknapparna */
     height: 100%;
+    width: 100%;
     display: block;
     background-color: aliceblue;
 }
