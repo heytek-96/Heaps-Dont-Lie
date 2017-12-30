@@ -87,7 +87,7 @@ h1 {
 
 .ingred input {
     /* Osynlig checkbox i ingrediensknapparna */
-    opacity: 1;
+    opacity: 0;
     position: absolute;
 }
 
