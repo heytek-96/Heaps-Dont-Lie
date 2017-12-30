@@ -60,7 +60,6 @@
                 <tr>
                     <th> Order no</th>
                     <th> Size</th>
-                    <th> Type</th>
                     <th> Ingredients</th>
                     <th> Done</th>
                     <th> Cancel</th>
@@ -72,7 +71,6 @@
                 <tr v-for= "(order, key) in orders" v-if="!order.done">
                     <td> {{ key }}</td>
                     <td> {{order.size}}</td>
-                    <td> {{order.type}}</td>
                     <td>
                         <ol>
 
@@ -114,7 +112,6 @@
       <div v-if="showNextOrder && countOrders()!=0" >
 
        nästa order: {{ nextOrderToPrepare().orderId }} <br>
-       orderType: {{ nextOrderToPrepare().order.type }} <br>
        Size: {{nextOrderToPrepare().order.size}} <br>
        Base: {{nextOrderToPrepare().order.chosenBase}} <br>
        Fruit/Greens: {{nextOrderToPrepare().order.chosenFruitGreens.map(item => item["ingredient_en"]).join(', ')}} <br>
@@ -147,7 +144,7 @@
 
     </div>
       
-   <div id=slider-color> </div> 
+<div id=slider-color> </div> 
       
 
   </div>

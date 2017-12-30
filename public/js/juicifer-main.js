@@ -7,7 +7,7 @@ var socket = io();
 
 Vue.component('order-item', {
     props: ['uiLabels', 'order', 'orderId', 'lang'],
-    template: '<div>{{orderId}} {{order.type}} {{uiLabels.ingredients}}: {{ order.ingredients.map(item=>item["ingredient_"+ lang]).join(", ") }} </div>'
+    template: '<div>{{orderId}}  {{uiLabels.ingredients}}: {{ order.ingredients.map(item=>item["ingredient_"+ lang]).join(", ") }} </div>'
 });
 
 // Stuff that is used both in the ordering system and in the kitchen
