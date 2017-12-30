@@ -30,8 +30,8 @@ Vue.component('ingredient', {
         }
     },
     computed: {
-        anyleft: function () { //Nu funkar det att ingredienser försvinner när dom är slut, men jag vet inte vad som händer om lagret fylls på /P
-            if (typeof vm === 'undefined' || true) {
+        anyleft: function () { //Ingredienser försvinner om dom är slut /P
+            if (typeof vm === 'undefined') {
                 return true;
             } else {
                 return (vm.ingredients[vm.ingredients.indexOf(this.item)].stock > 0)
@@ -118,11 +118,21 @@ var vm = new Vue({
     },
     methods: {
 
+        customIndexOf: function (nameStr, ingArray) {
+            for (var i = 0; i < ingArray.length; i++) {
+                if (nameStr === ingArray[i].ingredient_en) {
+                    return i;
+                }
+            }
+            return -1;
+        },
+
         checkIngredientsLeft: function () {
             for (var i = 0; i < this.chosenIngredients.length; i++) {
-                if (this.noneleft.indexOf(this.chosenIngredients[i]) > -1) {
-                    alert('We just ran out of some of your selected ingredients, please start over!');
-                    this.showStart();
+                var itemName = this.chosenIngredients[i].ingredient_en;
+                if (this.noneleft.find(function (obj) {
+                        return obj.ingredient_en === itemName
+                    })) {
                     return false;
                 }
             }
@@ -189,7 +199,7 @@ var vm = new Vue({
 
         removeFromOrder: function (item, type) {
             /* Gör som namnet antyder */
-            var index = this.chosenIngredients.indexOf(item);
+            var index = this.customIndexOf(item.ingredient_en, this.chosenIngredients);
             if (index > -1) {
                 this.chosenIngredients.splice(index, 1);
 
@@ -202,7 +212,7 @@ var vm = new Vue({
                     this.chosenTopping = "";
                     this.priceTot -= 10;
                 } else if (type === "fruit" || type === "green") {
-                    var index = this.chosenFruitGreens.indexOf(item);
+                    var index = this.customIndexOf(item.ingredient_en, this.chosenFruitGreens);
                     if (index > -1) {
                         this.chosenFruitGreens.splice(index, 1);
                     }
@@ -228,30 +238,38 @@ var vm = new Vue({
             }
         },
         placeOrder: function () {
+            if (this.chosenIngredients.length > 0) {
+                var valid = this.checkIngredientsLeft();
+                if (valid) { //Kollar att allt finns kvar. Kör den här för tillfället.
 
-            if (this.checkIngredientsLeft()) { //Kollar att allt finns kvar. Kör den här för tillfället.
+                    var order = {
+                        ingredients: this.chosenIngredients,
+                        volume: this.volume,
+                        type: this.type,
+                        price: this.price,
+                        priceTot: this.priceTot,
+                        size: this.size,
+                        chosenBase: this.chosenBase,
+                        chosenTopping: this.chosenTopping,
+                        chosenBoost: this.chosenBoost,
+                        chosenFruitGreens: this.chosenFruitGreens
 
-                var order = {
-                    ingredients: this.chosenIngredients,
-                    volume: this.volume,
-                    type: this.type,
-                    price: this.price,
-                    priceTot: this.priceTot,
-                    size: this.size,
-                    chosenBase: this.chosenBase,
-                    chosenTopping: this.chosenTopping,
-                    chosenBoost: this.chosenBoost,
-                    chosenFruitGreens: this.chosenFruitGreens
-
-                };
-                // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
-                socket.emit('order', {
-                    orderId: getOrderNumber(),
-                    order: order
-                });
-                this.resetIngredientSelection();
-                this.showIngredients();
+                    };
+                    // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
+                    socket.emit('order', {
+                        orderId: getOrderNumber(),
+                        order: order
+                    });
+                    this.resetIngredientSelection();
+                    this.showIngredients();
+                } else {
+                    alert('We just ran out of some of your selected ingredients, please start over!');
+                    this.showStart();
+                }
+            } else {
+                alert('pls select something');
             }
+            
         },
 
         resetIngredientSelection: function () {
@@ -264,7 +282,7 @@ var vm = new Vue({
             this.price = 0;
             this.priceTot = 0;
             this.type = '';
-            // this.chosenIngredients = [];
+            // this.chosenIngredients = []; Tror detta redan körs eftersom allt avmarkeras. Om ni får märkliga buggar med ingrediensvalen kan det vara värt att testa att köra dessa rader.
             // this.chosenBase = '';
             //  this.chosenTopping = '';
             //  this.chosenBoost = '';
