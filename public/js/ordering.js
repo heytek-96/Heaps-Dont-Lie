@@ -67,13 +67,25 @@ Vue.component('ingredient', {
     }
 
 });
-
+//Help buttons
 function helpSize() {
     var popup = document.getElementById("helpSize");
     popup.classList.toggle("show");
 }
 function helpIngred() {
     var popup = document.getElementById("helpIngred");
+    popup.classList.toggle("show");
+}
+function helpCustomize() {
+    var popup = document.getElementById("helpCustomize");
+    popup.classList.toggle("show");
+}
+function helpExtras() {
+    var popup = document.getElementById("helpExtras");
+    popup.classList.toggle("show");
+}
+function helpOverview() {
+    var popup = document.getElementById("helpOverview");
     popup.classList.toggle("show");
 }
 
@@ -269,7 +281,7 @@ var vm = new Vue({
             } else {
                 alert('pls select something');
             }
-            
+
         },
 
         resetIngredientSelection: function () {

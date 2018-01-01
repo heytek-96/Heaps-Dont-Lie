@@ -30,7 +30,7 @@
     <div v-if="sizeShown">
       <button v-on:click="showStart()">Restart Order</button>
       <div class="popup" onclick="helpSize()">?
-        <span class="popuptext" id="helpSize">Choose the size that you want if you're ready for it but if you're not, that's okay<br><br> Tap to continue</span>
+        <span class="popuptext" id="helpSize">Choose the size that you would like for your beverage. <br><br>Size Small permits max 2 fruits/greens, size Medium permits max 3 fruits/greens and size Large permits max 4 fruit/greens. <br>All sizes also permits 1 base ingredient and the opportunity to add 1 topping and 1 boost.<br><br> Tap here to continue</span>
       </div>
       <h1>Select Size</h1>
       <div class="sizeButtons">
@@ -87,7 +87,7 @@
       <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
       <button v-on:click="showStart()">Restart Order</button>
       <div class="popup" onclick="helpIngred()">?
-        <span class="popuptext" id="helpIngred">Choose a base and thereafter choose max {{maxIngred}} fruit/greens if you want<br><br>Tap to continue</span>
+        <span class="popuptext" id="helpIngred">Choose a base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>If you would like to add more than {{maxIngred}} fruits or greens, you can change the size of your beverage by going back using the navigation arrows at the bottom of the page.<br><br>Tap here to continue</span>
       </div>
       <h1>Ingredients</h1>
       <p>Select 1 base and max {{maxIngred}} fruit/greens</p><br>
@@ -135,6 +135,9 @@
       <div class="composingOrder" v-show="customizeShown">
 
         <button v-on:click="showStart()">Restart Order</button>
+        <div class="popup" onclick="helpCustomize()">?
+          <span class="popuptext" id="helpCustomize">On this page you can choose proportions of your fruits and greens by dragging the sliders. <br><br> Tap here to continue</span>
+        </div>
         <h1>Customize</h1>
         <div id=sliderContainer>
 
@@ -160,6 +163,9 @@
         <div class="composingOrder" v-show="extrasShown">
           <!-- Samma här som ovan, v-show istället för v-if -->
           <button v-on:click="showStart()">Restart Order</button>
+          <div class="popup" onclick="helpExtras()">?
+            <span class="popuptext" id="helpExtras">Add a boost and/or a topping to your beverage for an additional cost. A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage. <br><br>You can add maximum one boost and one topping. <br><br> Tap here to continue</span>
+          </div>
           <h1>Extras</h1>
 
           <!-- Samma sorts knappar som övriga ingredienser -->
@@ -196,6 +202,9 @@
 
         <div v-if="overviewShown">
           <button v-on:click="showStart()">Restart Order</button>
+          <div class="popup" onclick="helpOverview()">?
+            <span class="popuptext" id="helpOverview">Here is an overview of your order. If you would like to change anything, you can go back using the navigation bar in the bottom of this page.<br><br>Click on "Pay n Shake" to send your order to the kitchen. <br><br> Tap here to continue</span>
+          </div>
           <h1>Your Order</h1>
           <p>Base: {{ chosenBase }}</p>
           <p>Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}</p>
