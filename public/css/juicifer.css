@@ -19,6 +19,7 @@ h1 {
     color: #3a3e63;
     text-transform: uppercase;
     letter-spacing: 2pt;
+    width: 50%;
 }
 
 .composingOrder {

@@ -23,218 +23,219 @@
 
 
     <div v-if="startShown">
-      <h1>Welcome to Juicifer Craft Beverages!</h1>
-      <button v-on:click="showSize()">Start</button>
-    </div>
-
-    <div v-if="sizeShown">
-      <button v-on:click="showStart()">Restart Order</button>
-      <div class="popup" onclick="helpSize()">?
-        <span class="popuptext" id="helpSize">Choose the size that you would like for your beverage. <br><br>Size Small permits max 2 fruits/greens, size Medium permits max 3 fruits/greens and size Large permits max 4 fruit/greens. <br>All sizes also permits 1 base ingredient and the opportunity to add 1 topping and 1 boost.<br><br> Tap here to continue</span>
-      </div>
-      <h1>Select Size</h1>
-      <div class="sizeButtons">
-        <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
-        <label for="small">
-          <input type="button" id="small" v-on:click="selectSize('small')"><p>Small</p>
-        </label>
-        <label for="medium">
-          <input type="button" id="medium" v-on:click="selectSize('medium')"><p>Medium</p>
-        </label>
-        <label for="large">
-          <input type="button" id="large" v-on:click="selectSize('large')"><p>Large</p>
-        </label>
-      </div>
-      <p>Your choice: {{size}}</p>
-
-      <div>
-        <button v-on:click="showStart()" class="backButton">Homepage</button>
-        <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton">Choose Ingredients</button>
+      <h2>Fresh juices and smoothies from<h2>
+        <h1>Juicifer</h1>
+        <button v-on:click="showSize()">Start your order</button>
       </div>
 
-      <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
-      <div class="navBar">
-        <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-        <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-        <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
-        <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
-        <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
-      </div>
-
-    </div>
-
-    <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
-      <h1>{{ uiLabels.order }}</h1>
-      Size: {{ size }}<br> Base: {{ chosenBase }}<br> Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}<br>
-      <!-- Nedan kan säkert göras snyggare men funkar for now //CE-->
-      <div v-if="extraHasBeenShown">
-        Topping: {{chosenTopping}}, Boost: {{chosenBoost}}<br>
-      </div>
-      Price: {{priceTot}}
-      <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
-      <br><br><br><br><br>
-
-      <h1>{{ uiLabels.ordersInQueue }}</h1>
-      <div>
-        <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
-        </order-item>
-      </div>
-
-
-    </div>
-
-    <div class="composingOrder" v-show="ingredientsShown">
-      <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
-      <button v-on:click="showStart()">Restart Order</button>
-      <div class="popup" onclick="helpIngred()">?
-        <span class="popuptext" id="helpIngred">Choose a base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>If you would like to add more than {{maxIngred}} fruits or greens, you can change the size of your beverage by going back using the navigation arrows at the bottom of the page.<br><br>Tap here to continue</span>
-      </div>
-      <h1>Ingredients</h1>
-      <p>Select 1 base and max {{maxIngred}} fruit/greens</p><br>
-
-      <!-- Här har vi ingredinsknapparna. Förutom hur dom genereras är det mesta annorlunda. Jag behövde läsa på om Vue.component för att öht fatta något. /P -->
-
-      <div class="ingredientBlock">
-        <h1>Base</h1>
-        <div class="ingredientList">
-          <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :customid="'base'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 1)">
-          </ingredient>
-        </div>
-      </div>
-      <div class="ingredientBlock">
-        <h1>Fruits</h1>
-        <div class="ingredientList">
-          <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :customid="'fruit'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 2)">
-          </ingredient>
-        </div>
-      </div>
-      <div class="ingredientBlock">
-        <h1>Greens</h1>
-        <div class="ingredientList">
-          <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :customid="'green'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 3)">
-          </ingredient>
-        </div>
-      </div>
-
-
-
-
-      <div>
-        <button v-on:click="showSize()" class="backButton">Select Size</button>
-        <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton">Customize</button>
-      </div>
-
-      <div class="navBar">
-        <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-        <button v-on:click="showIngredients()" disabled class="activePageButton">Ingredients</button>
-        <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
-        <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
-        <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button></div>
-      </div>
-
-      <div class="composingOrder" v-show="customizeShown">
-
+      <div v-if="sizeShown">
         <button v-on:click="showStart()">Restart Order</button>
-        <div class="popup" onclick="helpCustomize()">?
-          <span class="popuptext" id="helpCustomize">On this page you can choose proportions of your fruits and greens by dragging the sliders. <br><br> Tap here to continue</span>
+        <div class="popup" onclick="helpSize()">?
+          <span class="popuptext" id="helpSize">Choose the size that you would like for your beverage. <br><br>Size Small permits max 2 fruits/greens, size Medium permits max 3 fruits/greens and size Large permits max 4 fruit/greens. <br>All sizes also permits 1 base ingredient and the opportunity to add 1 topping and 1 boost.<br><br> Tap here to continue</span>
         </div>
-        <h1>Customize</h1>
-        <div id=sliderContainer>
-
-          <div id=sliderPic>
-
-            <img src="http://moziru.com/images/jar-clipart-8.png" height= "400">
-
-          </div>
-          <div id=slider-color> </div>
+        <h1>Select Size</h1>
+        <div class="sizeButtons">
+          <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
+          <label for="small">
+            <input type="button" id="small" v-on:click="selectSize('small')"><p>Small</p>
+          </label>
+          <label for="medium">
+            <input type="button" id="medium" v-on:click="selectSize('medium')"><p>Medium</p>
+          </label>
+          <label for="large">
+            <input type="button" id="large" v-on:click="selectSize('large')"><p>Large</p>
+          </label>
         </div>
-        <button v-on:click="showIngredients()" class="backButton">Choose Ingredients</button>
-        <button v-on:click="showExtras()" class="nextButton">Choose Extras</button>
+        <p>Your choice: {{size}}</p>
 
+        <div>
+          <button v-on:click="showStart()" class="backButton">Homepage</button>
+          <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton">Choose Ingredients</button>
+        </div>
+
+        <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
         <div class="navBar">
           <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
           <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-          <button v-on:click="showCustomize()" disabled class="activePageButton">Customize</button>
+          <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
           <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
-          <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button></div>
-
+          <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
         </div>
 
-        <div class="composingOrder" v-show="extrasShown">
-          <!-- Samma här som ovan, v-show istället för v-if -->
-          <button v-on:click="showStart()">Restart Order</button>
-          <div class="popup" onclick="helpExtras()">?
-            <span class="popuptext" id="helpExtras">Add a boost and/or a topping to your beverage for an additional cost. A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage. <br><br>You can add maximum one boost and one topping. <br><br> Tap here to continue</span>
-          </div>
-          <h1>Extras</h1>
+      </div>
 
-          <!-- Samma sorts knappar som övriga ingredienser -->
-          <div class="ingredientBlock">
-            <h1>Boosts</h1>
-            <div class="ingredientList">
-              <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'boost')" v-on:checkbox-untick="removeFromOrder(item, 'boost')" :item="item" :customid="'boost'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 4)">
-              </ingredient>
-            </div>
-          </div>
-
-          <div class="ingredientBlock">
-            <h1>Toppings</h1>
-            <div class="ingredientList">
-              <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'topping')" v-on:checkbox-untick="removeFromOrder(item, 'topping')" :item="item" :customid="'topping'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 5)">
-              </ingredient>
-            </div>
-          </div>
-
-          <div>
-            <button v-on:click="showCustomize()"  class="backButton">Customize</button>
-            <button v-on:click="showOverview()" class="nextButton">Overview</button>
-          </div>
-
-          <div class="navBar">
-            <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-            <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-            <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
-            <button v-on:click="showExtras()" disabled class="activePageButton">Extras</button>
-            <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
-          </div>
-
+      <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
+        <h1>{{ uiLabels.order }}</h1>
+        Size: {{ size }}<br> Base: {{ chosenBase }}<br> Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}<br>
+        <!-- Nedan kan säkert göras snyggare men funkar for now //CE-->
+        <div v-if="extraHasBeenShown">
+          Topping: {{chosenTopping}}, Boost: {{chosenBoost}}<br>
         </div>
+        Price: {{priceTot}}
+        <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+        <br><br><br><br><br>
 
-        <div v-if="overviewShown">
-          <button v-on:click="showStart()">Restart Order</button>
-          <div class="popup" onclick="helpOverview()">?
-            <span class="popuptext" id="helpOverview">Here is an overview of your order. If you would like to change anything, you can go back using the navigation bar in the bottom of this page.<br><br>Click on "Pay n Shake" to send your order to the kitchen. <br><br> Tap here to continue</span>
-          </div>
-          <h1>Your Order</h1>
-          <p>Base: {{ chosenBase }}</p>
-          <p>Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}</p>
-          <p>Topping: {{ chosenTopping }}</p>
-          <p>Boost: {{ chosenBoost }}</p>
-          <p>Price: {{priceTot}} kr</p>
-          <button v-on:click="showExtras()" class="backButton">Choose Extras</button>
-          <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
-
-          <div class="navBar">
-            <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
-            <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-            <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
-            <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
-            <button v-on:click="showOverview()" disabled class="activePageButton">Overview</button>
-
-          </div>
-        </div>
-
-        <div v-if="payShown">
-          <button v-on:click="showStart()">Restart Order</button>
-          <h1>Thanks!</h1>
-          <button v-on:click="showStart()">Go back to start </button>
+        <h1>{{ uiLabels.ordersInQueue }}</h1>
+        <div>
+          <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+          </order-item>
         </div>
 
 
       </div>
 
+      <div class="composingOrder" v-show="ingredientsShown">
+        <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
+        <button v-on:click="showStart()">Restart Order</button>
+        <div class="popup" onclick="helpIngred()">?
+          <span class="popuptext" id="helpIngred">Choose a base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>If you would like to add more than {{maxIngred}} fruits or greens, you can change the size of your beverage by going back using the navigation arrows at the bottom of the page.<br><br>Tap here to continue</span>
+        </div>
+        <h1>Ingredients</h1>
+        <p>Select 1 base and max {{maxIngred}} fruit/greens</p><br>
+
+        <!-- Här har vi ingredinsknapparna. Förutom hur dom genereras är det mesta annorlunda. Jag behövde läsa på om Vue.component för att öht fatta något. /P -->
+
+        <div class="ingredientBlock">
+          <h1>Base</h1>
+          <div class="ingredientList">
+            <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :customid="'base'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 1)">
+            </ingredient>
+          </div>
+        </div>
+        <div class="ingredientBlock">
+          <h1>Fruits</h1>
+          <div class="ingredientList">
+            <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :customid="'fruit'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 2)">
+            </ingredient>
+          </div>
+        </div>
+        <div class="ingredientBlock">
+          <h1>Greens</h1>
+          <div class="ingredientList">
+            <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :customid="'green'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 3)">
+            </ingredient>
+          </div>
+        </div>
 
 
-    </body>
 
-    </html>
+
+        <div>
+          <button v-on:click="showSize()" class="backButton">Select Size</button>
+          <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton">Customize</button>
+        </div>
+
+        <div class="navBar">
+          <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+          <button v-on:click="showIngredients()" disabled class="activePageButton">Ingredients</button>
+          <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
+          <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
+          <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button></div>
+        </div>
+
+        <div class="composingOrder" v-show="customizeShown">
+
+          <button v-on:click="showStart()">Restart Order</button>
+          <div class="popup" onclick="helpCustomize()">?
+            <span class="popuptext" id="helpCustomize">On this page you can choose proportions of your fruits and greens by dragging the sliders. <br><br> Tap here to continue</span>
+          </div>
+          <h1>Customize</h1>
+          <div id=sliderContainer>
+
+            <div id=sliderPic>
+
+              <img src="http://moziru.com/images/jar-clipart-8.png" height= "400">
+
+            </div>
+            <div id=slider-color> </div>
+          </div>
+          <button v-on:click="showIngredients()" class="backButton">Choose Ingredients</button>
+          <button v-on:click="showExtras()" class="nextButton">Choose Extras</button>
+
+          <div class="navBar">
+            <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+            <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+            <button v-on:click="showCustomize()" disabled class="activePageButton">Customize</button>
+            <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
+            <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button></div>
+
+          </div>
+
+          <div class="composingOrder" v-show="extrasShown">
+            <!-- Samma här som ovan, v-show istället för v-if -->
+            <button v-on:click="showStart()">Restart Order</button>
+            <div class="popup" onclick="helpExtras()">?
+              <span class="popuptext" id="helpExtras">Add a boost and/or a topping to your beverage for an additional cost. A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage. <br><br>You can add maximum one boost and one topping. <br><br> Tap here to continue</span>
+            </div>
+            <h1>Extras</h1>
+
+            <!-- Samma sorts knappar som övriga ingredienser -->
+            <div class="ingredientBlock">
+              <h1>Boosts</h1>
+              <div class="ingredientList">
+                <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'boost')" v-on:checkbox-untick="removeFromOrder(item, 'boost')" :item="item" :customid="'boost'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 4)">
+                </ingredient>
+              </div>
+            </div>
+
+            <div class="ingredientBlock">
+              <h1>Toppings</h1>
+              <div class="ingredientList">
+                <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'topping')" v-on:checkbox-untick="removeFromOrder(item, 'topping')" :item="item" :customid="'topping'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 5)">
+                </ingredient>
+              </div>
+            </div>
+
+            <div>
+              <button v-on:click="showCustomize()"  class="backButton">Customize</button>
+              <button v-on:click="showOverview()" class="nextButton">Overview</button>
+            </div>
+
+            <div class="navBar">
+              <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+              <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+              <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
+              <button v-on:click="showExtras()" disabled class="activePageButton">Extras</button>
+              <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
+            </div>
+
+          </div>
+
+          <div v-if="overviewShown">
+            <button v-on:click="showStart()">Restart Order</button>
+            <div class="popup" onclick="helpOverview()">?
+              <span class="popuptext" id="helpOverview">Here is an overview of your order. If you would like to change anything, you can go back using the navigation bar in the bottom of this page.<br><br>Click on "Pay n Shake" to send your order to the kitchen. <br><br> Tap here to continue</span>
+            </div>
+            <h1>Your Order</h1>
+            <p>Base: {{ chosenBase }}</p>
+            <p>Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}</p>
+            <p>Topping: {{ chosenTopping }}</p>
+            <p>Boost: {{ chosenBoost }}</p>
+            <p>Price: {{priceTot}} kr</p>
+            <button v-on:click="showExtras()" class="backButton">Choose Extras</button>
+            <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
+
+            <div class="navBar">
+              <button v-on:click="showSize()" :disabled="size.length < 1">Select Size</button>
+              <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
+              <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
+              <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
+              <button v-on:click="showOverview()" disabled class="activePageButton">Overview</button>
+
+            </div>
+          </div>
+
+          <div v-if="payShown">
+            <button v-on:click="showStart()">Restart Order</button>
+            <h1>Thanks!</h1>
+            <button v-on:click="showStart()">Go back to start </button>
+          </div>
+
+
+        </div>
+
+
+
+      </body>
+
+      </html>
