@@ -191,6 +191,7 @@ tr:hover {
 
 .navBar > button {
   /*CSS för navigation bar sätts här senare. exempel från egen idividuel lab */
+  width: 11em;
   padding-top: 2em;
   padding-bottom: 2em;
   padding-right: 7em;
@@ -199,6 +200,7 @@ tr:hover {
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/93/Red_Right_Arrow.png);
   background-size: contain;
   background-repeat: no-repeat;
+  font-size: 1em;
 
 }
 

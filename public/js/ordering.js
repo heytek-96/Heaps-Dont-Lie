@@ -317,9 +317,9 @@ var vm = new Vue({
 
         showStart: function () {
             //Resettar förhoppningsvis fortfarande allting /Patrik
-            
-            
-   
+
+
+
             this.resetIngredientSelection();
             this.size = '';
             this.maxIngred = 0;
@@ -338,8 +338,6 @@ var vm = new Vue({
         },
 
         showSize: function () {
-            
-
             this.getCurrentSliderArray();
             this.destroySlider();
             this.startShown = false;
@@ -351,7 +349,7 @@ var vm = new Vue({
             this.sizeShown = true;
         },
         showIngredients: function () { //Effekterna av size sker nu i selectSize istället /P
-            
+
             this.getCurrentSliderArray();
             this.destroySlider();
             this.startShown = false;
@@ -363,7 +361,7 @@ var vm = new Vue({
             this.ingredientsShown = true;
         },
         showCustomize: function () {
-            
+
             this.getCurrentSliderArray();
             this.destroySlider();
             this.startShown = false;
@@ -389,7 +387,7 @@ var vm = new Vue({
             this.destroySlider();
         },
         showOverview: function () {
-            
+
             this.getCurrentSliderArray();
             this.destroySlider();
             this.startShown = false;
@@ -400,7 +398,7 @@ var vm = new Vue({
             this.extrasShown = false;
             this.overviewShown = true;
             this.overviewHasBeenShown = true;
-            
+
         },
         showPay: function () {
             this.getCurrentSliderArray();
@@ -412,18 +410,18 @@ var vm = new Vue({
             this.extrasShown = false;
             this.overviewShown = false;
             this.payShown = true;
-          
+
         },
 
         getUniqueId: function (key, magnitude) { //Löser problem med duplicate keys. Säg till om ni behöver använda detta så gör vi system.
             return key + (magnitude * 100);
         },
         createSlider: function () {
-            
+
 
             var startArray = [];
             var connectArray = [];
-            
+
 
             for (var i = 1; i < this.chosenFruitGreens.length; i++) {
                 startArray.push(100 * i / (this.chosenFruitGreens.length));
@@ -457,26 +455,26 @@ var vm = new Vue({
                 this.slider.noUiSlider.set([this.sliderArray]);
                 console.log("i if-sats")}
             this.fruitGreensInSlider=this.chosenFruitGreens;
-            
+
         },
 
         destroySlider: function () {
             if (this.slider!==""){
                 this.slider.noUiSlider.destroy();
                 this.slider="";
-            } 
+            }
         },
-        
+
         getCurrentSliderArray: function(){
-            
+
             if (this.slider!==""){
-                this.sliderArray=this.slider.noUiSlider.get()   
+                this.sliderArray=this.slider.noUiSlider.get()
             }
             console.log(this.sliderArray);
         },
-        
+
         compareArrays: function(array1, array2){
-            
+
             if (array1.length!=array2.length) {return false;}
            for (var i = 0; i<array1.length; i++){
                if (array1[i].ingredient_en!=array2[i].ingredient_en){
@@ -487,5 +485,3 @@ var vm = new Vue({
 
   }
 });
-
-
