@@ -129,7 +129,8 @@ var vm = new Vue({
         payShown: false,
         slider:"",
         sliderArray:[],
-        fruitGreensInSlider:[]
+        fruitGreensInSlider:[],
+        colors:[]
     },
     methods: {
 
@@ -421,15 +422,18 @@ var vm = new Vue({
 
             var startArray = [];
             var connectArray = [];
-
-
+            this.colors=[];
+            
             for (var i = 1; i < this.chosenFruitGreens.length; i++) {
                 startArray.push(100 * i / (this.chosenFruitGreens.length));
+                
             }
             for (var i = 0; i < this.chosenFruitGreens.length; i++) {
                 connectArray.push(true);
+                this.colors.push(this.chosenFruitGreens[i].color);
+                
             }
-
+           
             this.slider = document.getElementById('slider-color');
             noUiSlider.create(this.slider, {
 
@@ -449,8 +453,9 @@ var vm = new Vue({
             var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
 
             for (var i = 0; i < connect.length; i++) {
-                connect[i].classList.add(classes[i]);
+                connect[i].style.background=this.colors[i];
             }
+
             if(this.compareArrays(this.fruitGreensInSlider,this.chosenFruitGreens)){
                 this.slider.noUiSlider.set([this.sliderArray]);
                 console.log("i if-sats")}
