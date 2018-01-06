@@ -20,7 +20,7 @@ Vue.component('ingredient', {
     template: '<div class=ingred v-show="anyleft">\
   <label :class="customid" :for="id" style="display: block;">\
   <input :class="customid" :id="id" type="checkbox" @change="checkboxEvent(this.checkboxstate)" :checked="checkboxstate">\
-  <p>{{item["ingredient_en"]}}{{amountleft}}</p>\
+  <p>{{item["ingredient_en"]}}</p>\
   </label>\
   </div>',
     data: function () {
