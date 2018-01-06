@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
   <title>Juicifer Craft Beverages </title>
   <link href="css/nouislider.min.css" rel="stylesheet">
   <script src="js/nouislider.min.js" defer></script>
@@ -15,21 +17,25 @@
 </head>
 
 <body>
+    
+   
+<button v-on:click="switchLang()">Svenska</button>
+    <!-- Kanske ta bort? /P --> 
 
   <div id="ordering">
 
-    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-    <!-- Kanske ta bort? /P -->
-
-
     <div v-if="startShown">
-      <h2>Fresh juices and smoothies from<h2>
-        <h1>Juicifer</h1>
-        <button v-on:click="showSize()">Start your order</button>
-      </div>
-
+  
+        <div id="homepageText">
+        <h2>Fresh juices and smoothies from</h2>
+        <font size="150">Juicifer</font>
+        </div>
+        <button id="startButton" v-on:click="showSize()">Start your order</button> 
+        
+    </div>
+      
       <div v-if="sizeShown">
-        <button v-on:click="showStart()">Restart Order</button>
+        <button id="restartButton" v-on:click="showStart()">Restart Order</button>
         <div class="popup" onclick="helpSize()">?
           <span class="popuptext" id="helpSize">Choose the size that you would like for your beverage. <br><br>Size Small permits max 2 fruits/greens, size Medium permits max 3 fruits/greens and size Large permits max 4 fruit/greens. <br>All sizes also permits 1 base ingredient and the opportunity to add 1 topping and 1 boost.<br><br> Tap here to continue</span>
         </div>
@@ -232,7 +238,7 @@
           </div>
 
 
-        </div>
+     </div>
 
 
 

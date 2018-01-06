@@ -1,25 +1,62 @@
+
+
 #ordering {
+
+    top: 120px;
     margin: 0px;
     width: 80em;
 }
 
+#homepageText {
+    
+    position: relative;
+    text-align: center;
+    
+}
+
+#startButton {
+    position: relative;
+    margin: auto;
+    left: 45%;
+    
+   
+}
+
+/*#juiciferLabel {
+    
+    position: absolute;
+    text-align: center;
+    font-size: 100%;
+}*/
+
+#restartButton {
+    
+    position: absolute;
+    text-align: left;
+    
+}
+
 #orders {
+    
     margin: 0px;
     width: 80em;
 }
 
 
 body {
-    background: #f2f9ff;
+    
+    font-family: 'Cabin Sketch', cursive;
+    background: #fff9bb;
     color: #3a3e63;
     font-size: 90%;
 }
 
 h1 {
+    
     color: #3a3e63;
     text-transform: uppercase;
     letter-spacing: 2pt;
-    width: 50%;
+    width: 20%;
 }
 
 .composingOrder {
@@ -44,7 +81,7 @@ h1 {
     text-align: center;
     vertical-align:
     color: black;
-    background-color: lavender;
+    background-color: #ffe0e4;
 }
 
 .sizeButtons input {
