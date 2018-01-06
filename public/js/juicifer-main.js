@@ -17,7 +17,8 @@ var sharedVueStuff = {
         uiLabels: {},
         ingredients: {},
         lang: "en",
-        noneleft: {}
+        noneleft: {}, //används i ordering
+        waitingOrders: {} //används i köket
     },
     created: function () {
         socket.on('initialize', function (data) {
@@ -27,6 +28,7 @@ var sharedVueStuff = {
             this.noneleft = this.ingredients.filter(function (obj) {
                 return obj.stock < 1;
             });
+            this.adjustWaitingOrders();
         }.bind(this));
 
         socket.on('switchLang', function (data) {
@@ -42,7 +44,7 @@ var sharedVueStuff = {
                     return obj.stock < 1;
                 });
             }
-
+            this.adjustWaitingOrders();
         }.bind(this));
     },
     methods: {
@@ -53,6 +55,20 @@ var sharedVueStuff = {
                 this.lang = "en";
             }
             socket.emit('switchLang', this.lang);
+        },
+        adjustWaitingOrders: function () {
+            this.waitingOrders = {};
+            if (Object.keys(this.orders).length > 0) {
+                var orderKeys = Object.keys(this.orders);
+                var j = 0;
+                for (var i = 0; i < orderKeys.length; i++) {
+                    if (this.orders[orderKeys[i]].done === false) {
+                        this.orders[orderKeys[i]].nr = orderKeys[i];
+                        this.waitingOrders[j] = this.orders[orderKeys[i]];
+                        j++;
+                    }
+                }
+            }
         }
     }
 };

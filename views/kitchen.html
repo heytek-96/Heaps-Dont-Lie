@@ -1,154 +1,111 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Juicifers Kitchen</title>
- <link href="css/nouislider.min.css" rel="stylesheet">
-  <script src="js/nouislider.min.js" defer></script> 
-  <link rel="stylesheet" href="css/juicifer.css">
-  <script src="/vue/vue.js" defer></script>
-  <script src="/socket.io/socket.io.js" defer></script>
-  <script src="js/juicifer-main.js" defer></script>
-  <script src="js/kitchen.js" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Juicifers Kitchen</title>
+    <link href="css/nouislider.min.css" rel="stylesheet">
+    <script src="js/nouislider.min.js" defer></script>
+    <link rel="stylesheet" href="css/juicifer.css">
+    <script src="/vue/vue.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="js/juicifer-main.js" defer></script>
+    <script src="js/kitchen.js" defer></script>
 
 
 
 </head>
+
 <body>
-    
-
-  <div id="orders">
-
-          <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-          <button v-on:click="showWaitingForOrderPage()"> Waiting for order </button>
-          <button v-on:click="showPreviousOrders()"> &#8592; Previous orders </button>
-          <button v-on:click="showOrderToPrepare()"> Next order to prepare &#8629; </button>
-          <button v-on:click="showWaitingOrders()" > Waiting orders &#8594;</button>
 
 
-      <div> Number of orders in queue: {{ countOrders() }}</div>
+    <div id="orders">
+
+        <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+        <button v-on:click="showWaitingForOrderPage()"> Waiting for order </button>
+        <button v-on:click="showPreviousOrders()"> &#8592; Previous orders </button>
+        <button v-on:click="showOrderToPrepare()"> Next order to prepare &#8629; </button>
+        <button v-on:click="showWaitingOrders()"> Waiting orders &#8594;</button>
 
 
-      <div v-if="waitingForOrder" >
-        <header>Waiting for a juicy Order</header>
-    </div>
+        <div> Number of orders in queue: {{ countOrders() }}</div>
 
 
-    <div v-if="showListofWaitingOrders" >
-
-        <h1>{{ uiLabels.ordersInQueue }}</h1>
-
-
-        <div>
-            <order-item-to-prepare
-            v-for="(order, key) in orders"
-            v-if="!order.done"
-            v-on:done="markDone(key)"
-            v-on:cancel="sendCancel(key)"
-            :order-id="key"
-            :order="order"
-            :ui-labels="uiLabels"
-            :lang="lang"
-            :key="key"
-                       >
-            </order-item-to-prepare>
+        <div v-if="waitingForOrder">
+            <header>Waiting for a juicy Order</header>
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th> Order no</th>
-                    <th> Size</th>
-                    <th> Ingredients</th>
-                    <th> Done</th>
-                    <th> Cancel</th>
 
-                </tr>
+        <div v-show="showListofWaitingOrders">
+
+            <h1>{{ uiLabels.ordersInQueue }}</h1>
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th> Order no</th>
+                        <th> Size</th>
+                        <th> Ingredients</th>
+                        <th> Done</th>
+                        <th> Cancel</th>
+
+                    </tr>
                 </thead>
-            <tbody>
+                <tbody>
+                    <tr is="order-item-to-prepare" ref="orderrow" v-for="(order) in waitingOrders"  v-on:done="markDone(order.nr)" v-on:cancel="sendCancel(order.nr)" :order-id="order.nr" :order="order" :ui-labels="uiLabels" :lang="lang" :key="order.nr">
+                    </tr>
 
-                <tr v-for= "(order, key) in orders" v-if="!order.done">
-                    <td> {{ key }}</td>
-                    <td> {{order.size}}</td>
-                    <td>
-                        <ol>
+                </tbody>
 
-          <li v-for="ingr in order.ingredients">
-
-            {{ingr.ingredient_en}}
-
-              </li>
-          </ol>
-                        </td>
-                    <td> <button v-on:click="markDone(key)"> {{uiLabels.ready}} </button> </td>
-                    <td><button v-on:click="sendCancel(key)"> {{uiLabels.cancel}} </button> </td>
-                </tr>
-
-            </tbody>
-
-        </table>
+            </table>
 
 
-    </div>
-    <div v-if="showListOfPreviousOrders" >
-        List of previous orders
-        <h1>{{ uiLabels.ordersFinished }}</h1>
+        </div>
+        <div v-if="showListOfPreviousOrders">
+            List of previous orders
+            <h1>{{ uiLabels.ordersFinished }}</h1>
 
-        <div>
-            <order-item
-            v-for="(order, key) in orders"
-            v-if="order.done"
-            :order-id="key"
-            :order="order"
-            :lang="lang"
-            :ui-labels="uiLabels"
-            :key="key">
-            </order-item>
+            <div>
+                <order-item v-for="(order, key) in orders" v-if="order.done" :order-id="key" :order="order" :lang="lang" :ui-labels="uiLabels" :key="key">
+                </order-item>
+            </div>
+
         </div>
 
-    </div>
+        <div v-if="showNextOrder && countOrders()!=0">
 
-      <div v-if="showNextOrder && countOrders()!=0" >
-
-       nästa order: {{ nextOrderToPrepare().orderId }} <br>
-       Size: {{nextOrderToPrepare().order.size}} <br>
-       Base: {{nextOrderToPrepare().order.chosenBase}} <br>
-       Fruit/Greens: {{nextOrderToPrepare().order.chosenFruitGreens.map(item => item["ingredient_en"]).join(', ')}} <br>
-       Boost: {{nextOrderToPrepare().order.chosenBoost}} <br>
-       Topping: {{nextOrderToPrepare().order.chosenTopping}}
+            nästa order: {{ nextOrderToPrepare().orderId }} <br> Size: {{nextOrderToPrepare().order.size}} <br> Base: {{nextOrderToPrepare().order.chosenBase}} <br> Fruit/Greens: {{nextOrderToPrepare().order.chosenFruitGreens.map(item => item["ingredient_en"]).join(', ')}} <br> Boost: {{nextOrderToPrepare().order.chosenBoost}} <br> Topping: {{nextOrderToPrepare().order.chosenTopping}}
 
 
 
-          <ul>
+            <ul>
 
-          <li v-for="ingr in nextOrderToPrepare().order.ingredients" >
+                <li v-for="ingr in nextOrderToPrepare().order.ingredients">
 
-          {{ingr.ingredient_en}}
-          base:{{ingr.base}}
-          boost:{{ingr.boost}}
-          fruit:{{ingr.fruit}}
-          green:{{ingr.green}}
+                    {{ingr.ingredient_en}} base:{{ingr.base}} boost:{{ingr.boost}} fruit:{{ingr.fruit}} green:{{ingr.green}}
 
-              </li>
-          </ul>
-          <button v-on:click="markDone(nextOrderToPrepare().orderId)">
+                </li>
+            </ul>
+            <button v-on:click="markDone(nextOrderToPrepare().orderId)">
             {{uiLabels.ready}}
           </button>
-          <button v-on:click="sendCancel(nextOrderToPrepare().orderId)">
+            <button v-on:click="sendCancel(nextOrderToPrepare().orderId)">
             {{uiLabels.cancel}}
           </button>
-          
-                
+
+
+
+
+        </div>
+
+        <div id=slider-color> </div>
 
 
     </div>
-      
-<div id=slider-color> </div> 
-      
 
-  </div>
-    
-    
+
 </body>
+
 </html>
