@@ -80,14 +80,14 @@ var vm = new Vue({
             if (e.key === "Enter") {
                 this.showOrderToPrepare();
             }
-            if (this.showListofWaitingOrders) {
+            if (this.showListofWaitingOrders && (typeof this.$refs.orderrow !== "undefined")) {
                 if (e.key === "ArrowDown") {
                     this.traverseList('down');
                 }
                 if (e.key === "ArrowUp") {
                     this.traverseList('up');
                 }
-            } else {
+            } else if (typeof this.$refs.orderrow !== "undefined") {
                 for (var i = 0; i < this.$refs.orderrow.length; i++) {
                     this.$refs.orderrow[i].unclick();
                 }
