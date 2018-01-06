@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
 <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
   <title>Juicifer Craft Beverages </title>
   <link href="css/nouislider.min.css" rel="stylesheet">
@@ -17,24 +17,24 @@
 </head>
 
 <body>
-    
-   
+
+
 <button v-on:click="switchLang()">Svenska</button>
-    <!-- Kanske ta bort? /P --> 
+    <!-- Kanske ta bort? /P -->
 
   <div id="ordering">
 
     <div v-if="startShown">
-  
+
         <div id="homepageText">
         <h2>Fresh juices and smoothies from</h2>
         <font size="150">Juicifer</font>
         </div>
-        <button id="startButton" v-on:click="showSize()">Start your order</button> 
+        <button id="startButton" v-on:click="showSize()">Start your order</button>
         <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
-        
+
     </div>
-      
+
 
       <div v-if="sizeShown">
         <button id="restartButton" v-on:click="showStart()">Restart Order</button>
@@ -72,7 +72,7 @@
               <p><h2>Large</h2></p>
             </div>
             <div class="sizeList">
-              <p>50cl</p><p>3 fruits/greens</p><p>1 base</p>
+              <p>50cl</p><p>4 fruits/greens</p><p>1 base</p>
             </div>
             <img src="http://moziru.com/images/jar-clipart-8.png" height= "300" width="150">
             <p>50kr</p>
