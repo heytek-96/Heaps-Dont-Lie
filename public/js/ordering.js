@@ -126,7 +126,10 @@ var vm = new Vue({
         extraHasBeenShown: false,
         overviewShown: false,
         overviewHasBeenShown: false,
-        payShown: false
+        payShown: false,
+        slider:"",
+        sliderArray:[],
+        fruitGreensInSlider:[]
     },
     methods: {
 
@@ -314,6 +317,9 @@ var vm = new Vue({
 
         showStart: function () {
             //Resettar förhoppningsvis fortfarande allting /Patrik
+            
+            
+   
             this.resetIngredientSelection();
             this.size = '';
             this.maxIngred = 0;
@@ -332,6 +338,10 @@ var vm = new Vue({
         },
 
         showSize: function () {
+            
+
+            this.getCurrentSliderArray();
+            this.destroySlider();
             this.startShown = false;
             this.ingredientsShown = false;
             this.customizeShown = false;
@@ -341,6 +351,9 @@ var vm = new Vue({
             this.sizeShown = true;
         },
         showIngredients: function () { //Effekterna av size sker nu i selectSize istället /P
+            
+            this.getCurrentSliderArray();
+            this.destroySlider();
             this.startShown = false;
             this.customizeShown = false;
             this.extrasShown = false;
@@ -350,6 +363,9 @@ var vm = new Vue({
             this.ingredientsShown = true;
         },
         showCustomize: function () {
+            
+            this.getCurrentSliderArray();
+            this.destroySlider();
             this.startShown = false;
             this.extrasShown = false;
             this.overviewShown = false;
@@ -361,6 +377,7 @@ var vm = new Vue({
             this.createSlider();
         },
         showExtras: function () {
+            this.getCurrentSliderArray();
             this.startShown = false;
             this.overviewShown = false;
             this.payShown = false;
@@ -369,8 +386,12 @@ var vm = new Vue({
             this.customizeShown = false;
             this.extrasShown = true;
             this.extraHasBeenShown = true;
+            this.destroySlider();
         },
         showOverview: function () {
+            
+            this.getCurrentSliderArray();
+            this.destroySlider();
             this.startShown = false;
             this.payShown = false;
             this.sizeShown = false;
@@ -379,8 +400,11 @@ var vm = new Vue({
             this.extrasShown = false;
             this.overviewShown = true;
             this.overviewHasBeenShown = true;
+            
         },
         showPay: function () {
+            this.getCurrentSliderArray();
+            this.destroySlider();
             this.startShown = false;
             this.sizeShown = false;
             this.ingredientsShown = false;
@@ -388,37 +412,31 @@ var vm = new Vue({
             this.extrasShown = false;
             this.overviewShown = false;
             this.payShown = true;
+          
         },
 
         getUniqueId: function (key, magnitude) { //Löser problem med duplicate keys. Säg till om ni behöver använda detta så gör vi system.
             return key + (magnitude * 100);
         },
         createSlider: function () {
+            
 
             var startArray = [];
             var connectArray = [];
+            
 
-            for (var i = 1; i < this.chosenIngredients.length; i++) {
-                startArray.push(100 * i / (this.chosenIngredients.length));
+            for (var i = 1; i < this.chosenFruitGreens.length; i++) {
+                startArray.push(100 * i / (this.chosenFruitGreens.length));
             }
-            for (var i = 0; i < this.chosenIngredients.length; i++) {
+            for (var i = 0; i < this.chosenFruitGreens.length; i++) {
                 connectArray.push(true);
             }
 
-            console.log(startArray);
-            console.log(connectArray);
-
-            var slider = document.getElementById('slider-color');
-
-            console.log(this.chosenIngredients);
-            this.chosenIngredients.length
-
-            noUiSlider.create(slider, {
+            this.slider = document.getElementById('slider-color');
+            noUiSlider.create(this.slider, {
 
                 start: startArray,
                 connect: connectArray,
-
-
                 orientation: 'vertical',
                 margin: 10,
                 direction: 'rtl',
@@ -429,49 +447,45 @@ var vm = new Vue({
                 }
             });
 
-            var connect = slider.querySelectorAll('.noUi-connect');
+            var connect = this.slider.querySelectorAll('.noUi-connect');
             var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
 
             for (var i = 0; i < connect.length; i++) {
                 connect[i].classList.add(classes[i]);
             }
-
+            if(this.compareArrays(this.fruitGreensInSlider,this.chosenFruitGreens)){
+                this.slider.noUiSlider.set([this.sliderArray]);
+                console.log("i if-sats")}
+            this.fruitGreensInSlider=this.chosenFruitGreens;
+            
         },
 
         destroySlider: function () {
-            this.slider.noUiSlider.destroy();
-        }
-
-
-    }
-
-});
-
-/*function createSlider(){
-
-var slider = document.getElementById('slider-color');
-
-noUiSlider.create(slider, {
-    start: [33, 66],
-    connect: [true, true, true],
-    orientation: 'vertical',
-    margin: 20,
-    direction: 'rtl',
-    padding: 20,
-    range: {
-        'min': [0],
-        'max': [100]
-    }
-});
-
-var connect = slider.querySelectorAll('.noUi-connect');
-var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
-
-for (var i = 0; i < connect.length; i++) {
-    connect[i].classList.add(classes[i]);
-}
+            if (this.slider!==""){
+                this.slider.noUiSlider.destroy();
+                this.slider="";
+            } 
+        },
+        
+        getCurrentSliderArray: function(){
+            
+            if (this.slider!==""){
+                this.sliderArray=this.slider.noUiSlider.get()   
+            }
+            console.log(this.sliderArray);
+        },
+        
+        compareArrays: function(array1, array2){
+            
+            if (array1.length!=array2.length) {return false;}
+           for (var i = 0; i<array1.length; i++){
+               if (array1[i].ingredient_en!=array2[i].ingredient_en){
+                   return false;}
+           }
+            return true;
 }
 
-createSlider(); */
+  }
+});
 
-//console.log(slider.noUiSlider.get());
+
