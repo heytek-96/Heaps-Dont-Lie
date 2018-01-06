@@ -43,16 +43,43 @@
         <div class="sizeButtons">
           <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
           <label for="small">
-            <input type="button" id="small" v-on:click="selectSize('small')"><p>Small</p>
+            <input type="button" id="small" v-on:click="selectSize('small')">
+            <div class="sizeHeading">
+              <p><h2>Small</h2></p>
+            </div>
+            <div class="sizeList">
+              <p>30cl</p><p>2 fruits/greens</p><p>1 base</p>
+            </div>
+            <img src="http://moziru.com/images/jar-clipart-8.png" height= "180" width="150">
+            <p>35kr</p>
           </label>
           <label for="medium">
-            <input type="button" id="medium" v-on:click="selectSize('medium')"><p>Medium</p>
+            <input type="button" id="medium" v-on:click="selectSize('medium')">
+            <div class="sizeHeading">
+              <p><h2>Medium</h2></p>
+            </div>
+            <div class="sizeList">
+              <p>40cl</p><p>3 fruits/greens</p><p>1 base</p>
+            </div>
+            <img src="http://moziru.com/images/jar-clipart-8.png" height= "240" width="150">
+            <p>40kr</p>
           </label>
           <label for="large">
-            <input type="button" id="large" v-on:click="selectSize('large')"><p>Large</p>
+            <input type="button" id="large" v-on:click="selectSize('large')">
+            <div class="sizeHeading">
+              <p><h2>Large</h2></p>
+            </div>
+            <div class="sizeList">
+              <p>50cl</p><p>3 fruits/greens</p><p>1 base</p>
+            </div>
+            <img src="http://moziru.com/images/jar-clipart-8.png" height= "300" width="150">
+            <p>50kr</p>
           </label>
         </div>
-        <p>Your choice: {{size}}</p>
+
+        <div>
+          <p>Your choice: {{size}}</p>
+        </div>
 
         <div>
           <button v-on:click="showStart()" class="backButton">Homepage</button>
