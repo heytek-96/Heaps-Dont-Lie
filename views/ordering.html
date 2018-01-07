@@ -104,19 +104,25 @@
 
         </div>
 
+<!-- TEstar att ändra till v-show/A--->
+   
+        
+        <div class="yourOrder" v-show="ingredientsShown || customizeShown || extrasShown">
 
-
-        <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
             <h1>{{ uiLabels.order }}</h1>
-            Size: {{ size }}<br> Base: {{ chosenBase }}<br> Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}<br>
+            <h4>Size:</h4> {{ size }}<br>
+            <h4>Base:</h4> {{ chosenBase }}<br>
+            <h4>Fruit/Greens:</h4>
+            <div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}} <span class=colorBox :style= "{'background-color': choice.color }"> </span> <br></div>
+             <!--  {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}<br> Borttaget/A-->
             <!-- Nedan kan säkert göras snyggare men funkar for now //CE-->
             <div v-if="extraHasBeenShown">
-                Topping: {{chosenTopping}}, Boost: {{chosenBoost}}<br>
+                <h4>Topping:</h4> {{chosenTopping}}, Boost: {{chosenBoost}}<br>
             </div>
-            Price: {{priceTot}}
+            <h4>Price:</h4> {{priceTot}} kr
             <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
             <br><br><br><br><br>
-
+<!-- Ska order queue var kvar?/Anna-->
             <h1>{{ uiLabels.ordersInQueue }}</h1>
             <div>
                 <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">

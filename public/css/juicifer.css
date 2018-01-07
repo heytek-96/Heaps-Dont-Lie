@@ -128,6 +128,7 @@ h1 {
 .yourOrder {
   width: 15em;
   float: right;
+     
 }
 
 .sizeButtons label {
@@ -316,8 +317,41 @@ button:disabled{
   z-index:1;
 }
 
-.c-1-color { background: red; }
-.c-2-color { background: yellow; }
-.c-3-color { background: green; }
-.c-4-color { background: blue; }
-.c-5-color { background: purple; }
+/* Help Popup */
+.popup {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  margin-left: 400px;
+  border: solid pink;
+  border-width:medium;
+  background-color: pink;
+  text-align: center;
+  border-radius: 6px;
+}
+
+/* Popup-text */
+.popup .popuptext {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  width: 450px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 8px;
+  margin: auto;
+  position: absolute;
+  right: 100%;
+
+}
+
+.popup .show {
+  visibility: visible;
+}
+
+.colorBox{
+    display: inline-block;
+    width:15px;
+    height:15px;
+}
+

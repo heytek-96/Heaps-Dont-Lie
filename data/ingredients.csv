@@ -23,7 +23,7 @@ ingredient_id,ingredient_sv,ingredient_en,vol_smoothie,vol_juice,selling_price,f
 22,hallon,raspberry,30,30,5,1,0,0,0,,#fbb1f8
 23,jordgubbe,strawberry,30,30,5,1,0,0,0,1,#ffb1be
 24,pumpa,pumpkin,50,0,7,0,1,0,0,0,#fcd9a1
-25,selleri,celery,20,0,3,0,1,0,0,0,#c4ca1
+25,selleri,celery,20,0,3,0,1,0,0,0,#ADFF2F
 26,mango,mango,100,0,20,1,0,0,0,0,#fcfb8d
 27,grapefrukt,grapefruit,200,170,17,1,0,0,0,0,#fcc08d
 28,druva,grape,50,50,12,1,0,0,0,0,#e58dfc
