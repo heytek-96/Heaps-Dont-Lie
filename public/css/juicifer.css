@@ -14,11 +14,29 @@
     top: 60px;
 
 }
+    
+#lastPageText {
+    
+    position: relative;
+    left: 45%;
+    top: 20px;
+    margin-bottom: 5%;
+    font-size: 300%;
 
-#startButton {
+}
+    
+
+.allButtons {
     position: relative;
     margin: auto;
     left: 45%;
+    background-color: black;
+    color: white;
+    font-size: 120%;
+    text-align: center;
+    border-radius: 25px;
+    border: solid black;
+    
 }
 
 #lemonPic {
@@ -33,7 +51,13 @@
 
   position: absolute;
   text-align: left;
+}
 
+#sizePage {
+    
+    position: relative;
+    margin: auto;
+    left 45%;
 }
 
 #orders {
@@ -59,11 +83,11 @@ h1 {
   width: 20%;
 }
 
-.composingOrder {
-  width: 60em;
-  float: left;
-  margin-right: 5em;
-}
+/*.composingOrder {
+    width: 60em;
+    float: left;
+    margin-right: 5em;
+}*/
 
 .yourOrder {
   width: 15em;
@@ -71,12 +95,13 @@ h1 {
 }
 
 .sizeButtons label {
-  height: auto;
-  width: auto;
-  display: inline-block;
-  text-align: center;
-  color: black;
-  margin-right: 5em;
+    height: auto;
+    width: auto;
+    display: inline-block;
+    text-align: center;
+    color: black;
+    margin-right: 3em;
+    margin-left: 3em;
 }
 .sizeList{
   padding-left: 2em;
@@ -88,21 +113,19 @@ h1 {
 
 }
 .sizeHeading{
+
   width:auto;
   position: relative;
-  height:75%;
-  padding-left:0.1em;
-  padding-right:0.1em;
-  padding-bottom:0.01em;
-  padding-top: 0.01em;
+  height:50%;
   margin-left: 1em;
   margin-right: 1em;
   margin-bottom: 1em;
-  background-color: pink;
-  color: black;
+  background-color: black;
+  color: white;
+  font-size: 150%;
   text-align: center;
-  border-radius: 6px;
-  border: 2px solid black;
+  border-radius: 25px;
+  border: solid black;
 }
 
 .sizeButtons input {
@@ -171,17 +194,39 @@ tr:hover {
 
 }
 
+#restartButton {
+    
+    position: relative;
+    color: white;
+    background-color: black;
+    border: solid black;
+    border-width: 4px;
+    border-radius: 6px;
+    margin: 4px;
+}
+
 .backButton {
-  /*CSS för alla backknappar. Placeholder*/
-  border-width: 4px;
-  border-radius: 6px;
+    /*CSS för alla backknappar. Placeholder*/
+    color: white;
+    background-color: black;
+    border: solid black;
+    border-width: 4px;
+    border-radius: 6px;
+    margin: 4px;
 }
 
 .nextButton {
-  /*CSS för alla nextknappar. Placeholder*/
-  border-width: 4px;
-  border-radius: 6px;
-  float: right;
+    /*CSS för alla nextknappar. Placeholder*/
+   
+    position: relative;
+    border-width: 8px;
+    border-radius: 8px;
+    color: white;
+    background-color: black;
+    border: solid black;
+    left: 50%;
+   
+    /*float: right;*/
 }
 
 .navBar {
@@ -193,9 +238,10 @@ tr:hover {
   width: 11em;
   padding-top: 2em;
   padding-bottom: 2em;
-  padding-right: 7em;
+  padding-right: 10em;
   margin-top: 2em;
-  margin-left: 0px;
+  margin-left: 3px;
+  color: white;
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/93/Red_Right_Arrow.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -241,15 +287,16 @@ button:disabled{
 
 /* Help Popup */
 .popup {
-  position: relative;
-  display: inline-block;
-  width: 20px;
-  margin-left: 400px;
-  border: solid pink;
-  border-width:medium;
-  background-color: pink;
-  text-align: center;
-  border-radius: 6px;
+   position: relative;
+   display: inline-block;
+   width: 20px;
+   margin-left: 400px;
+   color: white;
+   border: solid black;
+   border-width:medium;
+   background-color: black;
+   text-align: center;
+   border-radius: 6px;
 }
 
 /* Popup-text */

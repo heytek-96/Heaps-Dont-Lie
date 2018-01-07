@@ -19,9 +19,8 @@
 
 <body>
 
-    <button v-on:click="switchLang()">Svenska</button>
-    <!-- Kanske ta bort? /P -->
-
+<button class="backButton" v-on:click="switchLang()">Svenska</button>
+    <!-- Kanske ta bort? /P --> 
 
     <div id="ordering">
 
@@ -32,59 +31,63 @@
         <font size="150">Juicifer</font>
 
         </div>
-        <button id="startButton" v-on:click="showSize()">Start your order</button>
+
+        
+        <button class = "allButtons" v-on:click="showSize()">Start your order</button>
+        
+
         <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
-
+            
+        
+    </div>
+      
+      <div v-if="sizeShown">
+          <button id="backButton" v-on:click="showStart()">Restart Order</button>
+        <div class="popup" onclick="helpSize()">?
+        <span class="popuptext" id="helpSize">Choose the size that you would like for your beverage. <br><br>Size Small permits max 2 fruits/greens, size Medium permits max 3 fruits/greens and size Large permits max 4 fruit/greens. <br>All sizes also permits 1 base ingredient and the opportunity to add 1 topping and 1 boost.<br><br> Tap here to continue</span>
         </div>
+        
 
-
-        <div v-if="sizeShown">
-            <button id="restartButton" v-on:click="showStart()">Restart Order</button>
-            <div class="popup" onclick="helpSize()">?
-                <span class="popuptext" id="helpSize">Choose the size that you would like for your beverage. <br><br>Size Small permits max 2 fruits/greens, size Medium permits max 3 fruits/greens and size Large permits max 4 fruit/greens. <br>All sizes also permits 1 base ingredient and the opportunity to add 1 topping and 1 boost.<br><br> Tap here to continue</span>
-            </div>
-            <h1>Select Size</h1>
-            <div class="sizeButtons">
-                <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
-                <label for="small">
-          <input type="button" id="small" v-on:click="selectSize('small')">
-          <div class="sizeHeading">
-            <h2>Small</h2>
-          </div>
-          <div class="sizeList">
-            <p>30cl</p><p>2 fruits/greens</p><p>1 base</p>
-          </div>
-          <img src="http://moziru.com/images/jar-clipart-8.png" height= "180" width="150">
-          <p>35kr</p>
-        </label>
-                <label for="medium">
-          <input type="button" id="medium" v-on:click="selectSize('medium')">
-          <div class="sizeHeading">
-            <h2>Medium</h2>
-          </div>
-          <div class="sizeList">
-            <p>40cl</p><p>3 fruits/greens</p><p>1 base</p>
-          </div>
-          <img src="http://moziru.com/images/jar-clipart-8.png" height= "240" width="150">
-          <p>40kr</p>
-        </label>
-                <label for="large">
-          <input type="button" id="large" v-on:click="selectSize('large')">
-          <div class="sizeHeading">
-            <h2>Large</h2>
-          </div>
-          <div class="sizeList">
-            <p>50cl</p><p>4 fruits/greens</p><p>1 base</p>
-          </div>
-          <img src="http://moziru.com/images/jar-clipart-8.png" height= "300" width="150">
-          <p>45kr</p>
-        </label>
+        <h1>Select Size</h1>
+        <div class="sizeButtons">
+          <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
+          <label for="small">
+            <input type="button" id="small" v-on:click="selectSize('small')">
+            <div class="sizeHeading">
+              <p>Small</p>
             </div>
 
-            <div>
-                <p>Your choice: {{size}}</p>
-            </div>
+            <div class="sizeList">
+              <p>30cl</p><p>2 fruits/greens</p><p>1 base</p>
 
+            </div>
+            <img src="http://moziru.com/images/jar-clipart-8.png" height= "180" width="150">
+            <p>35kr</p>
+          </label>
+          <label for="medium">
+            <input type="button" id="medium" v-on:click="selectSize('medium')">
+            <div class="sizeHeading">
+              <p>Medium</p>
+            </div>
+            <div class="sizeList">
+              <p>40cl</p><p>3 fruits/greens</p><p>1 base</p>
+              </div>
+              <img src="http://moziru.com/images/jar-clipart-8.png" height= "240" width="150">
+            <p>40kr</p>
+          </label>
+          <label for="large">
+            <input type="button" id="large" v-on:click="selectSize('large')">
+            <div class="sizeHeading">
+              <p>Large</p>
+            </div>
+              <div class="sizeList">
+              <p>50cl</p><p>4 fruits/greens</p><p>1 base</p>
+              </div>
+              <img src="http://moziru.com/images/jar-clipart-8.png" height= "300" width="150">
+              <p>45kr</p>
+            </label>
+          </div>
+            
             <div>
                 <button v-on:click="showStart()" class="backButton">Homepage</button>
                 <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton">Choose Ingredients</button>
@@ -98,8 +101,10 @@
                 <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
                 <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
             </div>
-
+            
         </div>
+
+
 
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
             <h1>{{ uiLabels.order }}</h1>
@@ -121,17 +126,20 @@
 
         </div>
 
-        <div class="composingOrder" v-show="ingredientsShown">
-            <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
-            <button v-on:click="showStart()">Restart Order</button>
-            <div class="popup" onclick="helpIngred()">?
-                <span class="popuptext" id="helpIngred">Choose a base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>If you would like to add more than {{maxIngred}} fruits or greens, you can change the size of your beverage by going back using the navigation arrows at the bottom of the page.<br><br>Tap here to continue</span>
-            </div>
-            <h1>Ingredients</h1>
-            <p>Select 1 base and max {{maxIngred}} fruit/greens</p><br>
 
-            <!-- Här har vi ingredinsknapparna. Förutom hur dom genereras är det mesta annorlunda. Jag behövde läsa på om Vue.component för att öht fatta något. /P -->
+      <div v-show="ingredientsShown">
+        <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
+          
+        <button v-on:click="showStart()" class = "backButton">Restart Order</button>
+          
+          
+        <div class="popup" onclick="helpIngred()">?
+          <span class="popuptext" id="helpIngred">Choose a base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>If you would like to add more than {{maxIngred}} fruits or greens, you can change the size of your beverage by going back using the navigation arrows at the bottom of the page.<br><br>Tap here to continue</span>
+        </div>
+        <h1>Ingredients</h1>
+        <p>Select 1 base and max {{maxIngred}} fruit/greens</p><br>
 
+        <!-- Här har vi ingredinsknapparna. Förutom hur dom genereras är det mesta annorlunda. Jag behövde läsa på om Vue.component för att öht fatta något. /P -->
             <div class="ingredientBlock">
                 <h1>Base</h1>
                 <div class="ingredientList">
@@ -154,13 +162,12 @@
                 </div>
             </div>
 
-
-
-
-            <div>
-                <button v-on:click="showSize()" class="backButton">Select Size</button>
-                <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton">Customize</button>
-            </div>
+        <div>
+          <button v-on:click="showSize()" class="backButton">Select Size</button>
+        </div>
+        <div>
+            <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton">Customize</button>
+        </div>
 
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">Size</button>
@@ -171,15 +178,15 @@
             </div>
         </div>
 
-        <div class="composingOrder" v-show="customizeShown">
+        <div v-show="customizeShown">
 
-            <button v-on:click="showStart()">Restart Order</button>
-            <div class="popup" onclick="helpCustomize()">?
-                <span class="popuptext" id="helpCustomize">On this page you can choose proportions of your fruits and greens by dragging the sliders. <br><br> Tap here to continue</span>
-            </div>
-            <h1>Customize</h1>
-            <div id=sliderContainer>
-
+          <button v-on:click="showStart()" class="backButton">Restart Order</button>
+          <div class="popup" onclick="helpCustomize()">?
+            <span class="popuptext" id="helpCustomize">On this page you can choose proportions of your fruits and greens by dragging the sliders. <br><br> Tap here to continue</span>
+          </div>
+          <h1>Customize</h1>
+          <div id=sliderContainer>
+              
                 <div id=sliderPic>
 
                     <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
@@ -199,9 +206,10 @@
 
         </div>
 
-        <div class="composingOrder" v-show="extrasShown">
+
+          <div v-show="extrasShown">
             <!-- Samma här som ovan, v-show istället för v-if -->
-            <button v-on:click="showStart()">Restart Order</button>
+            <button v-on:click="showStart()" class="backButton">Restart Order</button>
             <div class="popup" onclick="helpExtras()">?
                 <span class="popuptext" id="helpExtras">Add a boost and/or a topping to your beverage for an additional cost. A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage. <br><br>You can add maximum one boost and one topping. <br><br> Tap here to continue</span>
             </div>
@@ -239,8 +247,9 @@
 
         </div>
 
-        <div v-show="overviewShown">
-            <button v-on:click="showStart()">Restart Order</button>
+
+          <div v-show="overviewShown">
+            <button v-on:click="showStart()" class="backButton">Restart Order</button>
             <div class="popup" onclick="helpOverview()">?
                 <span class="popuptext" id="helpOverview">Here is an overview of your order. If you would like to change anything, you can go back using the navigation bar in the bottom of this page.<br><br>Click on "Pay n Shake" to send your order to the kitchen. <br><br> Tap here to continue</span>
             </div>
@@ -263,12 +272,13 @@
             </div>
         </div>
 
-        <div v-if="payShown">
-            <button v-on:click="showStart()">Restart Order</button>
-            <h1>Thanks!</h1>
-            <button v-on:click="showStart()">Go back to start </button>
-        </div>
-
+          <div v-if="payShown">
+            <button v-on:click="showStart()" class="backButton">Restart Order</button>
+            <div id = lastPageText>Thanks!</div>
+            <button class="allButtons" v-on:click="showStart()">Go back to start </button>
+            <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
+          </div>
+       
 
     </div>
 
