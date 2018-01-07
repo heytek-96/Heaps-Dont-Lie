@@ -107,7 +107,7 @@
 <!-- TEstar att ändra till v-show/A--->
    
         
-        <div class="yourOrder" v-show="ingredientsShown || customizeShown || extrasShown">
+        <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
 
             <h1>{{ uiLabels.order }}</h1>
             <h4>Size:</h4> {{ size }}<br>

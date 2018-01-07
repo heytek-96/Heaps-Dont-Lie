@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
     <title>Juicifers Kitchen</title>
     <link href="css/nouislider.min.css" rel="stylesheet">
@@ -23,8 +24,20 @@
 
     <div id="orders">
 
+        <p>isAtStart: {{isAtStart}}</p>
+        <p>isAtPrevious: {{isAtPrevious}}</p>
+        <p>isAtWaiting: {{isAtWaiting}}</p>
+        <p>showStart: {{showStart}}</p>
+        <p>showListOfWaitingOrders: {{showListOfWaitingOrders}}</p>
+        <p>showListOfPreviousOrders: {{showListOfPreviousOrders}}</p>
+        <p>showOrder: {{showOrder}}</p>
+        <p>waiting orders: {{countOrders()}}</p>
+
+
+
+
         <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-        <button v-on:click="showWaitingForOrderPage()"> Waiting for order </button>
+        <button v-on:click="showStartPage()"> Waiting for order </button>
         <button v-on:click="showPreviousOrders()"> &#8592; Previous orders </button>
         <button v-on:click="showOrderToPrepare()"> Next order to prepare &#8629; </button>
         <button v-on:click="showWaitingOrders()"> Waiting orders &#8594;</button>
@@ -33,12 +46,15 @@
         <div> Number of orders in queue: {{ countOrders() }}</div>
 
 
-        <div v-if="waitingForOrder">
+        <div v-show="showStart && isAtStart">
             <header>Waiting for a juicy Order</header>
+            <button v-on:click="showPreviousOrders()"> &#8592; Previous orders </button>
+            <button v-on:click="showOrderToPrepare()"> Next order to prepare &#8629; </button>
+            <button> Order waiting press enter</button>
         </div>
 
 
-        <div v-show="showListofWaitingOrders">
+        <div v-show="showListOfWaitingOrders && isAtWaiting">
 
             <h1>{{ uiLabels.ordersInQueue }}</h1>
 
@@ -55,7 +71,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr is="order-item-to-prepare" ref="orderrow" v-for="order in waitingOrders"  v-on:done="markDone(order.nr)" v-on:cancel="sendCancel(order.nr)" :order-id="order.nr" :order="order" :ui-labels="uiLabels" :lang="lang" :key="order.nr">
+
+                    <tr is="order-list-item" ref="waitingorder" v-for="order in waitingOrders" v-on:done="markDone(order.nr)" v-on:cancel="sendCancel(order.nr)" :order-id="order.nr" :order="order" :ui-labels="uiLabels" :lang="lang" :key="order.nr">
                     </tr>
 
                 </tbody>
@@ -64,20 +81,35 @@
 
 
         </div>
-        <div v-if="showListOfPreviousOrders">
+        <div v-show="showListOfPreviousOrders && isAtPrevious">
             List of previous orders
             <h1>{{ uiLabels.ordersFinished }}</h1>
 
-            <div>
-                <order-item v-for="(order, key) in orders" v-if="order.done" :order-id="key" :order="order" :lang="lang" :ui-labels="uiLabels" :key="key">
-                </order-item>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th> Order no</th>
+                        <th> Size</th>
+                        <th> Ingredients</th>
+                        <th> Done</th>
+                        <th> Cancel</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr is="order-list-item" ref="prevorder" v-for="order in previousOrders" v-on:cancel="sendCancel(order.nr)" :order-id="order.nr" :order="order" :ui-labels="uiLabels" :lang="lang" :key="order.nr">
+                    </tr>
+
+                </tbody>
+
+            </table>
 
         </div>
 
-        <div v-if="showNextOrder && countOrders()!=0">
+        <!-- Funkar inte än
+        <div v-if="showOrder">
 
-            nästa order: {{ nextOrderToPrepare().orderId }} <br> Size: {{nextOrderToPrepare().order.size}} <br> Base: {{nextOrderToPrepare().order.chosenBase}} <br> Fruit/Greens: {{nextOrderToPrepare().order.chosenFruitGreens.map(item => item["ingredient_en"]).join(', ')}} <br> Boost: {{nextOrderToPrepare().order.chosenBoost}} <br> Topping: {{nextOrderToPrepare().order.chosenTopping}}
+            Order: nästa order: {{ nextOrderToPrepare().orderId }} <br> Size: {{nextOrderToPrepare().order.size}} <br> Base: {{nextOrderToPrepare().order.chosenBase}} <br> Fruit/Greens: {{nextOrderToPrepare().order.chosenFruitGreens.map(item => item["ingredient_en"]).join(', ')}} <br> Boost: {{nextOrderToPrepare().order.chosenBoost}} <br> Topping: {{nextOrderToPrepare().order.chosenTopping}}
 
 
 
@@ -97,11 +129,8 @@
           </button>
 
         </div>
-
-        <div id=slider-color> </div>
-
+-->
     </div>
-
 
 </body>
 

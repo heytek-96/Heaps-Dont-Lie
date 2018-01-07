@@ -2,7 +2,7 @@
 /*global sharedVueStuff, Vue, socket */
 'use strict';
 
-Vue.component('order-item-to-prepare', {
+Vue.component('order-list-item', {
     props: ['uiLabels', 'order', 'orderId', 'lang'],
     template: '<tr :class="orderId">\
         <td>\
@@ -23,7 +23,6 @@ Vue.component('order-item-to-prepare', {
         return {
             checkboxstate: false,
             id: null
-
         }
     },
     mounted: function () {
@@ -61,35 +60,54 @@ var vm = new Vue({
     el: '#orders',
     mixins: [sharedVueStuff], // include stuff that is used both in the ordering system and in the kitchen
     data: {
-        waitingForOrder: false,
-        showListofWaitingOrders: false,
+        isAtStart: true,
+        isAtPrevious: false,
+        isAtWaiting: false,
+        showStart: true,
+        showListOfWaitingOrders: false,
         showListOfPreviousOrders: false,
-        showNextOrder: false,
+        showOrder: false,
         currentRow: ""
 
     },
     created: function () {
         window.addEventListener("keydown", function (e) {
 
-            if (e.key === "ArrowLeft") {
-                this.showPreviousOrders();
+            if (e.key === "Escape") {
+                this.goBack();
             }
-            if (e.key === "ArrowRight" && this.showListofWaitingOrders === false) {
-                this.showWaitingOrders();
+
+            if (e.key === "ArrowLeft") {
+                if ((this.isAtStart && this.showStart) && (typeof this.$refs.prevorder !== "undefined")) {
+                    this.showPreviousOrders();
+                    this.selectFirstOrder();
+                } else if (this.isAtWaiting && this.showListOfWaitingOrders) {
+                    this.showStartPage();
+                }
+            }
+            if (e.key === "ArrowRight") {
+                if ((this.isAtStart && this.showStart) && (typeof this.$refs.waitingorder !== "undefined")) {
+                    this.showWaitingOrders();
+                    this.selectFirstOrder();
+                } else if (this.isAtPrevious && this.showListOfPreviousOrders) {
+                    this.showStartPage();
+                }
             }
             if (e.key === "Enter") {
-                this.showOrderToPrepare();
+                if (this.isAtStart && this.countOrders() > 0) {
+                    this.showWaitingOrders();
+                    this.selectFirstOrder();
+                } else if (this.showListOfWaitingOrders || this.showListOfPreviousOrders) {
+                    this.displayOrder();
+                }
             }
-            if (this.showListofWaitingOrders && (typeof this.$refs.orderrow !== "undefined")) {
+
+            if ((this.showListOfWaitingOrders && (typeof this.$refs.waitingorder !== "undefined")) || (this.showListOfPreviousOrders && (typeof this.$refs.prevorder !== "undefined"))) {
                 if (e.key === "ArrowDown") {
                     this.traverseList('down');
                 }
                 if (e.key === "ArrowUp") {
                     this.traverseList('up');
-                }
-            } else if (typeof this.$refs.orderrow !== "undefined") {
-                for (var i = 0; i < this.$refs.orderrow.length; i++) {
-                    this.$refs.orderrow[i].unclick();
                 }
             }
         }.bind(this));
@@ -99,17 +117,23 @@ var vm = new Vue({
 
     methods: {
         traverseList: function (dir) {
-            var orderRows = this.$refs.orderrow;
+            var orderRows;
+            if (this.showListOfWaitingOrders) {
+                orderRows = this.$refs.waitingorder;
+            } else if (this.showListOfPreviousOrders) {
+                orderRows = this.$refs.prevorder;
+            }
+
             for (var i = 0; i < orderRows.length; i++) {
                 if (orderRows[i].orderId === this.currentRow) {
                     if (dir === 'up' && i > 0) {
-                        this.$refs.orderrow[i].checkboxEvent();
-                        this.$refs.orderrow[i - 1].checkboxEvent();
+                        orderRows[i].checkboxEvent();
+                        orderRows[i - 1].checkboxEvent();
                         this.currentRow = orderRows[i - 1].orderId;
                     }
                     if (dir === 'down' && i + 1 < orderRows.length) {
-                        this.$refs.orderrow[i].checkboxEvent();
-                        this.$refs.orderrow[i + 1].checkboxEvent();
+                        orderRows[i].checkboxEvent();
+                        orderRows[i + 1].checkboxEvent();
                         this.currentRow = orderRows[i + 1].orderId;
                     }
                     break
@@ -128,14 +152,11 @@ var vm = new Vue({
             }
             return counter;
         },
-        nextOrderToPrepare: function () {
-            for (var i in this.orders) {
-                if (!this.orders[i].done) {
-                    return {
-                        orderId: i,
-                        order: this.orders[i]
-                    };
-
+        selectWaitingOrder: function () {
+            var orderRows = this.$refs.waitingorder;
+            for (var i = 0; i < orderRows.length; i++) {
+                if (orderRows[i].checkboxstate) {
+                    //this.showOrder(orderRows[i].orderId);
                 }
             }
         },
@@ -145,47 +166,91 @@ var vm = new Vue({
         },
 
         selectFirstOrder: function () {
-            if (Object.keys(this.waitingOrders).length > 0) {
-                var firstOrder = this.waitingOrders[0].nr;
-                var orderRows = this.$refs.orderrow;
+            var orderList;
+            var orderRows;
+            if (this.showListOfWaitingOrders) {
+                orderList = this.waitingOrders;
+                orderRows = this.$refs.waitingorder;
+            } else if (this.showListOfPreviousOrders) {
+                orderList = this.previousOrders;
+                orderRows = this.$refs.prevorder;
+            }
+            if (Object.keys(orderList).length > 0) {
+                var firstOrder = orderList[0].nr;
                 for (var i = 0; i < orderRows.length; i++) {
                     if (orderRows[i].orderId === firstOrder) {
-                        this.$refs.orderrow[i].checkboxEvent();
+                        orderRows[i].checkboxEvent();
                         this.currentRow = firstOrder;
                     }
                 }
-
-
-
             }
 
         },
 
-        showWaitingForOrderPage: function () {
-            this.waitingForOrder = true;
-            this.showListofWaitingOrders = false;
+        unclickAll: function () {
+            if (typeof this.$refs.waitingorder !== "undefined") {
+                for (var i = 0; i < this.$refs.waitingorder.length; i++) {
+                    this.$refs.waitingorder[i].unclick();
+                }
+            }
+            if (typeof this.$refs.prevorder !== "undefined") {
+                for (var i = 0; i < this.$refs.prevorder.length; i++) {
+                    this.$refs.prevorder[i].unclick();
+                }
+            }
+
+        },
+
+        showStartPage: function () {
+            this.unclickAll();
+            this.showStart = true;
+            this.showListOfWaitingOrders = false;
             this.showListOfPreviousOrders = false;
-            this.showNextOrder = false;
+            this.showOrder = false;
+            this.isAtPrevious = false;
+            this.isAtWaiting = false;
+            this.isAtStart = true;
         },
         showWaitingOrders: function () {
-            this.selectFirstOrder();
-            this.waitingForOrder = false;
-            this.showListofWaitingOrders = true;
+            this.showStart = false;
+            this.showListOfWaitingOrders = true;
             this.showListOfPreviousOrders = false;
-            this.showNextOrder = false;
+            this.showOrder = false;
+            this.isAtStart = false;
+            this.isAtWaiting = true;
 
         },
         showPreviousOrders: function () {
-            this.waitingForOrder = false;
-            this.showListofWaitingOrders = false;
+            this.showStart = false;
+            this.showListOfWaitingOrders = false;
             this.showListOfPreviousOrders = true;
-            this.showNextOrder = false;
+            this.showOrder = false;
+            this.isAtStart = false;
+            this.isAtPrevious = true;
         },
-        showOrderToPrepare: function () {
-            this.waitingForOrder = false;
-            this.showListofWaitingOrders = false;
-            this.showListOfPreviousOrders = false;
-            this.showNextOrder = true;
+        displayOrder: function () {
+            if (this.showListOfWaitingOrders) {
+                this.showListOfWaitingOrders = false;
+                console.log("displays a waiting order");
+            }
+            if (this.showListOfPreviousOrders) {
+                this.showListOfPreviousOrders = false;
+                console.log("displays a previous order");
+            }
+            this.showOrder = true;
+        },
+        goBack: function () {
+            if ((this.isAtPrevious && this.showListOfPreviousOrders) || (this.isAtWaiting && this.showListOfWaitingOrders)) {
+                this.showStartPage();
+            } else if (this.showOrder) {
+                if (this.isAtWaiting) {
+                    this.showListOfWaitingOrders = true;
+                }
+                if (this.isAtPrevious) {
+                    this.showListOfPreviousOrders = true;
+                }
+                this.showOrder = false;
+            }
         }
 
     }
