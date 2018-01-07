@@ -207,7 +207,10 @@ tr:hover {
   background-color: pink;
 }
 
-
+button:disabled{
+  opacity: 0.8;
+  color: black;
+}
 
 #sliderPic{
   /*background-image:url(http://moziru.com/images/jar-clipart-8.png);*/

@@ -201,7 +201,7 @@ noUiSlider.create(slider, {
 		'min': [  2000 ],
 		'max': [ 20000 ]
 	}
-}); 
+});
 
 var connect = slider.querySelectorAll('.noUi-connect');
 var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];

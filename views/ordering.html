@@ -32,7 +32,7 @@
         <font size="150">Juicifer</font>
 
         </div>
-        <button id="startButton" v-on:click="showSize()">Start your order</button> 
+        <button id="startButton" v-on:click="showSize()">Start your order</button>
         <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
 
         </div>
@@ -77,7 +77,7 @@
             <p>50cl</p><p>4 fruits/greens</p><p>1 base</p>
           </div>
           <img src="http://moziru.com/images/jar-clipart-8.png" height= "300" width="150">
-          <p>50kr</p>
+          <p>45kr</p>
         </label>
             </div>
 
@@ -92,7 +92,7 @@
 
             <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
             <div class="navBar">
-                <button v-on:click="showSize()" :disabled="size.length < 1">Size</button>
+                <button v-on:click="showSize()" :disabled="size.length < 1" class="activePageButton">Size</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
                 <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
                 <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
