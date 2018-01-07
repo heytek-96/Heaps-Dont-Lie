@@ -20,7 +20,7 @@
 <body>
 
 <button class="backButton" v-on:click="switchLang()">Svenska</button>
-    <!-- Kanske ta bort? /P --> 
+    <!-- Kanske ta bort? /P -->
 
     <div id="ordering">
 
@@ -32,21 +32,21 @@
 
         </div>
 
-        
+
         <button class = "allButtons" v-on:click="showSize()">Start your order</button>
-        
+
 
         <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
-            
-        
+
+
     </div>
-      
+
       <div v-if="sizeShown">
           <button id="backButton" v-on:click="showStart()">Restart Order</button>
         <div class="popup" onclick="helpSize()">?
-        <span class="popuptext" id="helpSize">Choose the size that you would like for your beverage. <br><br>Size Small permits max 2 fruits/greens, size Medium permits max 3 fruits/greens and size Large permits max 4 fruit/greens. <br>All sizes also permits 1 base ingredient and the opportunity to add 1 topping and 1 boost.<br><br> Tap here to continue</span>
+        <span class="popuptext" id="helpSize">Choose the size that you would like for your beverage. <br><br>Size Small permithwdinqiodnindwndiwnidnwindiqniwdnwdinwdindwindwiniwdndwnklqdnwqndklnqkndkndknkds max 2 fruits/greens, size Medium permits max 3 fruits/greens and size Large permits max 4 fruit/greens. <br>All sizes also permits 1 base ingredient and the opportunity to add 1 topping and 1 boost.<br><br> Tap here to continue</span>
         </div>
-        
+
 
         <h1>Select Size</h1>
         <div class="sizeButtons">
@@ -87,7 +87,7 @@
               <p>45kr</p>
             </label>
           </div>
-            
+
             <div>
                 <button v-on:click="showStart()" class="backButton">Homepage</button>
                 <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton">Choose Ingredients</button>
@@ -101,7 +101,7 @@
                 <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
                 <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
             </div>
-            
+
         </div>
 
 
@@ -129,10 +129,10 @@
 
       <div v-show="ingredientsShown">
         <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
-          
+
         <button v-on:click="showStart()" class = "backButton">Restart Order</button>
-          
-          
+
+
         <div class="popup" onclick="helpIngred()">?
           <span class="popuptext" id="helpIngred">Choose a base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>If you would like to add more than {{maxIngred}} fruits or greens, you can change the size of your beverage by going back using the navigation arrows at the bottom of the page.<br><br>Tap here to continue</span>
         </div>
@@ -186,7 +186,7 @@
           </div>
           <h1>Customize</h1>
           <div id=sliderContainer>
-              
+
                 <div id=sliderPic>
 
                     <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
@@ -278,7 +278,7 @@
             <button class="allButtons" v-on:click="showStart()">Go back to start </button>
             <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
           </div>
-       
+
 
     </div>
 

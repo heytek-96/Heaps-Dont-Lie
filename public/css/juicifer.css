@@ -14,9 +14,9 @@
     top: 60px;
 
 }
-    
+
 #lastPageText {
-    
+
     position: relative;
     left: 45%;
     top: 20px;
@@ -24,7 +24,7 @@
     font-size: 300%;
 
 }
-    
+
 
 .allButtons {
     position: relative;
@@ -36,7 +36,7 @@
     text-align: center;
     border-radius: 25px;
     border: solid black;
-    
+
 }
 
 #lemonPic {
@@ -54,7 +54,7 @@
 }
 
 #sizePage {
-    
+
     position: relative;
     margin: auto;
     left 45%;
@@ -89,6 +89,42 @@ h1 {
     margin-right: 5em;
 }*/
 
+/* Help Popup */
+.popup {
+   position: relative;
+   display: inline-block;
+   min-width: 20px;
+   width: auto;
+   margin-left: 70%;
+   color: white;
+   border: solid black;
+   border-width:medium;
+   background-color: black;
+   text-align: center;
+   border-radius: 6px;
+}
+
+/* Popup-rutan */
+.popup .popuptext {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  min-width: 40%;
+  width: auto;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 8px;
+  right: 50%;
+  margin-left: 20%;
+  position: fixed;
+  z-index: 1;
+
+}
+
+.popup .show {
+  visibility: visible;
+}
+
 .yourOrder {
   width: 15em;
   float: right;
@@ -102,6 +138,8 @@ h1 {
     color: black;
     margin-right: 3em;
     margin-left: 3em;
+    position: relative;
+    overflow: hidden;
 }
 .sizeList{
   padding-left: 2em;
@@ -195,7 +233,7 @@ tr:hover {
 }
 
 #restartButton {
-    
+
     position: relative;
     color: white;
     background-color: black;
@@ -217,7 +255,7 @@ tr:hover {
 
 .nextButton {
     /*CSS för alla nextknappar. Placeholder*/
-   
+
     position: relative;
     border-width: 8px;
     border-radius: 8px;
@@ -225,7 +263,7 @@ tr:hover {
     background-color: black;
     border: solid black;
     left: 50%;
-   
+
     /*float: right;*/
 }
 
@@ -254,8 +292,7 @@ tr:hover {
 }
 
 button:disabled{
-  opacity: 0.8;
-  color: black;
+  opacity: 0.6;
 }
 
 #sliderPic{
@@ -284,36 +321,3 @@ button:disabled{
 .c-3-color { background: green; }
 .c-4-color { background: blue; }
 .c-5-color { background: purple; }
-
-/* Help Popup */
-.popup {
-   position: relative;
-   display: inline-block;
-   width: 20px;
-   margin-left: 400px;
-   color: white;
-   border: solid black;
-   border-width:medium;
-   background-color: black;
-   text-align: center;
-   border-radius: 6px;
-}
-
-/* Popup-text */
-.popup .popuptext {
-  visibility: hidden;
-  background-color: #555;
-  color: #fff;
-  width: 450px;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 8px;
-  margin: auto;
-  position: absolute;
-  right: 100%;
-
-}
-
-.popup .show {
-  visibility: visible;
-}
