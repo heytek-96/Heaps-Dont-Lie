@@ -93,15 +93,17 @@ h1 {
 .popup {
    position: relative;
    display: inline-block;
-   min-width: 20px;
+   min-width: 50px;
    width: auto;
-   margin-left: 70%;
+   float: right;
+   margin-right: 20%;
    color: white;
    border: solid black;
    border-width:medium;
    background-color: black;
    text-align: center;
    border-radius: 6px;
+   font-size: 2em;
 }
 
 /* Popup-rutan */
@@ -128,7 +130,7 @@ h1 {
 .yourOrder {
   width: 15em;
   float: right;
-     
+
 }
 
 .sizeButtons label {
@@ -354,4 +356,3 @@ button:disabled{
     width:15px;
     height:15px;
 }
-

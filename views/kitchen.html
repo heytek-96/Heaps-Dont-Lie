@@ -55,7 +55,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr is="order-item-to-prepare" ref="orderrow" v-for="(order) in waitingOrders"  v-on:done="markDone(order.nr)" v-on:cancel="sendCancel(order.nr)" :order-id="order.nr" :order="order" :ui-labels="uiLabels" :lang="lang" :key="order.nr">
+                    <tr is="order-item-to-prepare" ref="orderrow" v-for="order in waitingOrders"  v-on:done="markDone(order.nr)" v-on:cancel="sendCancel(order.nr)" :order-id="order.nr" :order="order" :ui-labels="uiLabels" :lang="lang" :key="order.nr">
                     </tr>
 
                 </tbody>
