@@ -70,7 +70,6 @@ var sharedVueStuff = {
               chosenSize = "stor"
             }
             }
-          console.log(chosenSize)
           return chosenSize
         },
         adjustOrderLists: function () {

@@ -109,16 +109,12 @@
 
 
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
-            
-            <br><br><br><br><br><br>
-            {{ uiLabels.order }} <br><br>
-            Size: {{ size }}<br><br>
-            Base: {{ chosenBase }}<br><br>
-            Fruit/Greens:
-            <div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}} <br></div>
-            <br>
 
-            
+            <h1>{{ uiLabels.order }}</h1>
+            <h4>{{ uiLabels.size }}:</h4> {{ getSize() }}<br>
+            <h4>{{ uiLabels.base }}:</h4> {{ findBaseString() }}<br>
+            <h4>Fruit/Greens:</h4>
+            <div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}} <br></div>
              <!--  {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}<br> Borttaget/A-->
             <!-- Nedan kan säkert göras snyggare men funkar for now //CE-->
             <div v-if="extraHasBeenShown">
@@ -146,7 +142,7 @@
         <div class="popup" onclick="helpIngred()">?
           <span class="popuptext" id="helpIngred">Choose 1 base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>To add more than {{maxIngred}} fruits or greens: Change to a bigger size by pressing "Select size"<br><br>Tap here to continue</span>
         </div>
-          
+
         <h1>Ingredients</h1>
         <p>Select 1 base and max {{maxIngred}} fruit/greens</p><br>
 
@@ -205,13 +201,13 @@
                 </div>
                 <div id=slider-color> </div>
             </div>
-            
+
             <div class=colorBoxJar>
             Fruit/Greens: <br><br>
             <div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div>
-            
+
             </div>
-            
+
             <button v-on:click="showIngredients()" class="backButton1">Choose Ingredients</button>
             <button v-on:click="showExtras()" class="nextButton">Choose Extras</button>
 
