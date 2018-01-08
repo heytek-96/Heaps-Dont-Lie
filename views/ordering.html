@@ -23,36 +23,36 @@
     <!-- Kanske ta bort? /P -->
 
     <div id="ordering">
-      <button class="backButton" v-on:click="switchLang()">{{ uiLabels.language }}</button>
-      <button class="backButton" v-on:click="showStart()">{{ uiLabels.restartOrder }}</button>
+        <button class="backButton" v-on:click="switchLang()">{{ uiLabels.language }}</button>
+        <button class="backButton" v-on:click="showStart()">{{ uiLabels.restartOrder }}</button>
 
         <div v-if="startShown">
 
-      <div id="homepageText">
-        <h2>{{ uiLabels.homeTitle }}</h2>
-        <font size="150">Juicifer</font>
+            <div id="homepageText">
+                <h2>{{ uiLabels.homeTitle }}</h2>
+                <font size="150">Juicifer</font>
+
+            </div>
+
+
+            <button class="allButtons" v-on:click="showSize()">{{ uiLabels.startOrder }}</button>
+
+
+            <img id="lemonPic" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
+
 
         </div>
 
-
-        <button class = "allButtons" v-on:click="showSize()">{{ uiLabels.startOrder }}</button>
-
-
-        <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
-
-
-    </div>
-
-      <div v-if="sizeShown">
-        <div class="popup" onclick="helpSize()">?
-        <span class="popuptext" id="helpSize">{{ uiLabels.selectSize }}<br><br>{{ uiLabels.helpSmall }}<br><br> {{ uiLabels.helpMedium }}<br><br> {{ uiLabels.helpLarge }}<br><br>{{ uiLabels.helpAllSizes }}<br><br> {{ uiLabels.helpClose }}</span>
-        </div>
+        <div v-if="sizeShown">
+            <div class="popup" onclick="helpSize()">?
+                <span class="popuptext" id="helpSize">{{ uiLabels.selectSize }}<br><br>{{ uiLabels.helpSmall }}<br><br> {{ uiLabels.helpMedium }}<br><br> {{ uiLabels.helpLarge }}<br><br>{{ uiLabels.helpAllSizes }}<br><br> {{ uiLabels.helpClose }}</span>
+            </div>
 
 
-        <h1>{{ uiLabels.selectSize }}</h1>
-        <div class="sizeButtons">
-          <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
-          <label for="small">
+            <h1>{{ uiLabels.selectSize }}</h1>
+            <div class="sizeButtons">
+                <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
+                <label for="small">
             <input type="button" id="small" v-on:click="selectSize('small')">
             <div class="sizeHeading">
               <p>{{ uiLabels.sizeSmall }}</p>
@@ -65,7 +65,7 @@
             <img src="http://moziru.com/images/jar-clipart-8.png" height= "180" width="150">
             <p>35kr</p>
           </label>
-          <label for="medium">
+                <label for="medium">
             <input type="button" id="medium" v-on:click="selectSize('medium')">
             <div class="sizeHeading">
               <p>{{ uiLabels.sizeMedium }}</p>
@@ -76,7 +76,7 @@
               <img src="http://moziru.com/images/jar-clipart-8.png" height= "240" width="150">
             <p>40kr</p>
           </label>
-          <label for="large">
+                <label for="large">
             <input type="button" id="large" v-on:click="selectSize('large')">
             <div class="sizeHeading">
               <p>{{ uiLabels.sizeLarge }}</p>
@@ -87,7 +87,7 @@
               <img src="http://moziru.com/images/jar-clipart-8.png" height= "300" width="150">
               <p>45kr</p>
             </label>
-          </div>
+            </div>
 
             <div>
                 <button v-on:click="showStart()" class="backButton1">{{ uiLabels.homePage }}</button>
@@ -105,22 +105,17 @@
 
         </div>
 
-<!-- TEstar att ändra till v-show/A--->
+        <!-- TEstar att ändra till v-show/A--->
 
 
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
 
-            <br><br><br><br><br><br>
-            {{ uiLabels.order }} <br><br>
-            {{ uiLabels.size }}: {{ getSize() }}<br><br>
-            {{ uiLabels.base }}: {{ findBaseString() }}<br><br>
-            {{ uiLabels.fruitGreens }}:<br>{{ chosenFruitGreens.map(item => item["ingredient_"+lang]).join(', ') }} <br>
+            <br><br><br><br><br><br> {{ uiLabels.order }} <br><br> {{ uiLabels.size }}: {{ getSize() }}<br><br> {{ uiLabels.base }}: {{ findBaseString() }}<br><br> {{ uiLabels.fruitGreens }}:<br>{{ chosenFruitGreens.map(item => item["ingredient_"+lang]).join(', ') }} <br>
 
             <br>
 
             <div v-if="extraHasBeenShown">
-            Topping: {{findToppingString()}} <br><br>
-            Boost:{{findBoostString()}} <br><br>
+                Topping: {{findToppingString()}} <br><br> Boost:{{findBoostString()}} <br><br>
             </div>
             <br><br>
             {{ uiLabels.price }}: {{priceTot}} kr
@@ -147,24 +142,33 @@
 
         <h1>Ingredients</h1>
         <p>{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitGreensSmall }}</p><br>
-
-        <!-- Här har vi ingredinsknapparna. Förutom hur dom genereras är det mesta annorlunda. Jag behövde läsa på om Vue.component för att öht fatta något. /P -->
-            <div class="ingredientBlock">
-                <h1>{{ uiLabels.base }}</h1>
+          
+            <div class="ingredientBlockHeadings">
+                <label class="sizeHeading" style="border-color: pink;">
+                    <input name="ingredienttype" checked=true value="base" type="radio" onclick="adjustSelectedIngredType()" ><p>{{uiLabels.base}}</p>
+                </label>
+                <label class="sizeHeading">
+                    <input name="ingredienttype" value="fruit" type="radio" onclick="adjustSelectedIngredType()"><p>{{uiLabels.fruits}}</p>
+                </label>
+                <label class="sizeHeading">
+                    <input name="ingredienttype" value="greens" type="radio" onclick="adjustSelectedIngredType()"><p>{{uiLabels.greens}}</p>
+                </label>
+            </div>
+          
+            <div class="ingredientBlock" v-show="showingBase">
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :customid="'base'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 1)">
                     </ingredient>
                 </div>
             </div>
-            <div class="ingredientBlock">
-                <h1>{{ uiLabels.fruits }}</h1>
+
+            <div class="ingredientBlock" v-show="showingFruit">
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :customid="'fruit'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 2)">
                     </ingredient>
                 </div>
             </div>
-            <div class="ingredientBlock">
-                <h1>{{ uiLabels.greens }}</h1>
+            <div class="ingredientBlock" v-show="showingGreens">
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :customid="'green'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 3)">
                     </ingredient>
@@ -225,7 +229,7 @@
         </div>
 
 
-          <div v-show="extrasShown">
+        <div v-show="extrasShown">
             <div class="popup" onclick="helpExtras()">?
                 <span class="popuptext" id="helpExtras">Add max 1 boost and/or 1 topping for an additional cost. <br><br> A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage. <br><br>You can add maximum 1 boost and 1 topping. <br><br> Tap here to continue</span>
             </div>
@@ -264,7 +268,7 @@
         </div>
 
 
-          <div v-show="overviewShown">
+        <div v-show="overviewShown">
             <div class="popup" onclick="helpOverview()">?
                 <span class="popuptext" id="helpOverview">Here is an overview of your order. Want to change something? Go back using the navigation bar in the bottom of this page.<br><br>Click on "Pay n Shake" to send your order to the kitchen. <br><br> Tap here to continue</span>
             </div>
@@ -275,12 +279,12 @@
             <p>Boost: {{ chosenBoost }}</p>
             <p>Price: {{priceTot}} kr</p>
 
-              <div id=sliderPic>
+            <div id=sliderPic>
 
-                    <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
+                <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
 
-                </div>
-                <div id=overviewSlider> </div>
+            </div>
+            <div id=overviewSlider> </div>
             <button v-on:click="showExtras()" class="backButton">Choose Extras</button>
             <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
 
@@ -294,11 +298,11 @@
             </div>
         </div>
 
-          <div v-if="payShown">
-            <div id = lastPageText>Thanks!</div>
+        <div v-if="payShown">
+            <div id=l astPageText>Thanks!</div>
             <button class="allButtons" v-on:click="showStart()">Go back to start </button>
-            <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
-          </div>
+            <img id="lemonPic" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
+        </div>
 
     </div>
 

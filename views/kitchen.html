@@ -110,10 +110,10 @@
             <h2>Order: {{orderBeingDisplayed.nr}}</h2>
             <br>
             <div v-if="!orderBeingDisplayed.done">
-            <button v-on:click="markDone(orderBeingDisplayed.nr)">
+                <button v-on:click="markDone(orderBeingDisplayed.nr)">
             {{uiLabels.ready}}
             </button>
-            <button v-on:click="sendCancel(orderBeingDisplayed.nr)">
+                <button v-on:click="sendCancel(orderBeingDisplayed.nr)">
             {{uiLabels.cancel}}
             </button>
             </div>

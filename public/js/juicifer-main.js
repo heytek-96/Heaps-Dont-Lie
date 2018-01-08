@@ -57,20 +57,20 @@ var sharedVueStuff = {
             }
             socket.emit('switchLang', this.lang);
         },
-        getSize: function (){
-          var chosenSize = this.size;
-          if (this.lang === "sv"){
-            if(this.size === "small"){
-              chosenSize = "liten"
+        getSize: function () {
+            var chosenSize = this.size;
+            if (this.lang === "sv") {
+                if (this.size === "small") {
+                    chosenSize = "liten"
+                }
+                if (this.size === "medium") {
+                    chosenSize = "mellan"
+                }
+                if (this.size === "large") {
+                    chosenSize = "stor"
+                }
             }
-            if(this.size === "medium"){
-              chosenSize = "mellan"
-            }
-            if(this.size ==="large"){
-              chosenSize = "stor"
-            }
-            }
-          return chosenSize
+            return chosenSize
         },
         adjustOrderLists: function () {
             this.waitingOrders = {};
@@ -84,7 +84,7 @@ var sharedVueStuff = {
                         this.orders[orderKeys[i]].nr = orderKeys[i];
                         this.waitingOrders[j] = this.orders[orderKeys[i]];
                         j++;
-                    }else if(this.orders[orderKeys[i]].done === true){
+                    } else if (this.orders[orderKeys[i]].done === true) {
                         this.orders[orderKeys[i]].nr = orderKeys[i];
                         this.previousOrders[k] = this.orders[orderKeys[i]];
                         k++;

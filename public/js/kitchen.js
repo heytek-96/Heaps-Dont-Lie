@@ -71,7 +71,6 @@ var vm = new Vue({
         showOrder: false,
         currentRow: "",
         orderBeingDisplayed: {}
-
     },
     created: function () {
         window.addEventListener("keydown", function (e) {
@@ -267,7 +266,6 @@ var vm = new Vue({
                     hadToWait = true;
                     window.setTimeout(function () {
                         if (vm.countOrders() > 0) {
-                            console.log(vm.waitingOrders);
                             vm.showListOfWaitingOrders = true;
                             vm.selectFirstOrder();
                         } else {
