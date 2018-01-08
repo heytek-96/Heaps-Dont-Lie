@@ -24,30 +24,13 @@
 
     <div id="orders">
 
-        <p>isAtStart: {{isAtStart}}</p>
-        <p>isAtPrevious: {{isAtPrevious}}</p>
-        <p>isAtWaiting: {{isAtWaiting}}</p>
-        <p>showStart: {{showStart}}</p>
-        <p>showListOfWaitingOrders: {{showListOfWaitingOrders}}</p>
-        <p>showListOfPreviousOrders: {{showListOfPreviousOrders}}</p>
-        <p>showOrder: {{showOrder}}</p>
-        <p>waiting orders: {{countOrders()}}</p>
-
-
-
 
         <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-        <button v-on:click="showStartPage()"> Waiting for order </button>
-        <button v-on:click="showPreviousOrders()"> &#8592; Previous orders </button>
-        <button v-on:click="showOrderToPrepare()"> Next order to prepare &#8629; </button>
-        <button v-on:click="showWaitingOrders()"> Waiting orders &#8594;</button>
-
-
-        <div> Number of orders in queue: {{ countOrders() }}</div>
+        <span> Number of orders in queue: {{ countOrders() }}</span>
 
 
         <div v-show="showStart && isAtStart">
-            <header>Waiting for a juicy Order</header>
+            <h1>Waiting for a juicy Order</h1>
             <button v-on:click="showPreviousOrders()"> &#8592; Previous orders </button>
             <button v-on:click="showOrderToPrepare()"> Next order to prepare &#8629; </button>
             <button> Order waiting press enter</button>
@@ -106,30 +89,15 @@
 
         </div>
 
-        <!-- Funkar inte än
+
         <div v-if="showOrder">
-
-            Order: nästa order: {{ nextOrderToPrepare().orderId }} <br> Size: {{nextOrderToPrepare().order.size}} <br> Base: {{nextOrderToPrepare().order.chosenBase}} <br> Fruit/Greens: {{nextOrderToPrepare().order.chosenFruitGreens.map(item => item["ingredient_en"]).join(', ')}} <br> Boost: {{nextOrderToPrepare().order.chosenBoost}} <br> Topping: {{nextOrderToPrepare().order.chosenTopping}}
-
-
-
-            <ul>
-
-                <li v-for="ingr in nextOrderToPrepare().order.ingredients">
-
-                    {{ingr.ingredient_en}} base:{{ingr.base}} boost:{{ingr.boost}} fruit:{{ingr.fruit}} green:{{ingr.green}}
-
-                </li>
-            </ul>
-            <button v-on:click="markDone(nextOrderToPrepare().orderId)">
-            {{uiLabels.ready}}
-          </button>
-            <button v-on:click="sendCancel(nextOrderToPrepare().orderId)">
-            {{uiLabels.cancel}}
-          </button>
-
+            
+            <h2>Order: {{orderBeingDisplayed.nr}}</h2>
+            <!-- Lägg till hur det ska se ut när en order är öppnad -->
+            
         </div>
--->
+
+        
     </div>
 
 </body>

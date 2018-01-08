@@ -2,6 +2,10 @@
 /*global sharedVueStuff, Vue, socket */
 'use strict';
 
+/* Vue.component('order-to-display',{
+props:
+}), */
+
 Vue.component('order-list-item', {
     props: ['uiLabels', 'order', 'orderId', 'lang'],
     template: '<tr :class="orderId">\
@@ -67,7 +71,8 @@ var vm = new Vue({
         showListOfWaitingOrders: false,
         showListOfPreviousOrders: false,
         showOrder: false,
-        currentRow: ""
+        currentRow: "",
+        orderBeingDisplayed: {}
 
     },
     created: function () {
@@ -99,6 +104,8 @@ var vm = new Vue({
                     this.selectFirstOrder();
                 } else if (this.showListOfWaitingOrders || this.showListOfPreviousOrders) {
                     this.displayOrder();
+                } else if (this.showOrder) {
+                    //Om man är inne på en order
                 }
             }
 
@@ -140,9 +147,11 @@ var vm = new Vue({
                 }
             }
         },
+
         markDone: function (orderid) {
             socket.emit("orderDone", orderid);
         },
+
         countOrders: function () {
             var counter = 0;
             for (var i in this.orders) {
@@ -152,6 +161,7 @@ var vm = new Vue({
             }
             return counter;
         },
+
         selectWaitingOrder: function () {
             var orderRows = this.$refs.waitingorder;
             for (var i = 0; i < orderRows.length; i++) {
@@ -211,6 +221,7 @@ var vm = new Vue({
             this.isAtWaiting = false;
             this.isAtStart = true;
         },
+
         showWaitingOrders: function () {
             this.showStart = false;
             this.showListOfWaitingOrders = true;
@@ -220,6 +231,7 @@ var vm = new Vue({
             this.isAtWaiting = true;
 
         },
+
         showPreviousOrders: function () {
             this.showStart = false;
             this.showListOfWaitingOrders = false;
@@ -228,17 +240,20 @@ var vm = new Vue({
             this.isAtStart = false;
             this.isAtPrevious = true;
         },
+
         displayOrder: function () {
             if (this.showListOfWaitingOrders) {
                 this.showListOfWaitingOrders = false;
-                console.log("displays a waiting order");
+                this.openOrder('waitingorder');
             }
             if (this.showListOfPreviousOrders) {
                 this.showListOfPreviousOrders = false;
-                console.log("displays a previous order");
+                this.openOrder('prevorder');
             }
             this.showOrder = true;
+            console.log(this.orderBeingDisplayed.nr);
         },
+
         goBack: function () {
             if ((this.isAtPrevious && this.showListOfPreviousOrders) || (this.isAtWaiting && this.showListOfWaitingOrders)) {
                 this.showStartPage();
@@ -249,7 +264,22 @@ var vm = new Vue({
                 if (this.isAtPrevious) {
                     this.showListOfPreviousOrders = true;
                 }
+                this.orderBeingDisplayed = {};
                 this.showOrder = false;
+            }
+        },
+
+        openOrder: function (reference) {
+            var orderRows;
+            if (reference === 'waitingorder') {
+                orderRows = this.$refs.waitingorder;
+            } else if (reference === 'prevorder') {
+                orderRows = this.$refs.prevorder;
+            }
+            for (var i=0; i<orderRows.length; i++){
+                if (orderRows[i].checkboxstate){
+                    this.orderBeingDisplayed = orderRows[i].order;
+                }
             }
         }
 
