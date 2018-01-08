@@ -11,5 +11,7 @@
   "ready" : "Done",
   "order" : "My order",
   "language" : "Svenska",
-  "cancel" : "Cancel"    
+  "cancel" : "Cancel",
+  "homeTitle" : "Fresh juices and smoothies from",
+  "startOrder": "Start your order"
 }

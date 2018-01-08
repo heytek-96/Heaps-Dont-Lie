@@ -28,13 +28,13 @@
         <div v-if="startShown">
 
       <div id="homepageText">
-        <h2>Fresh juices and smoothies from</h2>
+        <h2>{{ uiLabels.homeTitle }}</h2>
         <font size="150">Juicifer</font>
 
         </div>
 
 
-        <button class = "allButtons" v-on:click="showSize()">Start your order</button>
+        <button class = "allButtons" v-on:click="showSize()">{{ uiLabels.startOrder }}</button>
 
 
         <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">

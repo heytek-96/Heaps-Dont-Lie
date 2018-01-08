@@ -11,5 +11,7 @@
   "ready" : "Klart",
   "order" : "Min beställning",
   "language" : "English",
-  "cancel": "Avbryt"    
+  "cancel": "Avbryt",
+  "homeTitle": "Färska juicer och smoothies från" ,
+  "startOrder": "Starta din order"
 }
