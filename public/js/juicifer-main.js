@@ -57,6 +57,22 @@ var sharedVueStuff = {
             }
             socket.emit('switchLang', this.lang);
         },
+        getSize: function (){
+          var chosenSize = this.size;
+          if (this.lang === "sv"){
+            if(this.size === "small"){
+              chosenSize = "liten"
+            }
+            if(this.size === "medium"){
+              chosenSize = "mellan"
+            }
+            if(this.size ==="large"){
+              chosenSize = "stor"
+            }
+            }
+          console.log(chosenSize)
+          return chosenSize
+        },
         adjustOrderLists: function () {
             this.waitingOrders = {};
             this.previousOrders = {};

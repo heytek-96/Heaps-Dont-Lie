@@ -111,7 +111,7 @@
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
 
             <h1>{{ uiLabels.order }}</h1>
-            <h4>Size:</h4> {{ size }}<br>
+            <h4>{{ uiLabels.size }}:</h4> {{ getSize() }}<br>
             <h4>Base:</h4> {{ chosenBase }}<br>
             <h4>Fruit/Greens:</h4>
             <div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}} <span class=colorBox :style= "{'background-color': choice.color }"> </span> <br></div>
