@@ -8,7 +8,7 @@
 }
 
 #homepageText {
-
+    
     position: relative;
     text-align: center;
     top: 60px;
@@ -71,7 +71,6 @@ body {
 
   font-family: 'Cabin Sketch', cursive;
   background: #fff9bb;
-  color: #3a3e63;
   font-size: 90%;
 }
 
@@ -81,6 +80,7 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 2pt;
   width: 20%;
+  left: 10%
 }
 
 /*.composingOrder {
@@ -128,7 +128,7 @@ h1 {
 }
 
 .yourOrder {
-  width: 15em;
+    
   float: right;
 
 }
@@ -256,6 +256,20 @@ tr:hover {
     margin: 4px;
 }
 
+.backButton1 {
+    
+    color: black;
+    background-color: #fff9bb;
+    background-size: 160px;
+    background-image: url(https://i.imgur.com/AkLpIrX.png);
+    background-repeat: no-repeat;
+    border: 1px;
+    height: 190px;
+    z-index: -1;
+    margin: 2px;
+    font-size: 2em;
+}
+
 .nextButton {
     /*CSS för alla nextknappar. Placeholder*/
 
@@ -270,28 +284,48 @@ tr:hover {
     /*float: right;*/
 }
 
+.nextButton1 {
+    
+    position: relative;
+    left: 30%;
+    color: black;
+    background-color: #fff9bb;
+    background-size: 160px;
+    background-image: url(https://i.imgur.com/wLFxNy4.png);
+    background-repeat: no-repeat;
+    border: 1px;
+    height: 180px;
+    z-index: -1;
+    margin: 1px;
+    font-size: 2em;
+ 
+}
+
+
 .navBar {
   /*CSS för navigation bar sätts här senare.*/
 }
 
 .navBar > button {
   /*CSS för navigation bar sätts här senare. exempel från egen idividuel lab */
-  width: 11em;
+  width: 8em;
   padding-top: 2em;
   padding-bottom: 2em;
-  padding-right: 10em;
-  margin-top: 2em;
-  margin-left: 3px;
+  padding-right: 9em;
+  margin-top: 2px;
+  margin-left: 0px;
   color: white;
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/93/Red_Right_Arrow.png);
-  background-size: contain;
-  background-repeat: no-repeat;
+    background-color: black;
+    border-radius: 16px;
+  /*background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/93/Red_Right_Arrow.png);*/
+  /*background-size: contain;*/
+  /*background-repeat: no-repeat;*/
   font-size: 1em;
 
 }
 
 .activePageButton {
-  background-color: pink;
+  background-color: #f5ba51;
 }
 
 button:disabled{
@@ -307,7 +341,6 @@ button:disabled{
   z-index: 0;
 
 }
-
 
 #slider-color{
   left: 45px;
@@ -334,9 +367,9 @@ button:disabled{
   display: inline-block;
   width: 20px;
   margin-left: 400px;
-  border: solid pink;
+  border: solid #f5ba51;
   border-width:medium;
-  background-color: pink;
+  background-color: #f5ba51;
   text-align: center;
   border-radius: 6px;
 }
