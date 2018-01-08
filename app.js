@@ -86,7 +86,7 @@ Data.prototype.initializeData = function (table) {
   stock. If you have time, you should think a bit about whether
   this is the right moment to do this.
 */
-Data.prototype.makeTransaction = function(order, changeUnit) {
+/* Data.prototype.makeTransaction = function(order, changeUnit) {
        var transactions = this.data[transactionsDataName],
         //find out the currently highest transaction id
         transId =  transactions[transactions.length - 1].transaction_id,
@@ -99,12 +99,33 @@ Data.prototype.makeTransaction = function(order, changeUnit) {
                            ingredient_id: i[k].ingredient_id,
                            change: changeUnit});
       }
-    }
+    } */
 
-Data.prototype.addOrder = function (order) {
+/*Data.prototype.addOrder = function (order) {
       this.orders[order.orderId] = order.order;
       this.orders[order.orderId].done = false;
       this.makeTransaction(order.order, -5); //Här har jag satt att allt tar slut så fort något beställs.
+    };*/
+
+Data.prototype.makeTransaction = function(order, changeArray) {
+       var transactions = this.data[transactionsDataName],
+        //find out the currently highest transaction id
+        transId =  transactions[transactions.length - 1].transaction_id,
+        i = order.ingredients,
+        k;
+        
+      for (k = 0; k < i.length; k += 1) {
+        transId += 1;
+        transactions.push({transaction_id: transId,
+                           ingredient_id: i[k].ingredient_id,
+                           change: changeArray[k]});
+      }
+    };
+Data.prototype.addOrder = function (order) {
+      this.orders[order.orderId] = order.order;
+      this.orders[order.orderId].done = false;
+      var negativeChange=order.order.changeArray.map(function(x) {return x * (-1) });
+      this.makeTransaction(order.order, negativeChange); //Här har jag satt att allt tar slut så fort något beställs.
     };
 
 Data.prototype.getAllOrders = function () {
@@ -114,10 +135,16 @@ Data.prototype.getAllOrders = function () {
 Data.prototype.markOrderDone = function (orderId) {
   this.orders[orderId].done = true;
 };
-
+/*
 Data.prototype.cancelOrder = function (orderId) {
       this.orders[orderId].done = true;
       this.makeTransaction(this.orders[orderId], 1);
+    };
+*/
+Data.prototype.cancelOrder = function (orderId) {
+      this.orders[orderId].done = true;
+    
+      this.makeTransaction(this.orders[orderId], this.orders[orderId].changeArray);
     };
 
 var data = new Data();

@@ -104,6 +104,7 @@ function getOrderNumber() {
 }
 
 var vm = new Vue({
+
   el: '#ordering',
   mixins: [sharedVueStuff], // include stuff that is used both in the ordering system and in the kitchen
   data: {
@@ -143,6 +144,7 @@ var vm = new Vue({
         }
       }
       return -1;
+
     },
 
     checkIngredientsLeft: function () {
@@ -237,58 +239,58 @@ var vm = new Vue({
         }
       }
     },
+        addToOrder: function (item, type) { //Tog bort allt tråk med volume, det känns ändå som att det är fel siffror. I övrigt är den ganska basic, men om vi ropar direkt på den kommer knappvalen inte att påverkas osv. /Patrik.
 
-    addToOrder: function (item, type) { //Tog bort allt tråk med volume, det känns ändå som att det är fel siffror. I övrigt är den ganska basic, men om vi ropar direkt på den kommer knappvalen inte att påverkas osv. /Patrik.
+            this.chosenIngredients.push(item);
+            this.type = type;
 
-      this.chosenIngredients.push(item);
-      this.type = type;
+            if (type === "fruit" || type === "green") {
+                this.chosenFruitGreens.push(item);
+            } else if (this.type === "base") {
+                this.chosenBase = item.ingredient_en;
+            } else if (type === "boost") {
+                this.chosenBoost = item.ingredient_en;
+                this.priceTot += 7;
+            } else if (type === "topping") {
+                this.chosenTopping = item.ingredient_en;
+                this.priceTot += 10;
+            }
+        },
+        placeOrder: function () {
+            if (this.chosenIngredients.length > 0) {
+                var valid = this.checkIngredientsLeft();
+                if (valid) { //Kollar att allt finns kvar. Kör den här för tillfället.
 
-      if (type === "fruit" || type === "green") {
-        this.chosenFruitGreens.push(item);
-      } else if (this.type === "base") {
-        this.chosenBase = item.ingredient_en;
-      } else if (type === "boost") {
-        this.chosenBoost = item.ingredient_en;
-        this.priceTot += 7;
-      } else if (type === "topping") {
-        this.chosenTopping = item.ingredient_en;
-        this.priceTot += 10;
-      }
-    },
-    placeOrder: function () {
-      if (this.chosenIngredients.length > 0) {
-        var valid = this.checkIngredientsLeft();
-        if (valid) { //Kollar att allt finns kvar. Kör den här för tillfället.
+                    var order = {
+                        ingredients: this.chosenIngredients,
+                        volume: this.volume,
+                        type: this.type,
+                        price: this.price,
+                        priceTot: this.priceTot,
+                        size: this.size,
+                        chosenBase: this.chosenBase,
+                        chosenTopping: this.chosenTopping,
+                        chosenBoost: this.chosenBoost,
+                        chosenFruitGreens: this.chosenFruitGreens,
+                        changeArray:this.computeChange()
+                        
 
-          var order = {
-            ingredients: this.chosenIngredients,
-            volume: this.volume,
-            type: this.type,
-            price: this.price,
-            priceTot: this.priceTot,
-            size: this.size,
-            chosenBase: this.chosenBase,
-            chosenTopping: this.chosenTopping,
-            chosenBoost: this.chosenBoost,
-            chosenFruitGreens: this.chosenFruitGreens
+                    };
+                    // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
+                    socket.emit('order', {
+                        orderId: getOrderNumber(),
+                        order: order
+                    });
+                    this.resetIngredientSelection();
+                    this.showIngredients();
+                } else {
+                    alert('We just ran out of some of your selected ingredients, please start over!');
+                    this.showStart();
+                }
+            } else {
+                alert('pls select something');
+            }},
 
-          };
-          // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
-          socket.emit('order', {
-            orderId: getOrderNumber(),
-            order: order
-          });
-          this.resetIngredientSelection();
-          this.showIngredients();
-        } else {
-          alert('We just ran out of some of your selected ingredients, please start over!');
-          this.showStart();
-        }
-      } else {
-        alert('pls select something');
-      }
-
-    },
 
     resetIngredientSelection: function () {
       /* Tror att denna ger samma resultat som att trycka på f5, trycka på start och välja samma size */
@@ -368,7 +370,6 @@ var vm = new Vue({
 
 
 
-
     },
     showExtras: function () {
       this.getCurrentSliderArray();
@@ -380,8 +381,6 @@ var vm = new Vue({
       this.customizeShown = false;
       this.extrasShown = true;
       this.extraHasBeenShown = true;
-      console.log(this.sliderArray);
-      this.printArray();
       this.computeRatios();
       this.findBase();
 
@@ -499,6 +498,7 @@ var vm = new Vue({
           connect[i].style.background=this.colors[connect.length-i-1];
         }
 
+
         this.overviewSlider.noUiSlider.set(this.sliderArray);
         //this.overviewSlider.setAttribute('disabled', true);
 
@@ -507,6 +507,7 @@ var vm = new Vue({
           origins[i].setAttribute('disabled', true);
         }
       },
+
 
       destroySlider: function () {
         if (this.slider!==""){
@@ -530,45 +531,7 @@ var vm = new Vue({
         }
       },
 
-      compareArrays: function(array1, array2){
 
-        if (array1.length!==array2.length) {return false;}
-        for (var i = 0; i<array1.length; i++){
-          if (array1[i].ingredient_en!==array2[i].ingredient_en){
-            return false;}
-          }
-          return true;
-        },
-        printArray: function (){
-          for (var i= 0; i<this.chosenFruitGreens.length; i++){
-            console.log(i);
-            console.log(this.chosenFruitGreens[i].ingredient_en);
-
-          }
-        },
-        computeRatios: function(){
-          var ratioArray=[];
-          ratioArray[0]=this.sliderArray[0];
-
-          for (var i= 1; i<this.sliderArray.length; i++){
-            console.log("hej")
-            ratioArray[i]=this.sliderArray[i]-this.sliderArray[i-1];
-          }
-          ratioArray[this.sliderArray.length]=100-this.sliderArray[this.sliderArray.length-1]
-          console.log(ratioArray);
-          console.log(ratioArray.reverse())
-        },
-
-        findBase: function(){
-          console.log("findBase");
-          for(var i= 0; i <this.chosenIngredients.length; i ++){
-            if (this.chosenBase === this.chosenIngredients[i].ingredient_en){
-              console.log(this.chosenIngredients[i].ingredient_en)
-              return this.chosenIngredients[i]
-
-            }
-          }
-        },
         findBaseString: function(){
           if(this.chosenBase!==""){ //Gå bara in när man har valt en bas
             var baseStr = "";
@@ -619,6 +582,160 @@ var vm = new Vue({
                     }
                     return boostStr
                   }
-          }
+          },
+        
+
+        compareArrays: function(array1, array2){
+
+            if (array1.length!==array2.length) {return false;}
+           for (var i = 0; i<array1.length; i++){
+               if (array1[i].ingredient_en!==array2[i].ingredient_en){
+                   return false;}
+           }
+            return true;
+
+       /* printArray: function (){
+            for (var i= 0; i<this.chosenFruitGreens.length; i++){
+                console.log(i);
+                console.log(this.chosenFruitGreens[i].ingredient_en);
+                
+            }*/
+        },
+        computeRatios: function(){
+            var ratioArray=[];
+            if (Array.isArray(this.sliderArray)){
+                ratioArray[0]=this.sliderArray[0]; 
+            
+            for (var i= 1; i<this.chosenFruitGreens.length-1; i++){
+                ratioArray[i]=this.sliderArray[i]-this.sliderArray[i-1];
+            }
+            ratioArray[this.chosenFruitGreens.length-1]=100-this.sliderArray[this.sliderArray.length-1] 
+                }
+            else {
+                ratioArray[0]=this.sliderArray;
+                ratioArray[1]=100-this.sliderArray;
+            }
+             
+            return ratioArray.reverse();
+            
+        },
+        
+        findBase: function(){
+            for(var i= 0; i <this.chosenIngredients.length; i ++){
+                if (this.chosenBase === this.chosenIngredients[i].ingredient_en){
+                    return this.chosenIngredients[i]
+                    
+                }
+            }
+        },
+        
+        findBaseIndex: function(){
+            for(var i= 0; i <this.chosenIngredients.length; i ++){
+                if (this.chosenBase === this.chosenIngredients[i].ingredient_en){
+                    return i
+                }
+            }
+        },
+        
+        findToppingIndex:function(){
+            for(var i= 0; i <this.chosenIngredients.length; i ++){
+                if (this.chosenTopping === this.chosenIngredients[i].ingredient_en){
+                    return i
+                }
+            }
+        },
+        
+        findBoostIndex:function(){
+            for(var i= 0; i <this.chosenIngredients.length; i ++){
+                if (this.chosenBoost === this.chosenIngredients[i].ingredient_en){
+                    return i
+                }
+            }
+            
+        },
+        
+        computeSliderVolumes:function(){
+            var computedVolumes=[]
+            //i ml
+            //säger att bas alltid är 1/3 av drycken
+            if (this.size=="small"){
+                computedVolumes=this.computeRatios().map(function(x) {return x * (3-1) })
+                
+            }
+            if (this.size=="medium"){
+                computedVolumes= this.computeRatios().map(function(x) {return x * (4 - 4/3) })
+                
+            }
+            if (this.size=="large"){
+                computedVolumes=this.computeRatios().map(function(x) {return x * (5 - 5/3) })
+                
+            }
+           
+            return computedVolumes;
+        },
+        
+        computeBaseVol:function(){
+            if (this.size=="small"){
+                return 300/3;
+            }
+            else if (this.size=="medium"){
+                return 400/3;     
+            }
+            else if (this.size=="large"){
+                return 500/3;  
+            }
+             
+        },
+        
+        
+        computeChange: function(){
+            var changeArray= []
+            var sliderIngredCounter=0;
+            for (var i =0; i<this.chosenIngredients.length; i++){
+                if (i==this.findBaseIndex()){
+                    
+                    var baseVol= this.chosenIngredients[i].vol_smoothie;
+                    var baseChange= 1;
+                    while(baseVol<this.computeBaseVol()){
+                        
+                        baseVol= baseVol+this.chosenIngredients[i].vol_smoothie;
+                        baseChange+=1;
+                          }
+                    changeArray.push(baseChange); 
+                }
+                else if (i== this.findToppingIndex()){
+                   
+                    
+                    var toppingChange= 1;
+                    changeArray.push(toppingChange); 
+                    
+                    
+                }
+                else if (i== this.findBoostIndex()){
+                    
+                    var boostChange= 1;
+                    changeArray.push(boostChange); 
+                }
+                
+                else {
+                    
+                    var ingredChange=1;
+                    var vol=this.chosenIngredients[i].vol_smoothie;
+                    while(vol<this.computeSliderVolumes()[sliderIngredCounter]){
+                     
+                        vol=vol+this.chosenIngredients[i].vol_smoothie;
+                        ingredChange+=1;
+                          }
+                    changeArray.push(ingredChange); 
+                    sliderIngredCounter+=1;
+                }
+                
+            }
+            
+            return changeArray;
+            
+            
         }
-      });
+    }
+});
+
