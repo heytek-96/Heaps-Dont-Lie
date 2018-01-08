@@ -379,7 +379,6 @@ var vm = new Vue({
             this.customizeShown = false;
             this.extrasShown = true;
             this.extraHasBeenShown = true;
-            this.fruitGreensInSlider=this.chosenFruitGreens;
 
 
         },
@@ -414,7 +413,8 @@ var vm = new Vue({
             return key + (magnitude * 100);
         },
         createSlider: function () {
-
+            console.log("creating");
+            console.log(this.sliderArray);
             var startArray = [];
             var connectArray = [];
             this.colors=[];
@@ -450,11 +450,14 @@ var vm = new Vue({
                 //baklänges för att få färgerna i rätt ordning i koppen
                 connect[i].style.background=this.colors[connect.length-i-1];
             }
+            console.log(this.sliderArray);
 
             if(this.compareArrays(this.fruitGreensInSlider,this.chosenFruitGreens)){
-                this.slider.noUiSlider.set([this.sliderArray]);
+                this.slider.noUiSlider.set(this.sliderArray);
                 console.log("i if-sats")}
             this.getCurrentSliderArray();
+            this.fruitGreensInSlider=this.chosenFruitGreens.slice();
+            console.log(this.sliderArray);
 
         },
 
@@ -506,6 +509,7 @@ var vm = new Vue({
         },
 
         destroySlider: function () {
+            console.log("destroying: ")
             if (this.slider!==""){
                 this.slider.noUiSlider.destroy();
                 this.slider="";
@@ -523,9 +527,10 @@ var vm = new Vue({
         getCurrentSliderArray: function(){
 
             if (this.slider!==""){
-                this.sliderArray=this.slider.noUiSlider.get()
+                this.sliderArray=this.slider.noUiSlider.get().slice(); 
+                console.log("slicing");
             }
-            console.log(this.sliderArray);
+            // console.log(this.sliderArray);
         },
 
         compareArrays: function(array1, array2){
