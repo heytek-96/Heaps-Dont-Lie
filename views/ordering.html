@@ -24,6 +24,7 @@
 
     <div id="ordering">
       <button class="backButton" v-on:click="switchLang()">{{ uiLabels.language }}</button>
+      <button class="backButton" v-on:click="showStart()">Restart Order</button>
 
         <div v-if="startShown">
 
@@ -43,7 +44,6 @@
     </div>
 
       <div v-if="sizeShown">
-          <button id="backButton" v-on:click="showStart()">Restart Order</button>
         <div class="popup" onclick="helpSize()">?
         <span class="popuptext" id="helpSize">Choose size <br><br>Size Small: max 2 fruits/greens<br><br> Size Medium: max 3 fruits/greens<br><br> Size Large: max 4 fruit/greens<br><br>All sizes: max 1 base ingredient and max 1 topping and 1 boost<br><br> Tap here to continue</span>
         </div>
@@ -135,8 +135,6 @@
       <div v-show="ingredientsShown">
         <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
 
-        <button v-on:click="showStart()" class = "backButton">Restart Order</button>
-
 
         <div class="popup" onclick="helpIngred()">?
           <span class="popuptext" id="helpIngred">Choose 1 base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>To add more than {{maxIngred}} fruits or greens: Change to a bigger size by pressing "Select size"<br><br>Tap here to continue</span>
@@ -185,7 +183,7 @@
 
         <div v-show="customizeShown">
 
-          <button v-on:click="showStart()" class="backButton">Restart Order</button>
+
           <div class="popup" onclick="helpCustomize()">?
             <span class="popuptext" id="helpCustomize">Customize the proportions of your fruits and greens by dragging the sliders. <br><br> Tap here to continue</span>
           </div>
@@ -213,8 +211,6 @@
 
 
           <div v-show="extrasShown">
-            <!-- Samma här som ovan, v-show istället för v-if -->
-            <button v-on:click="showStart()" class="backButton">Restart Order</button>
             <div class="popup" onclick="helpExtras()">?
                 <span class="popuptext" id="helpExtras">Add max 1 boost and/or 1 topping for an additional cost. <br><br> A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage. <br><br>You can add maximum 1 boost and 1 topping. <br><br> Tap here to continue</span>
             </div>
@@ -254,7 +250,6 @@
 
 
           <div v-show="overviewShown">
-            <button v-on:click="showStart()" class="backButton">Restart Order</button>
             <div class="popup" onclick="helpOverview()">?
                 <span class="popuptext" id="helpOverview">Here is an overview of your order. Want to change something? Go back using the navigation bar in the bottom of this page.<br><br>Click on "Pay n Shake" to send your order to the kitchen. <br><br> Tap here to continue</span>
             </div>
@@ -285,7 +280,6 @@
         </div>
 
           <div v-if="payShown">
-            <button v-on:click="showStart()" class="backButton">Restart Order</button>
             <div id = lastPageText>Thanks!</div>
             <button class="allButtons" v-on:click="showStart()">Go back to start </button>
             <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
