@@ -34,10 +34,20 @@
     "extras": "Extra",
     "overview": "Översikt",
     "base": "Bas",
-    "fruitGreens": "Frukt/Grönsaker",
+    "fruitGreens": "Frukter/Grönsaker",
     "waitingFor": "Väntar på en jos",
     "juiceWaiting": "Du har jos! Tryck enter för att se",
     "goToOrder": "Visa orderdetaljer",
     "goBack": "Tillbaka",
-    "pressEnter": "Tryck enter!"
+    "pressEnter": "Tryck enter!",
+    "helpChoose": "Välj 1 bas och välj därefter max",
+    "fruitsAndOrGreens": "frukter och/eller grönsaker",
+    "toAddMore": "För att lägga till fler än",
+    "fruitsOrGreens": "frukter eller grönsaker",
+    "changeBiggerSize": "Ändra till en större storlek genom att trycka på",
+    "price": "Pris",
+    "fruits": "Frukt",
+    "greens": "Grönsaker",
+    "fruitGreensSmall": "frukter/grönsaker",
+    "helpCustomize": "Skräddarsy proportionerna av dina frukter och grönsaker genom att dra i handtagen"
 }

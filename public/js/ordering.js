@@ -273,7 +273,7 @@ var vm = new Vue({
                         chosenBoost: this.chosenBoost,
                         chosenFruitGreens: this.chosenFruitGreens,
                         changeArray:this.computeChange()
-                        
+
 
                     };
                     // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
@@ -583,7 +583,7 @@ var vm = new Vue({
                     return boostStr
                   }
           },
-        
+
 
         compareArrays: function(array1, array2){
 
@@ -598,37 +598,37 @@ var vm = new Vue({
             for (var i= 0; i<this.chosenFruitGreens.length; i++){
                 console.log(i);
                 console.log(this.chosenFruitGreens[i].ingredient_en);
-                
+
             }*/
         },
         computeRatios: function(){
             var ratioArray=[];
             if (Array.isArray(this.sliderArray)){
-                ratioArray[0]=this.sliderArray[0]; 
-            
+                ratioArray[0]=this.sliderArray[0];
+
             for (var i= 1; i<this.chosenFruitGreens.length-1; i++){
                 ratioArray[i]=this.sliderArray[i]-this.sliderArray[i-1];
             }
-            ratioArray[this.chosenFruitGreens.length-1]=100-this.sliderArray[this.sliderArray.length-1] 
+            ratioArray[this.chosenFruitGreens.length-1]=100-this.sliderArray[this.sliderArray.length-1]
                 }
             else {
                 ratioArray[0]=this.sliderArray;
                 ratioArray[1]=100-this.sliderArray;
             }
-             
+
             return ratioArray.reverse();
-            
+
         },
-        
+
         findBase: function(){
             for(var i= 0; i <this.chosenIngredients.length; i ++){
                 if (this.chosenBase === this.chosenIngredients[i].ingredient_en){
                     return this.chosenIngredients[i]
-                    
+
                 }
             }
         },
-        
+
         findBaseIndex: function(){
             for(var i= 0; i <this.chosenIngredients.length; i ++){
                 if (this.chosenBase === this.chosenIngredients[i].ingredient_en){
@@ -636,7 +636,7 @@ var vm = new Vue({
                 }
             }
         },
-        
+
         findToppingIndex:function(){
             for(var i= 0; i <this.chosenIngredients.length; i ++){
                 if (this.chosenTopping === this.chosenIngredients[i].ingredient_en){
@@ -644,98 +644,97 @@ var vm = new Vue({
                 }
             }
         },
-        
+
         findBoostIndex:function(){
             for(var i= 0; i <this.chosenIngredients.length; i ++){
                 if (this.chosenBoost === this.chosenIngredients[i].ingredient_en){
                     return i
                 }
             }
-            
+
         },
-        
+
         computeSliderVolumes:function(){
             var computedVolumes=[]
             //i ml
             //säger att bas alltid är 1/3 av drycken
             if (this.size=="small"){
                 computedVolumes=this.computeRatios().map(function(x) {return x * (3-1) })
-                
+
             }
             if (this.size=="medium"){
                 computedVolumes= this.computeRatios().map(function(x) {return x * (4 - 4/3) })
-                
+
             }
             if (this.size=="large"){
                 computedVolumes=this.computeRatios().map(function(x) {return x * (5 - 5/3) })
-                
+
             }
-           
+
             return computedVolumes;
         },
-        
+
         computeBaseVol:function(){
             if (this.size=="small"){
                 return 300/3;
             }
             else if (this.size=="medium"){
-                return 400/3;     
+                return 400/3;
             }
             else if (this.size=="large"){
-                return 500/3;  
+                return 500/3;
             }
-             
+
         },
-        
-        
+
+
         computeChange: function(){
             var changeArray= []
             var sliderIngredCounter=0;
             for (var i =0; i<this.chosenIngredients.length; i++){
                 if (i==this.findBaseIndex()){
-                    
+
                     var baseVol= this.chosenIngredients[i].vol_smoothie;
                     var baseChange= 1;
                     while(baseVol<this.computeBaseVol()){
-                        
+
                         baseVol= baseVol+this.chosenIngredients[i].vol_smoothie;
                         baseChange+=1;
                           }
-                    changeArray.push(baseChange); 
+                    changeArray.push(baseChange);
                 }
                 else if (i== this.findToppingIndex()){
-                   
-                    
+
+
                     var toppingChange= 1;
-                    changeArray.push(toppingChange); 
-                    
-                    
+                    changeArray.push(toppingChange);
+
+
                 }
                 else if (i== this.findBoostIndex()){
-                    
+
                     var boostChange= 1;
-                    changeArray.push(boostChange); 
+                    changeArray.push(boostChange);
                 }
-                
+
                 else {
-                    
+
                     var ingredChange=1;
                     var vol=this.chosenIngredients[i].vol_smoothie;
                     while(vol<this.computeSliderVolumes()[sliderIngredCounter]){
-                     
+
                         vol=vol+this.chosenIngredients[i].vol_smoothie;
                         ingredChange+=1;
                           }
-                    changeArray.push(ingredChange); 
+                    changeArray.push(ingredChange);
                     sliderIngredCounter+=1;
                 }
-                
+
             }
-            
+
             return changeArray;
-            
-            
+
+
         }
     }
 });
-

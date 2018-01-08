@@ -39,5 +39,15 @@
     "juiceWaiting": "You've got an order, press enter to view!",
     "goToOrder": "Display order details",
     "goBack": "Go back",
-    "pressEnter": "Press enter!"
+    "pressEnter": "Press enter!",
+    "helpChoose": "Choose 1 base and thereafter choose max",
+    "fruitsAndOrGreens": "fruits and/or greens",
+    "toAddMore": "To add more than",
+    "fruitsOrGreens": "fruits or greens",
+    "changeBiggerSize": "Change to a bigger size by pressing",
+    "price": "Price",
+    "fruits": "Fruits",
+    "greens": "Greens",
+    "fruitGreensSmall": "fruits/greens",
+    "helpCustomize": "Customize the proportions of your fruits and greens by dragging the sliders"
 }
