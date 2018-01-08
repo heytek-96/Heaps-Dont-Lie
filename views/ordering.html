@@ -109,22 +109,29 @@
 
 
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
+            
+            <br><br><br><br><br><br>
+            {{ uiLabels.order }} <br><br>
+            Size: {{ size }}<br><br>
+            Base: {{ chosenBase }}<br><br>
+            Fruit/Greens:
+            <div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}} <br></div>
+            <br>
 
-            <h1>{{ uiLabels.order }}</h1>
-            <h4>{{ uiLabels.size }}:</h4> {{ getSize() }}<br>
-            <h4>Base:</h4> {{ chosenBase }}<br>
-            <h4>Fruit/Greens:</h4>
-            <div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}} <span class=colorBox :style= "{'background-color': choice.color }"> </span> <br></div>
+            
              <!--  {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}<br> Borttaget/A-->
             <!-- Nedan kan säkert göras snyggare men funkar for now //CE-->
             <div v-if="extraHasBeenShown">
-                <h4>Topping:</h4> {{chosenTopping}}, <h4>Boost: </h4>{{chosenBoost}}<br>
+            Topping: {{chosenTopping}} <br><br>
+            Boost:{{chosenBoost}} <br><br>
             </div>
-            <h4>Price:</h4> {{priceTot}} kr
+            <br><br>
+            Price: {{priceTot}} kr
             <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
             <br><br><br><br><br>
-<!-- Ska order queue var kvar?/Anna-->
-            <h1>{{ uiLabels.ordersInQueue }}</h1>
+
+<!-- Ska order queue var kvar?/Anna -->
+            {{ uiLabels.ordersInQueue }}
             <div>
                 <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
                 </order-item>
@@ -139,6 +146,7 @@
         <div class="popup" onclick="helpIngred()">?
           <span class="popuptext" id="helpIngred">Choose 1 base and thereafter choose max {{maxIngred}} fruits and/or greens.<br><br>To add more than {{maxIngred}} fruits or greens: Change to a bigger size by pressing "Select size"<br><br>Tap here to continue</span>
         </div>
+          
         <h1>Ingredients</h1>
         <p>Select 1 base and max {{maxIngred}} fruit/greens</p><br>
 
@@ -197,6 +205,13 @@
                 </div>
                 <div id=slider-color> </div>
             </div>
+            
+            <div class=colorBoxJar>
+            Fruit/Greens: <br><br>
+            <div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div>
+            
+            </div>
+            
             <button v-on:click="showIngredients()" class="backButton1">Choose Ingredients</button>
             <button v-on:click="showExtras()" class="nextButton">Choose Extras</button>
 

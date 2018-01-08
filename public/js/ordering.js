@@ -49,12 +49,12 @@ Vue.component('ingredient', {
             /* Varje gång den osynliga checkboxen ändras sker detta. Det går också att köra funktionen rakt av. */
             if (this.checkboxstate) {
                 this.checkboxstate = false;
-                document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color:aliceblue;");
+                document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color: white;");
                 //Verkar som att eventuell styling bör ske innan emit.
                 this.$emit('checkbox-untick');
             } else {
                 this.checkboxstate = true;
-                document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color: #ee99acad;");
+                document.getElementsByClassName(this.customid)[0].setAttribute("style", "background-color: #f5ba51;");
 
                 this.$emit('checkbox-tick');
             }
@@ -457,7 +457,6 @@ var vm = new Vue({
                 this.slider.noUiSlider.set(this.sliderArray);}
             this.getCurrentSliderArray();
             this.fruitGreensInSlider=this.chosenFruitGreens.slice();
-
         },
 
         createOverviewSlider: function(){
