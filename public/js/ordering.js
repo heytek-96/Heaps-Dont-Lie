@@ -450,7 +450,7 @@ var vm = new Vue({
             }
 
             if(this.compareArrays(this.fruitGreensInSlider,this.chosenFruitGreens)){
-                this.slider.noUiSlider.set(this.sliderArray);
+                this.slider.noUiSlider.set(this.sliderArray);}
             this.getCurrentSliderArray();
             this.fruitGreensInSlider=this.chosenFruitGreens.slice();
 
