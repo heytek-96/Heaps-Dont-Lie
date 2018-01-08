@@ -127,12 +127,15 @@
             <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
             <br><br><br><br><br>
 
-<!-- Ska order queue var kvar?/Anna -->
-            {{ uiLabels.ordersInQueue }}
+            
+<!-- Kommenterar bort order queue så länge /Anna -->
+            
+         <!--   {{ uiLabels.ordersInQueue }}
             <div>
                 <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
                 </order-item>
             </div>
+-->
 
         </div>
 
@@ -202,8 +205,10 @@
             </div>
 
             <div class=colorBoxJar>
+
             {{ uiLabels.fruitGreens }}: <br><br>
             <div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div>
+
 
             </div>
 
