@@ -1,10 +1,8 @@
-
-
 #ordering {
 
-  top: 120px;
-  margin: 0px;
-  width: 80em;
+    top: 120px;
+    margin: 0px;
+    width: 80em;
 }
 
 #homepageText {
@@ -44,13 +42,13 @@
     margin-bottom: 5%;
     top: 10%;
     left: 27%;
-    }
+}
 
 
 #restartButton {
 
-  position: absolute;
-  text-align: left;
+    position: absolute;
+    text-align: left;
 }
 
 #sizePage {
@@ -61,26 +59,67 @@
 }
 
 #orders {
+    display: block;
+    width: 80em;
+    margin: 0.5em;
+    position: relative;
+    height: 45em;
+}
 
-  margin: 0px;
-  width: 80em;
+#orders table {
+    background-color: aliceblue;
+}
+
+#orders thead{
+    display: block;
+}
+#orders tbody {
+    display: block;
+    max-height: 30em;
+    overflow-y: scroll;
+}
+
+#orders td {
+    position: relative;
+}
+
+#orders td, th {
+    width: 10em;
+}
+
+#orders ol {
+    padding-left: 1em;
 }
 
 
+
+#orders div {
+    margin: inherit;
+}
+
+#orders h1 {
+    width: 100%;
+}
+
+input {
+    position: absolute;
+    opacity: 0;
+}
+
 body {
 
-  font-family: 'Cabin Sketch', cursive;
-  background: #fff9bb;
-  font-size: 90%;
+    font-family: 'Cabin Sketch', cursive;
+    background: #fff9bb;
+    font-size: 90%;
 }
 
 h1 {
 
-  color: #3a3e63;
-  text-transform: uppercase;
-  letter-spacing: 2pt;
-  width: 20%;
-  left: 10%
+    color: #3a3e63;
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    width: 20%;
+    left: 10%
 }
 
 /*.composingOrder {
@@ -90,41 +129,43 @@ h1 {
 }*/
 
 /* Help Popup */
+
 .popup {
-   position: relative;
-   display: inline-block;
-   min-width: 50px;
-   width: auto;
-   float: right;
-   margin-right: 20%;
-   color: white;
-   border: solid black;
-   border-width:medium;
-   background-color: black;
-   text-align: center;
-   border-radius: 6px;
-   font-size: 2em;
+    position: relative;
+    display: inline-block;
+    min-width: 50px;
+    width: auto;
+    float: right;
+    margin-right: 20%;
+    color: white;
+    border: solid black;
+    border-width: medium;
+    background-color: black;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 2em;
 }
 
 /* Popup-rutan */
+
 .popup .popuptext {
-  visibility: hidden;
-  background-color: #555;
-  color: #fff;
-  min-width: 40%;
-  width: auto;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 8px;
-  right: 50%;
-  margin-left: 50%;
-  position: fixed;
-  z-index: 1;
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    min-width: 40%;
+    width: auto;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 8px;
+    right: 50%;
+    margin-left: 50%;
+    position: fixed;
+    z-index: 1;
 
 }
 
 .popup .show {
-  visibility: visible;
+    visibility: visible;
 }
 
 .colorBoxJar {
@@ -136,7 +177,6 @@ h1 {
 }
 
 .yourOrder {
-
     
   background-image: url(https://cdn4.iconfinder.com/data/icons/fineline-art-and-design/128/art_design_publishing_graphics-01-512.png);
   background-position: center;
@@ -151,8 +191,6 @@ h1 {
   margin-top: 10px;
   margin-right; 50px;
   background-repeat: no-repeat;
-
-
 }
 
 .sizeButtons label {
@@ -166,48 +204,45 @@ h1 {
     position: relative;
     overflow: hidden;
 }
-.sizeList{
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-  padding-top: 4em;
-  padding-bottom: 4em;
-  text-align: center;
-  position: absolute;
+
+.sizeList {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    padding-top: 4em;
+    padding-bottom: 4em;
+    text-align: center;
+    position: absolute;
 
 }
-.sizeHeading{
 
-  width:auto;
-  position: relative;
-  height:50%;
-  margin-left: 1em;
-  margin-right: 1em;
-  margin-bottom: 1em;
-  background-color: black;
-  color: white;
-  font-size: 150%;
-  text-align: center;
-  border-radius: 25px;
-  border: solid black;
+.sizeHeading {
+
+    width: auto;
+    position: relative;
+    height: 50%;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    background-color: black;
+    color: white;
+    font-size: 150%;
+    text-align: center;
+    border-radius: 25px;
+    border: solid black;
 }
 
-.sizeButtons input {
-  /* Osynlig input */
-  opacity: 0;
-  position: absolute;
-}
 
 .ingredientBlock {
-  display: inline-block;
-  vertical-align: top;
-  margin: 0px;
-  width 15em;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0px;
+    width 15em;
 }
 
 .ingredientList {
 
-  max-height: 50vh;
-  overflow: scroll;
+    max-height: 50vh;
+    overflow: scroll;
 
 }
 
@@ -231,17 +266,12 @@ h1 {
   background-color: white;
 }
 
-.ingred input {
-  /* Osynlig checkbox i ingrediensknapparna */
-  opacity: 0;
-  position: absolute;
-}
 
 .ingred p {
-  /* Lite rörigt men det här var ett snabbt sätt att få knapparna att inte se orimliga ut */
-  text-align: center;
-  color: black;
-  margin: 0vh;
+    /* Lite rörigt men det här var ett snabbt sätt att få knapparna att inte se orimliga ut */
+    text-align: center;
+    color: black;
+    margin: 0vh;
 }
 
 table,
@@ -252,10 +282,6 @@ td {
   padding-right: 10px;
 }
 
-tr:hover {
-  background-color: #ffa;
-
-}
 
 #restartButton {
 
@@ -294,7 +320,6 @@ tr:hover {
 
 .nextButton {
     /*CSS för alla nextknappar. Placeholder*/
-
     position: relative;
     border-width: 8px;
     border-radius: 8px;
@@ -325,97 +350,99 @@ tr:hover {
 
 
 .navBar {
-  /*CSS för navigation bar sätts här senare.*/
+    /*CSS för navigation bar sätts här senare.*/
 }
 
 .navBar > button {
-  /*CSS för navigation bar sätts här senare. exempel från egen idividuel lab */
-  width: 8em;
-  padding-top: 2em;
-  padding-bottom: 2em;
-  padding-right: 9em;
-  margin-top: 2px;
-  margin-left: 0px;
-  color: white;
+    /*CSS för navigation bar sätts här senare. exempel från egen idividuel lab */
+    width: 8em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-right: 9em;
+    margin-top: 2px;
+    margin-left: 0px;
+    color: white;
     background-color: black;
     border-radius: 16px;
-  /*background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/93/Red_Right_Arrow.png);*/
-  /*background-size: contain;*/
-  /*background-repeat: no-repeat;*/
-  font-size: 1em;
+    /*background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/93/Red_Right_Arrow.png);*/
+    /*background-size: contain;*/
+    /*background-repeat: no-repeat;*/
+    font-size: 1em;
 
 }
 
 .activePageButton {
-  background-color: #f5ba51;
+    background-color: #f5ba51;
 }
 
-button:disabled{
-  opacity: 0.6;
+button:disabled {
+    opacity: 0.6;
 }
 
-#sliderPic{
-  /*background-image:url(http://moziru.com/images/jar-clipart-8.png);*/
-  background-repeat: no-repeat;
-  background-position: center;
-  height:400px;
-  position:relative;
-  z-index: 0;
+#sliderPic {
+    /*background-image:url(http://moziru.com/images/jar-clipart-8.png);*/
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 400px;
+    position: relative;
+    z-index: 0;
 
 }
 
-#slider-color{
-  left: 45px;
-  height:280px;
-  width: 180px;
-  position:absolute;
-  top:230px;
-  z-index:1;
+#slider-color {
+    left: 45px;
+    height: 280px;
+    width: 180px;
+    position: absolute;
+    top: 230px;
+    z-index: 1;
 }
 
-#overviewSlider{
-  left: 45px;
-  height:280px;
-  width: 180px;
-  position:absolute;
-  top:400px;
-  z-index:1;
+#overviewSlider {
+    left: 45px;
+    height: 280px;
+    width: 180px;
+    position: absolute;
+    top: 400px;
+    z-index: 1;
 
 }
 
 /* Help Popup */
+
 .popup {
-  position: relative;
-  display: inline-block;
-  width: 20px;
-  margin-left: 400px;
-  border: solid #f5ba51;
-  border-width:medium;
-  background-color: #f5ba51;
-  text-align: center;
-  border-radius: 6px;
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    margin-left: 400px;
+    border: solid #f5ba51;
+    border-width: medium;
+    background-color: #f5ba51;
+    text-align: center;
+    border-radius: 6px;
 }
 
 /* Popup-text */
+
 .popup .popuptext {
-  visibility: hidden;
-  background-color: #555;
-  color: #fff;
-  width: 450px;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 8px;
-  margin: auto;
-  position: absolute;
-  right: 100%;
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    width: 450px;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 8px;
+    margin: auto;
+    position: absolute;
+    right: 100%;
 
 }
 
 .popup .show {
-  visibility: visible;
+    visibility: visible;
 }
 
-.colorBox{
+.colorBox {
     display: inline-block;
     width:30px;
     height:30px;
@@ -424,7 +451,41 @@ button:disabled{
     vertical-align: middle;
 }
 
-[disabled] .noUi-handle { background: none; border: none; }
+.kitchenNavbar {
+    position: absolute;
+    bottom: 0px;
+}
+
+.kitchenNavbar span {
+    display: inline-block;
+    width: 15em;
+    height: 3em;
+    border: solid black;
+    border-width: thin;
+    background-color: aliceblue;
+    vertical-align: top;
+    text-align: center;
+}
+
+.kitchenNavbar p {
+    margin: 0em;
+}
+
+.inactive {
+    background-color: lightgray !important;
+    color: darkgray !important;
+}
+
+[disabled] .noUi-handle {
+    background: none;
+    border: none;
+}
+
 [disabled] .noUi-handle:before,
-[disabled] .noUi-handle:after { content: none; }
-[disabled] .noUi-handle { display:none; }
+[disabled] .noUi-handle:after {
+    content: none;
+}
+
+[disabled] .noUi-handle {
+    display: none;
+}

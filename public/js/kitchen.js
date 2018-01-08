@@ -16,12 +16,7 @@ Vue.component('order-list-item', {
         <td><ol><li v-for="ingr in order.ingredients">\
             {{ingr.ingredient_en}}\
         </li></ol></td>\
-        <td><button v-on:click="orderDone">\
-            {{uiLabels.ready}}\
-         </button></td>\
-         <td><button v-on:click="cancelOrder">\
-            {{uiLabels.cancel}}\
-          </button></td></tr>',
+        </tr>',
 
     data: function () {
         return {
@@ -54,6 +49,9 @@ Vue.component('order-list-item', {
             if (this.checkboxstate) {
                 this.checkboxEvent();
             }
+        },
+        scroll: function () {
+            document.getElementsByClassName(this.orderId)[0].scrollIntoView(false);
         }
 
     }
@@ -67,7 +65,7 @@ var vm = new Vue({
         isAtStart: true,
         isAtPrevious: false,
         isAtWaiting: false,
-        showStart: true,
+        showStart: true, //kan vara överflödig
         showListOfWaitingOrders: false,
         showListOfPreviousOrders: false,
         showOrder: false,
@@ -102,6 +100,7 @@ var vm = new Vue({
                 if (this.isAtStart && this.countOrders() > 0) {
                     this.showWaitingOrders();
                     this.selectFirstOrder();
+                    this.displayOrder();
                 } else if (this.showListOfWaitingOrders || this.showListOfPreviousOrders) {
                     this.displayOrder();
                 } else if (this.showOrder) {
@@ -136,11 +135,13 @@ var vm = new Vue({
                     if (dir === 'up' && i > 0) {
                         orderRows[i].checkboxEvent();
                         orderRows[i - 1].checkboxEvent();
+                        orderRows[i - 1].scroll();
                         this.currentRow = orderRows[i - 1].orderId;
                     }
                     if (dir === 'down' && i + 1 < orderRows.length) {
                         orderRows[i].checkboxEvent();
                         orderRows[i + 1].checkboxEvent();
+                        orderRows[i + 1].scroll();
                         this.currentRow = orderRows[i + 1].orderId;
                     }
                     break
@@ -150,6 +151,7 @@ var vm = new Vue({
 
         markDone: function (orderid) {
             socket.emit("orderDone", orderid);
+            this.goBack();
         },
 
         countOrders: function () {
@@ -173,6 +175,7 @@ var vm = new Vue({
 
         sendCancel: function (orderid) {
             socket.emit("cancelOrder", orderid);
+            this.goBack();
         },
 
         selectFirstOrder: function () {
@@ -251,21 +254,36 @@ var vm = new Vue({
                 this.openOrder('prevorder');
             }
             this.showOrder = true;
-            console.log(this.orderBeingDisplayed.nr);
         },
 
         goBack: function () {
+            var hadToWait = false;
             if ((this.isAtPrevious && this.showListOfPreviousOrders) || (this.isAtWaiting && this.showListOfWaitingOrders)) {
                 this.showStartPage();
             } else if (this.showOrder) {
-                if (this.isAtWaiting) {
-                    this.showListOfWaitingOrders = true;
-                }
                 if (this.isAtPrevious) {
                     this.showListOfPreviousOrders = true;
+                } else if (this.isAtWaiting) {
+                    hadToWait = true;
+                    window.setTimeout(function () {
+                        if (vm.countOrders() > 0) {
+                            console.log(vm.waitingOrders);
+                            vm.showListOfWaitingOrders = true;
+                            vm.selectFirstOrder();
+                        } else {
+                            vm.showStartPage();
+                        }
+                    }, 30);
                 }
-                this.orderBeingDisplayed = {};
-                this.showOrder = false;
+                if (hadToWait) {
+                    window.setTimeout(function () {
+                        vm.orderBeingDisplayed = {};
+                        vm.showOrder = false;
+                    }, 30);
+                } else {
+                    this.orderBeingDisplayed = {};
+                    this.showOrder = false;
+                }
             }
         },
 
@@ -276,8 +294,8 @@ var vm = new Vue({
             } else if (reference === 'prevorder') {
                 orderRows = this.$refs.prevorder;
             }
-            for (var i=0; i<orderRows.length; i++){
-                if (orderRows[i].checkboxstate){
+            for (var i = 0; i < orderRows.length; i++) {
+                if (orderRows[i].checkboxstate) {
                     this.orderBeingDisplayed = orderRows[i].order;
                 }
             }

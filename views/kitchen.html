@@ -24,33 +24,36 @@
 
     <div id="orders">
 
-
-        <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-        <span> Number of orders in queue: {{ countOrders() }}</span>
-
+        <div>
+            <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+            <span> {{uiLabels.ordersInQueue}}: {{ countOrders() }}</span>
+        </div>
 
         <div v-show="showStart && isAtStart">
-            <h1>Waiting for a juicy Order</h1>
-            <button v-on:click="showPreviousOrders()"> &#8592; Previous orders </button>
-            <button v-on:click="showOrderToPrepare()"> Next order to prepare &#8629; </button>
-            <button> Order waiting press enter</button>
+
+            <h1 v-if="countOrders() === 0">{{ uiLabels.waitingFor }}</h1>
+            <h1 v-if="countOrders() > 0">{{ uiLabels.juiceWaiting }}</h1>
+
+            <div class="kitchenNavbar">
+                <span>&larr; <p>{{ uiLabels.ordersFinished }}</p></span>
+                <span class="inactive">Esc:  </span>
+                <span :class="{ inactive: countOrders()===0 }">Enter: <p v-if="countOrders()>0"> {{ uiLabels.goToOrder }}</p></span>
+                <span>&rarr;<p>{{ uiLabels.ordersInQueue }}</p></span>
+            </div>
+
         </div>
 
 
-        <div v-show="showListOfWaitingOrders && isAtWaiting">
+        <div v-show="isAtWaiting && showListOfWaitingOrders">
 
             <h1>{{ uiLabels.ordersInQueue }}</h1>
-
 
             <table>
                 <thead>
                     <tr>
-                        <th> Order no</th>
-                        <th> Size</th>
-                        <th> Ingredients</th>
-                        <th> Done</th>
-                        <th> Cancel</th>
-
+                        <th> Order nr</th>
+                        <th> {{uiLabels.size}}</th>
+                        <th> {{uiLabels.ingredients}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,20 +65,25 @@
 
             </table>
 
+            <div class="kitchenNavbar">
+                <span>&larr; <p>{{ uiLabels.goBack }}</p></span>
+                <span>Esc: <p>{{uiLabels.goBack}}</p> </span>
+                <span>Enter: <p> {{ uiLabels.goToOrder }}</p></span>
+                <span class="inactive">&rarr;</span>
+            </div>
 
         </div>
+
         <div v-show="showListOfPreviousOrders && isAtPrevious">
-            List of previous orders
+
             <h1>{{ uiLabels.ordersFinished }}</h1>
 
             <table>
                 <thead>
                     <tr>
-                        <th> Order no</th>
-                        <th> Size</th>
-                        <th> Ingredients</th>
-                        <th> Done</th>
-                        <th> Cancel</th>
+                        <th> Order nr</th>
+                        <th> {{uiLabels.size}}</th>
+                        <th> {{uiLabels.ingredients}}</th>
 
                     </tr>
                 </thead>
@@ -87,17 +95,42 @@
 
             </table>
 
+            <div class="kitchenNavbar">
+                <span class="inactive">&larr;</span>
+                <span>Esc: <p>{{uiLabels.goBack}}</p> </span>
+                <span>Enter: <p> {{ uiLabels.goToOrder }}</p></span>
+                <span>&rarr;  <p>{{ uiLabels.goBack }}</p></span>
+            </div>
+
         </div>
 
 
         <div v-if="showOrder">
-            
+
             <h2>Order: {{orderBeingDisplayed.nr}}</h2>
+            <br>
+            <div v-if="!orderBeingDisplayed.done">
+            <button v-on:click="markDone(orderBeingDisplayed.nr)">
+            {{uiLabels.ready}}
+            </button>
+            <button v-on:click="sendCancel(orderBeingDisplayed.nr)">
+            {{uiLabels.cancel}}
+            </button>
+            </div>
+            <br>
+            <h3>lägg till resten här</h3>
             <!-- Lägg till hur det ska se ut när en order är öppnad -->
-            
+
+            <div class="kitchenNavbar">
+                <span class="inactive">&larr;</span>
+                <span>Esc: <p>{{uiLabels.goBack}}</p> </span>
+                <span>Enter: <p>lägg till i uilabels!</p></span>
+                <span class="inactive">&rarr;</span>
+            </div>
+
         </div>
 
-        
+
     </div>
 
 </body>
