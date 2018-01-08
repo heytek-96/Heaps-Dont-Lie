@@ -19,10 +19,11 @@
 
 <body>
 
-<button class="backButton" v-on:click="switchLang()">Svenska</button>
+
     <!-- Kanske ta bort? /P -->
 
     <div id="ordering">
+      <button class="backButton" v-on:click="switchLang()">{{ uiLabels.language }}</button>
 
         <div v-if="startShown">
 
@@ -105,8 +106,8 @@
         </div>
 
 <!-- TEstar att ändra till v-show/A--->
-   
-        
+
+
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
 
             <h1>{{ uiLabels.order }}</h1>
@@ -263,7 +264,7 @@
             <p>Topping: {{ chosenTopping }}</p>
             <p>Boost: {{ chosenBoost }}</p>
             <p>Price: {{priceTot}} kr</p>
-              
+
               <div id=sliderPic>
 
                     <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
