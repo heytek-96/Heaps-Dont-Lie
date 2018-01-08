@@ -570,7 +570,6 @@ var vm = new Vue({
           }
         },
         findBaseString: function(){
-          console.log("i basestring")
           if(this.chosenBase!==""){ //Gå bara in när man har valt en bas
             var baseStr = "";
             for(var i= 0; i <this.chosenIngredients.length; i ++){
@@ -586,7 +585,40 @@ var vm = new Vue({
               }
               return baseStr
             }
+          },
+          findToppingString: function(){
+            if(this.chosenTopping!==""){ //Gå bara in när man har valt en topping
+              var toppingStr = "";
+              for(var i= 0; i <this.chosenIngredients.length; i ++){
+                if (this.chosenTopping === this.chosenIngredients[i].ingredient_en){
+                  var toppingObj = this.chosenIngredients[i];
+                }
+              }
+                if(this.lang==="en"){
+                  toppingStr = toppingObj.ingredient_en;
+                }
+                if(this.lang==="sv"){
+                  toppingStr = toppingObj.ingredient_sv;
+                }
+                return toppingStr
+              }
+            },
+              findBoostString: function(){
+                if(this.chosenBoost!==""){ //Gå bara in när man har valt en boost
+                  var boostStr = "";
+                  for(var i= 0; i <this.chosenIngredients.length; i ++){
+                    if (this.chosenBoost === this.chosenIngredients[i].ingredient_en){
+                      var boostObj = this.chosenIngredients[i];
+                    }
+                  }
+                    if(this.lang==="en"){
+                      boostStr = boostObj.ingredient_en;
+                    }
+                    if(this.lang==="sv"){
+                      boostStr = boostObj.ingredient_sv;
+                    }
+                    return boostStr
+                  }
           }
-
         }
       });

@@ -110,16 +110,17 @@
 
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
 
-            <h1>{{ uiLabels.order }}</h1>
-            <h4>{{ uiLabels.size }}:</h4> {{ getSize() }}<br>
-            <h4>{{ uiLabels.base }}:</h4> {{ findBaseString() }}<br>
-            <h4>Fruit/Greens:</h4>
-            <div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}} <br></div>
-             <!--  {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}<br> Borttaget/A-->
-            <!-- Nedan kan säkert göras snyggare men funkar for now //CE-->
+            <br><br><br><br><br><br>
+            {{ uiLabels.order }} <br><br>
+            {{ uiLabels.size }}: {{ getSize() }}<br><br>
+            {{ uiLabels.base }}: {{ findBaseString() }}<br><br>
+            {{ uiLabels.fruitGreens }}:<br>{{ chosenFruitGreens.map(item => item["ingredient_"+lang]).join(', ') }} <br>
+
+            <br>
+
             <div v-if="extraHasBeenShown">
-            Topping: {{chosenTopping}} <br><br>
-            Boost:{{chosenBoost}} <br><br>
+            Topping: {{findToppingString()}} <br><br>
+            Boost:{{findBoostString()}} <br><br>
             </div>
             <br><br>
             Price: {{priceTot}} kr
