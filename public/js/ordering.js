@@ -379,6 +379,10 @@ var vm = new Vue({
             this.customizeShown = false;
             this.extrasShown = true;
             this.extraHasBeenShown = true;
+            console.log(this.sliderArray);
+            this.printArray();
+            this.computeRatios();
+            this.findBase();
 
 
         },
@@ -533,7 +537,38 @@ var vm = new Vue({
                    return false;}
            }
             return true;
-}
-
+},
+        printArray: function (){
+            for (var i= 0; i<this.chosenFruitGreens.length; i++){
+                console.log(i);
+                console.log(this.chosenFruitGreens[i].ingredient_en);
+                
+            }
+        },
+        computeRatios: function(){
+            var ratioArray=[];
+            ratioArray[0]=this.sliderArray[0];
+            
+            for (var i= 1; i<this.sliderArray.length; i++){
+                console.log("hej")
+                ratioArray[i]=this.sliderArray[i]-this.sliderArray[i-1];
+            }
+            ratioArray[this.sliderArray.length]=100-this.sliderArray[this.sliderArray.length-1]
+            console.log(ratioArray);  
+            console.log(ratioArray.reverse())
+        },
+        
+        findBase: function(){
+            console.log("findBase");
+            for(var i= 0; i <this.chosenIngredients.length; i ++){
+                if (this.chosenBase === this.chosenIngredients[i].ingredient_en){
+                    console.log("i if-sats")
+                    console.log(this.chosenIngredients[i].ingredient_en)
+                    return this.chosenIngredients[i]
+                    
+                }
+            }
+        }
+        
   }
 });

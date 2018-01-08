@@ -32,11 +32,7 @@ app.get('/kitchen', function (req, res) {
 });
 
 
-//Serve kitchenStart.html as subpage
-app.get('/kitchenStart', function(req,res){
-    res.sendFile(path.join(__dirname, 'views/kitchenStart.html'));
-    
-});
+
 
 // Store data in an object to keep the global namespace clean
 function Data() {
