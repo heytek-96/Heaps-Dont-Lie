@@ -129,9 +129,7 @@
                 </order-item>
             </div>
 
-
         </div>
-
 
       <div v-show="ingredientsShown">
         <!-- Notera v-show istället för v-if. Det blev superkrångligt att behålla tidigare markerade ingredienser utan att ändra detta. Nu är det istället lite mer som behöver göras vid reset. /P -->
@@ -265,6 +263,13 @@
             <p>Topping: {{ chosenTopping }}</p>
             <p>Boost: {{ chosenBoost }}</p>
             <p>Price: {{priceTot}} kr</p>
+              
+              <div id=sliderPic>
+
+                    <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
+
+                </div>
+                <div id=overviewSlider> </div>
             <button v-on:click="showExtras()" class="backButton">Choose Extras</button>
             <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
 
@@ -285,11 +290,7 @@
             <img id="lemonPic" src = "https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
           </div>
 
-
     </div>
-
-
-
 
 </body>
 

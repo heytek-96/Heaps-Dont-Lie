@@ -309,7 +309,6 @@ button:disabled{
 }
 
 
-
 #slider-color{
   left: 45px;
   height:280px;
@@ -317,6 +316,16 @@ button:disabled{
   position:absolute;
   top:230px;
   z-index:1;
+}
+
+#overviewSlider{
+  left: 45px;
+  height:280px;
+  width: 180px;
+  position:absolute;
+  top:400px;
+  z-index:1;
+    
 }
 
 /* Help Popup */
@@ -356,3 +365,8 @@ button:disabled{
     width:15px;
     height:15px;
 }
+
+[disabled] .noUi-handle { background: none; border: none; }
+[disabled] .noUi-handle:before,
+[disabled] .noUi-handle:after { content: none; }
+[disabled] .noUi-handle { display:none; }
