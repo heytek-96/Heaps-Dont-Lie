@@ -7,7 +7,7 @@ ingredient_id,ingredient_sv,ingredient_en,vol_smoothie,vol_juice,selling_price,f
 6,vaniljglass,vanilla ice cream,50,50,5,0,0,0,0,1,#fefce2
 7,sodavatten,soda water,50,50,4,0,0,0,0,1,#e4f6fb
 8,vatten,water,50,50,0,0,0,0,0,1,#d6faf4
-9,is,ice,50,50,1,0,0,1,0,0,#f8fbfc
+9,is,ice,50,50,1,0,0,0,1,0,#f8fbfc
 10,guava,guava,10,10,10,1,0,0,0,0,#eed3e8
 11,grönkål,kale,50,20,5,0,1,0,0,0,#4f7b28
 12,morot,carrot,50,30,5,0,1,0,0,1,#fddcaa
@@ -38,21 +38,21 @@ ingredient_id,ingredient_sv,ingredient_en,vol_smoothie,vol_juice,selling_price,f
 37,mynta,mint leaves,10,10,5,0,0,0,1,0,#aceda6
 38,chiafrön,chia seeds,20,0,10,0,0,0,1,0,#d5a281
 39,cashewnötter,cashew nuts,20,0,15,0,0,1,0,0,#ceaa92
-40,valnötter,walnut,20,0,15,0,0,1,0,0,#ebd8a8
+40,valnötter,walnuts,20,0,15,0,0,1,0,0,#ebd8a8
 41,mandel,almond,20,0,15,0,0,1,0,0,#d7ae84
-42,hasselnötter,hazelnut,20,0,15,0,0,1,0,0,#ede1d4
+42,hasselnötter,hazelnuts,20,0,15,0,0,1,0,0,#ede1d4
 43,broccoli,broccoli,50,0,8,0,1,0,0,0,#83c153
 44,blomkål,cauliflower,50,0,8,0,1,0,0,,#f8f7ce
 45,honung,honey,10,10,4,0,0,0,1,0,#faf1a8
 46,socker,sugar,10,10,1,0,0,1,0,0,#f9f7e6
-47,jordnötssmÃ¶r,peanut butter,25,0,5,0,0,1,0,0,#deda8c
+47,jordnötssmÃ¶r,peanut butter,25,0,5,0,0,0,1,0,#deda8c
 48,kiwi,kiwi,60,0,6,1,0,0,0,0,#a9de8c
 49,russin,raisins,20,0,3,0,0,1,0,0,#c47f4a
 50,dadlar,dates,20,0,3,0,0,1,0,0,#814b22
 51,avocado,avocado,100,0,15,0,1,0,0,0,#99e76a
 52,linfrön,flax seeds,20,0,10,0,0,0,1,0,#be8850
 53,tomat,tomato,50,0,4,0,1,0,0,1,#fcb6b0
-54,keso,cottage cheese,25,0,2,0,0,1,0,0,#f5e8b3
+54,keso,cottage cheese,25,0,2,0,0,0,1,0,#f5e8b3
 55,spirulina,spirulina,10,10,4,0,0,0,1,0,#bafa99
 56,tabasco,tabasco,5,5,3,0,0,0,1,0, #fa9ff99
 57,proteinpulver av vassle,whey protein powder,20,20,5,0,0,0,1,0,#fbeecb

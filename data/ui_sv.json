@@ -50,5 +50,10 @@
     "greens": "Grönsaker",
     "fruitGreensSmall": "frukter/grönsaker",
     "helpCustom": "Skräddarsy proportionerna av dina frukter och grönsaker genom att dra i handtagen",
-    "chooseExtras": "Välj tillägg"
+    "chooseExtras": "Välj tillägg",
+    "helpExtra": "Lägg till 1 boost och/eller 1 topping till en extra kostnad",
+    "extraExpl": "En boost är en extraingrediens som blandas med din dryck och en topping är en extraingrediens som strös ovanpå din dryck",
+    "extraAddMax": "Du kan lägga till max 1 boost och 1 topping",
+    "boostBlended": "Blandas med din dryck",
+    "toppingSprinkled": "Strös ovanpå din dryck"
 }

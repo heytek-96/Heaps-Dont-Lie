@@ -234,13 +234,15 @@
 
         <div v-show="extrasShown">
             <div class="popup" onclick="helpExtras()">?
-                <span class="popuptext" id="helpExtras">Add max 1 boost and/or 1 topping for an additional cost. <br><br> A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage. <br><br>You can add maximum 1 boost and 1 topping. <br><br> Tap here to continue</span>
+                <span class="popuptext" id="helpExtras">{{ uiLabels.helpExtra }}. <br><br> {{ uiLabels.extraExpl }}. <br><br>{{ uiLabels.extraAddMax }}. <br><br> {{ uiLabels.helpClose }}</span>
             </div>
             <h1>Extras</h1>
 
             <!-- Samma sorts knappar som övriga ingredienser -->
             <div class="ingredientBlock">
                 <h1>Boosts</h1>
+                <h3>(+ 7kr)</h3>
+                {{ uiLabels.boostBlended }}
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'boost')" v-on:checkbox-untick="removeFromOrder(item, 'boost')" :item="item" :customid="'boost'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 4)">
                     </ingredient>
@@ -249,6 +251,8 @@
 
             <div class="ingredientBlock">
                 <h1>Toppings</h1>
+                <h3>(+ 7kr)</h3>
+                {{ uiLabels.toppingSprinkled }}
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'topping')" v-on:checkbox-untick="removeFromOrder(item, 'topping')" :item="item" :customid="'topping'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 5)">
                     </ingredient>
@@ -256,16 +260,16 @@
             </div>
 
             <div>
-                <button v-on:click="showCustomize()" class="backButton">Customize</button>
-                <button v-on:click="showOverview()" class="nextButton">Overview</button>
+                <button v-on:click="showCustomize()" class="backButton">{{ uiLabels.customize }}</button>
+                <button v-on:click="showOverview()" class="nextButton">{{ uiLabels.overview }}</button>
             </div>
 
             <div class="navBar">
-                <button v-on:click="showSize()" :disabled="size.length < 1">Size</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
-                <button v-on:click="showExtras()" disabled class="activePageButton">Extras</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">Overview</button>
+                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                <button v-on:click="showExtras()" disabled class="activePageButton">{{ uiLabels.extras }}</button>
+                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
             </div>
 
         </div>

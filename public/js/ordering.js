@@ -291,7 +291,7 @@ var vm = new Vue({
                 this.priceTot += 7;
             } else if (type === "topping") {
                 this.chosenTopping = item.ingredient_en;
-                this.priceTot += 10;
+                this.priceTot += 7;
             }
         },
 

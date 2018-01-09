@@ -50,5 +50,10 @@
     "greens": "Greens",
     "fruitGreensSmall": "fruits/greens",
     "helpCustom": "Customize the proportions of your fruits and greens by dragging the sliders",
-    "chooseExtras": "Choose Extras"
+    "chooseExtras": "Choose Extras",
+    "helpExtra": "Add 1 boost and/or 1 topping for an additional cost",
+    "extraExpl": "A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage",
+    "extraAddMax": "You can add maximum 1 boost and 1 topping",
+    "boostBlended": "Blended into your drink",
+    "toppingSprinkled": "Sprinkled on top of your drink"
 }
