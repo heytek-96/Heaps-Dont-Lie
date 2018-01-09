@@ -351,6 +351,18 @@ z-index: 0;
 
 }
 
+#noBaseBox{
+  border: 2px solid lightgrey;
+  position: absolute;
+  bottom: 30px;
+  margin-left: 37px;
+  width: 177px;
+  height: 400px;
+  border-radius: 4px;
+  border: 1px solid #D3D3D3;
+  float: bottom;
+}
+
 #baseBox{
   border: 2px solid lightgrey;
   position: absolute;
