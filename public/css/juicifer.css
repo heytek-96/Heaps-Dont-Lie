@@ -341,6 +341,10 @@ button:disabled {
     opacity: 0.6;
 }
 
+#recommend {
+    width: 50vw;
+}
+
 #sliderPic {
     /*background-image:url(http://moziru.com/images/jar-clipart-8.png);*/
     background-repeat: no-repeat;
