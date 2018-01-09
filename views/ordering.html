@@ -194,10 +194,18 @@
         </div>
 
         <div v-show="customizeShown" >
+          <!-- Hjälpknapp när man har valt rätt antal ingredienser -->
+          <div v-show="chosenFruitGreens.length>1">
+            <div class="popup" onclick="helpCustomize()">?
+              <span class="popuptext" id="helpCustomize">{{ uiLabels.helpCustom }}.<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.helpClose }}</span>
+            </div>
+          </div>
 
-
-          <div class="popup" onclick="helpCustomize()">?
-            <span class="popuptext" id="helpCustomize">{{ uiLabels.helpCustom }}.<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.helpClose }}</span>
+          <div v-show= "chosenFruitGreens.length<2">
+            <!-- Hjälpknapp när man har valt för få ingredienser -->
+            <div class="popup" onclick="helpCustomOneBase()">?
+              <span class="popuptext" id="helpCustomOneBase">{{ uiLabels.notAbleCustom }}.<br><br>{{ uiLabels.ifMoreIngred }}. {{ uiLabels.satisfied }}.<br><br>{{ uiLabels.helpClose }}</span>
+            </div>
           </div>
 
           <h1>{{ uiLabels.customize }}</h1>
@@ -222,14 +230,12 @@
             <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div></div>
 
             </div>
-            
+
             </div>
-            
+
             <div v-show= "chosenFruitGreens.length<2">
-            <h2 > Du har valt en bas och {{chosenFruitGreens.length}} ingrediens(er). Vi på HeapsDontLie AB rekommenderar dig att välja minst 2 ingredienser. Om du är nöjd med ditt val och vill fortsätta, tryck på "Choose Extras"  </h2>
-               
-                
-            </div>
+            <h2 > {{ uiLabels.chosenOneBase }} {{chosenFruitGreens.length}} {{ uiLabels.ingreds }}.<br><br> {{ uiLabels.recommend }}. <br>{{ uiLabels.satisfied }}.  </h2>
+          </div>
 
             <button v-on:click="showIngredients()" class="backButton1">{{ uiLabels.ingredients }}</button>
             <button v-on:click="showExtras()" class="nextButton">{{ uiLabels.chooseExtras }}</button>

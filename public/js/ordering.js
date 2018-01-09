@@ -81,6 +81,11 @@ function helpCustomize() {
     popup.classList.toggle("show");
 }
 
+function helpCustomOneBase() {
+    var popup = document.getElementById("helpCustomOneBase");
+    popup.classList.toggle("show");
+}
+
 function helpExtras() {
     var popup = document.getElementById("helpExtras");
     popup.classList.toggle("show");
@@ -393,7 +398,7 @@ var vm = new Vue({
              this.destroySlider();
             if (this.chosenFruitGreens.length>1){
                 this.createSlider();
-                
+
             }
             this.startShown = false;
             this.extrasShown = false;
@@ -424,7 +429,7 @@ var vm = new Vue({
             if (this.chosenFruitGreens.length>1){
                 this.destroyOverviewSlider();
             this.createOverviewSlider();
-                
+
             }
             this.startShown = false;
             this.payShown = false;
@@ -464,7 +469,7 @@ var vm = new Vue({
                 this.colors.push(this.chosenFruitGreens[i].color);
             }
             this.slider = document.getElementById('slider-color');
-          
+
             noUiSlider.create(this.slider, {
                 start: startArray,
                 connect: connectArray,
