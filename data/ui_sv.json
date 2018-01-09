@@ -31,7 +31,7 @@
     "homePage": "Startsida",
     "size": "Storlek",
     "customize": "Skräddarsy",
-    "extras": "Extra",
+    "extras": "Tillägg",
     "overview": "Översikt",
     "base": "Bas",
     "fruitGreens": "Frukter/Grönsaker",
@@ -49,5 +49,6 @@
     "fruits": "Frukt",
     "greens": "Grönsaker",
     "fruitGreensSmall": "frukter/grönsaker",
-    "helpCustomize": "Skräddarsy proportionerna av dina frukter och grönsaker genom att dra i handtagen"
+    "helpCustom": "Skräddarsy proportionerna av dina frukter och grönsaker genom att dra i handtagen",
+    "chooseExtras": "Välj tillägg"
 }

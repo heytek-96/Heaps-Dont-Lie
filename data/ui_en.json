@@ -49,5 +49,6 @@
     "fruits": "Fruits",
     "greens": "Greens",
     "fruitGreensSmall": "fruits/greens",
-    "helpCustomize": "Customize the proportions of your fruits and greens by dragging the sliders"
+    "helpCustom": "Customize the proportions of your fruits and greens by dragging the sliders",
+    "chooseExtras": "Choose Extras"
 }
