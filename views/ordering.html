@@ -291,9 +291,20 @@
 
             <div id=sliderPic>
 
-                <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
+                <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
+                <div id=baseBox :style="{'background-color': findBaseColor()}">
+                  <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
+                </div>
 
             </div>
+            <div class=colorBoxJar>
+
+            {{ uiLabels.fruitGreens }}: <br><br>
+            <div v-if="languageSV()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_sv}}<br></div></div>
+            <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div></div>
+
+            </div>
+
             <div id=overviewSlider> </div>
             <button v-on:click="showExtras()" class="backButton">{{ uiLabels.extras }}</button>
             <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
