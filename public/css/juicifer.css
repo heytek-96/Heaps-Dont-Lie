@@ -551,3 +551,13 @@ padding-left: 23%;
 [disabled] .noUi-handle {
     display: none;
 }
+
+.noUi-vertical .noUi-handle {
+  width: 28px;
+  height: 34px;
+  left: 74px; 
+  top: -17px;
+}
+button{
+    font-family:inherit;
+}

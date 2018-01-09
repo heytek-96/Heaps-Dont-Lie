@@ -109,10 +109,12 @@ function adjustSelectedIngredType() {
         vm.showingFruit = false;
         vm.showingGreens = false;
     } else if (button.value === 'fruit') {
+        
         vm.showingBase = false;
         vm.showingFruit = true;
         vm.showingGreens = false;
     } else if (button.value === 'greens') {
+        
         vm.showingBase = false;
         vm.showingFruit = false;
         vm.showingGreens = true;
@@ -325,6 +327,7 @@ var vm = new Vue({
                     });
                     this.resetIngredientSelection();
                     this.showIngredients();
+                    //this.showPay();
                 } else {
                     alert('We just ran out of some of your selected ingredients, please start over!');
                     this.showStart();
@@ -343,6 +346,7 @@ var vm = new Vue({
             this.price = 0;
             this.priceTot = 0;
             this.type = '';
+            
             // this.chosenIngredients = []; Tror detta redan körs eftersom allt avmarkeras. Om ni får märkliga buggar med ingrediensvalen kan det vara värt att testa att köra dessa rader.
             // this.chosenBase = '';
             //  this.chosenTopping = '';
@@ -351,6 +355,12 @@ var vm = new Vue({
             this.extraHasBeenShown = false;
             this.customizeHasBeenShown = false;
             this.overviewHasBeenShown = false;
+            this.showingBase= true;
+            this.showingFruit= false;
+            this.showingGreens= false;
+            this.resetTabs();
+            //this.adjustSelectedIngredType();
+            
             //Notera avsaknad av size och maxIngred
         },
 
@@ -450,6 +460,7 @@ var vm = new Vue({
             this.overviewShown = false;
             this.payShown = true;
             this.getCurrentSliderArray();
+            
         },
 
         getUniqueId: function (key, magnitude) { //Löser problem med duplicate keys. Säg till om ni behöver använda detta så gör vi system.
@@ -750,6 +761,35 @@ var vm = new Vue({
                 }
             }
             return changeArray;
-        }
+        },
+        
+        payNshake: function(){
+            this.placeOrder();
+            this.showPay();
+        },
+        
+        resetTabs: function(){
+            console.log("resetar tabs")
+        var tabs = document.getElementsByName("ingredienttype");
+            console.log(tabs)
+        for(var i = 0; i< tabs.length; i++){
+            if (tabs[i].value=='base'){
+                tabs[i].checked=true;
+                tabs[i].parentElement.setAttribute('style', 'border-color: #709663;');
+            }
+            else{
+                tabs[i].parentElement.setAttribute('style', 'border-color: #9ab591;');
+                
+            }
+           
+            
+           /* else{
+                tabs[i].checked=false;
+            }
+*/
+    }
+        
+        
+    }
     }
 });

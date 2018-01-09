@@ -103,8 +103,10 @@ var vm = new Vue({
                     this.displayOrder();
                 } else if (this.showListOfWaitingOrders || this.showListOfPreviousOrders) {
                     this.displayOrder();
+
                 } else if (this.showOrder && this.countOrders() > 0) {
                     this.markDone(this.orderBeingDisplayed.nr);
+
                 }
             }
 
@@ -176,6 +178,7 @@ var vm = new Vue({
 
         sendCancel: function (orderid) {
             socket.emit("cancelOrder", orderid);
+            this.destroyStaffSlider();
             this.goBack();
             this.destroyStaffSlider();
         },
@@ -349,5 +352,7 @@ var vm = new Vue({
             }
         },
 
-    }
+    },
+    
+    
 });

@@ -128,9 +128,10 @@
             
         <div class = "clipboardTextPrice">
             {{ uiLabels.price }}: {{priceTot}} kr
-            <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
-            <br><br>
+
         </div>
+         <!--  <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+            <br><br><br><br><br> -->
 
 
 <!-- Kommenterar bort order queue så länge /Anna -->
@@ -158,10 +159,10 @@
                     <input name="ingredienttype" checked=true value="base" type="radio" onclick="adjustSelectedIngredType()" ><p>{{uiLabels.base}}</p>
                 </label>
                 <label class="ingHeading">
-                    <input name="ingredienttype" value="fruit" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.fruits}}</p>
+                    <input name="ingredienttype" checked=false value="fruit" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.fruits}}</p>
                 </label>
                 <label class="ingHeading">
-                    <input name="ingredienttype" value="greens" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.greens}}</p>
+                    <input name="ingredienttype" checked=false value="greens" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.greens}}</p>
                 </label>
             </div>
 
@@ -329,8 +330,11 @@
             </div>
 
             <div id=overviewSlider> </div>
+
             <button v-on:click="showExtras()" class="backButton1">{{ uiLabels.extras }}</button>
-            <button v-on:click="showPay()" class="nextButton1">Pay 'n' Shake</button>
+            <button v-on:click="payNshake()" class="nextButton1">Pay 'n' Shake</button>
+
+
 
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
@@ -342,8 +346,8 @@
             </div>
         </div>
 
-        <div v-if="payShown">
-            <div id=l astPageText>{{ uiLabels.thanks }}!</div>
+        <div v-show="payShown">
+            <div id=lastPageText>{{ uiLabels.thanks }}!</div>
             <button class="allButtons" v-on:click="showStart()">{{ uiLabels.backToStart }} </button>
             <img id="lemonPic" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
         </div>
