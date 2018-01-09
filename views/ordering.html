@@ -142,7 +142,7 @@
           <span class="popuptext" id="helpIngred">{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitsAndOrGreens }}.<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.toAddMore }} {{maxIngred}} {{ uiLabels.fruitsOrGreens }}: {{ uiLabels.changeBiggerSize }} "{{ uiLabels.selectSize }}"<br><br>{{ uiLabels.helpClose }}</span>
         </div>
 
-        <h1>Ingredients</h1>
+        <h1>{{ uiLabels.ingredients }}</h1>
         <p>{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitGreensSmall }}</p><br>
 
             <div class="ingredientBlockHeadings">
@@ -150,10 +150,10 @@
                     <input name="ingredienttype" checked=true value="base" type="radio" onclick="adjustSelectedIngredType()" ><p>{{uiLabels.base}}</p>
                 </label>
                 <label class="ingHeading">
-                    <input name="ingredienttype" value="fruit" type="radio" onclick="adjustSelectedIngredType()"><p>{{uiLabels.fruits}}</p>
+                    <input name="ingredienttype" value="fruit" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.fruits}}</p>
                 </label>
                 <label class="ingHeading">
-                    <input name="ingredienttype" value="greens" type="radio" onclick="adjustSelectedIngredType()"><p>{{uiLabels.greens}}</p>
+                    <input name="ingredienttype" value="greens" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.greens}}</p>
                 </label>
             </div>
 
