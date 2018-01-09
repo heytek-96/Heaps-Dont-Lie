@@ -261,8 +261,8 @@
             <div class="popup" onclick="helpExtras()">?
                 <span class="popuptext" id="helpExtras">{{ uiLabels.helpExtra }}. <br><br> {{ uiLabels.extraExpl }}. <br><br>{{ uiLabels.extraAddMax }}. <br><br> {{ uiLabels.helpClose }}</span>
             </div>
-            <h1>Extras</h1>
-            
+            <h1>{{ uiLabels.extras }}</h1>
+
 
         <div class="ingredientBlockHeadings" >
             <label class="ingHeading" style="border-color: #709663;">
@@ -272,12 +272,12 @@
                 <input name="extrastype" checked=false value="topping" type="radio" onclick="adjustSelectedExtrasType()"><p>Toppings (+7kr)</p>
             </label>
          </div>
-            
-            
+
+
 
             <!-- Samma sorts knappar som övriga ingredienser -->
             <div class="ingredientBlock" v-show= "showingBoost">
-                
+
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'boost')" v-on:checkbox-untick="removeFromOrder(item, 'boost')" :item="item" :customid="'boost'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 4)">
                     </ingredient>
