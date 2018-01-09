@@ -281,8 +281,8 @@ table, th, td {
     margin-bottom: 5px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    width: 324px;
-
+    border-top-right-radius:20px;
+    width: 320px;
 }
 
 /* Själva lådorna som ingrediensknapparna ligger i */
@@ -290,7 +290,7 @@ table, th, td {
     border: 1px solid;
     padding: 0px;
     min-width: 15em;
-    width: 284px;
+    width: 320px;
     min-height: 3em;
     height: 3em;
     margin-bottom: 0px;

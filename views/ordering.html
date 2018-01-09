@@ -262,22 +262,29 @@
                 <span class="popuptext" id="helpExtras">{{ uiLabels.helpExtra }}. <br><br> {{ uiLabels.extraExpl }}. <br><br>{{ uiLabels.extraAddMax }}. <br><br> {{ uiLabels.helpClose }}</span>
             </div>
             <h1>Extras</h1>
+            
+
+        <div class="ingredientBlockHeadings" >
+            <label class="ingHeading" style="border-color: #709663;">
+                <input name="extrastype" checked=true value="boost" type="radio" onclick="adjustSelectedExtrasType()" ><p>Boosts (+7kr)</p>
+            </label>
+            <label class="ingHeading">
+                <input name="extrastype" checked=false value="topping" type="radio" onclick="adjustSelectedExtrasType()"><p>Toppings (+7kr)</p>
+            </label>
+         </div>
+            
+            
 
             <!-- Samma sorts knappar som övriga ingredienser -->
-            <div class="ingredientBlock">
-                <h1>Boosts</h1>
-                <h3>(+ 7kr)</h3>
-                {{ uiLabels.boostBlended }}
+            <div class="ingredientBlock" v-show= "showingBoost">
+                
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'boost')" v-on:checkbox-untick="removeFromOrder(item, 'boost')" :item="item" :customid="'boost'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 4)">
                     </ingredient>
                 </div>
             </div>
 
-            <div class="ingredientBlock">
-                <h1>Toppings</h1>
-                <h3>(+ 7kr)</h3>
-                {{ uiLabels.toppingSprinkled }}
+            <div class="ingredientBlock" v-show= "showingTopping">
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'topping')" v-on:checkbox-untick="removeFromOrder(item, 'topping')" :item="item" :customid="'topping'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 5)">
                     </ingredient>
@@ -305,12 +312,9 @@
                 <span class="popuptext" id="helpOverview">{{ uiLabels.helpOver }}.<br><br>{{ uiLabels.clickPay }}. <br><br> {{ uiLabels.helpClose }}</span>
             </div>
             <h1>{{ uiLabels.youOrder }}</h1>
-            <p>Base: {{ chosenBase }}</p>
-            <p>Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}</p>
-            <p>Topping: {{ chosenTopping }}</p>
-            <p>Boost: {{ chosenBoost }}</p>
-            <p>Price: {{priceTot}} kr</p>
+
             <div v-show="chosenFruitGreens.length>1">
+
             <div id=sliderPic>
 
                 <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">

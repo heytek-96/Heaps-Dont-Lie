@@ -124,6 +124,28 @@ function adjustSelectedIngredType() {
     }
     button.parentElement.setAttribute('style', 'border-color: #709663;');
 }
+    
+    function adjustSelectedExtrasType() {
+    var buttons = document.getElementsByName('extrastype');
+    for (var i = 0; i < buttons.length; i++) {
+        if (buttons[i].checked) {
+            var button = buttons[i];
+            break
+        }
+    }
+    if (button.value === 'boost') {
+        vm.showingBoost = true;
+        vm.showingTopping = false;
+    } else if (button.value === 'topping') {
+        
+        vm.showingBoost = false;
+        vm.showingTopping = true;
+    } 
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].parentElement.setAttribute('style', 'border-color: #9ab591;');
+    }
+    button.parentElement.setAttribute('style', 'border-color: #709663;');
+}
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -158,6 +180,8 @@ var vm = new Vue({
         showingBase: true,
         showingFruit: false,
         showingGreens: false,
+        showingBoost:true,
+        showingTopping:false,
         customizeShown: false,
         customizeHasBeenShown: false,
         extrasShown: false,
@@ -355,9 +379,7 @@ var vm = new Vue({
             this.extraHasBeenShown = false;
             this.customizeHasBeenShown = false;
             this.overviewHasBeenShown = false;
-            this.showingBase= true;
-            this.showingFruit= false;
-            this.showingGreens= false;
+            
             this.resetTabs();
             //this.adjustSelectedIngredType();
 
@@ -642,7 +664,7 @@ var vm = new Vue({
         computeRatios: function () {
             var ratioArray = [];
             if (this.chosenFruitGreens.length<1){
-                ratioarray[0]=100;
+                ratioArray[0]=100;
             }
             else if (Array.isArray(this.sliderArray)) {
                 ratioArray[0] = this.sliderArray[0];
@@ -781,25 +803,38 @@ var vm = new Vue({
         resetTabs: function(){
             console.log("resetar tabs")
         var tabs = document.getElementsByName("ingredienttype");
-            console.log(tabs)
         for(var i = 0; i< tabs.length; i++){
+            tabs[i].parentElement.setAttribute('style', 'border-color: #9ab591;');
+            
             if (tabs[i].value=='base'){
                 tabs[i].checked=true;
                 tabs[i].parentElement.setAttribute('style', 'border-color: #709663;');
+
             }
             else{
-                tabs[i].parentElement.setAttribute('style', 'border-color: #9ab591;');
 
+                tabs[i].checked='false'   
             }
-
-
-           /* else{
-                tabs[i].checked=false;
+        }
+        var extrasTabs=document.getElementsByName("extrastype");
+            
+            for (var i = 0; i< extrasTabs.length;i++){
+                            extrasTabs[i].parentElement.setAttribute('style', 'border-color: #9ab591;');
+                if(extrasTabs[i].value=='boost'){
+                    extrasTabs[i].checked=true;
+                    extrasTabs[i].parentElement.setAttribute('style', 'border-color: #709663;');
+                    
+                    
+                }
+                else{
+                    extrasTabs[i].parentElement.setAttribute('style', 'border-color: #9ab591;');
+                }
             }
-*/
-    }
-
-
+            this.showingBase= true;
+            this.showingFruit= false;
+            this.showingGreens= false;
+            this.showingBoost=true;
+            this.showingTopping=false;
     }
     }
 });
