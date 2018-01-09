@@ -174,6 +174,20 @@ var vm = new Vue({
             }
             return -1;
         },
+        languageSV: function(){
+          var languageSV = false;
+          if(this.lang==="sv"){
+            languageSV = true;
+          }
+          return languageSV
+        },
+        languageEN: function(){
+          var languageEN = false;
+          if(this.lang==="en"){
+            languageEN = true;
+          }
+          return languageEN
+        },
 
         checkIngredientsLeft: function () {
             for (var i = 0; i < this.chosenIngredients.length; i++) {

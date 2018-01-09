@@ -122,9 +122,9 @@
             <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
             <br><br><br><br><br>
 
-            
+
 <!-- Kommenterar bort order queue så länge /Anna -->
-            
+
          <!--   {{ uiLabels.ordersInQueue }}
             <div>
                 <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
@@ -142,7 +142,7 @@
 
         <h1>Ingredients</h1>
         <p>{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitGreensSmall }}</p><br>
-          
+
             <div class="ingredientBlockHeadings">
                 <label class="sizeHeading" style="border-color: pink;">
                     <input name="ingredienttype" checked=true value="base" type="radio" onclick="adjustSelectedIngredType()" ><p>{{uiLabels.base}}</p>
@@ -154,7 +154,7 @@
                     <input name="ingredienttype" value="greens" type="radio" onclick="adjustSelectedIngredType()"><p>{{uiLabels.greens}}</p>
                 </label>
             </div>
-          
+
             <div class="ingredientBlock" v-show="showingBase">
                 <div class="ingredientList">
                     <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :customid="'base'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 1)">
@@ -211,8 +211,8 @@
             <div class=colorBoxJar>
 
             {{ uiLabels.fruitGreens }}: <br><br>
-            <div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div>
-
+            <div v-if="languageSV()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_sv}}<br></div></div>
+            <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div></div>
 
             </div>
 
