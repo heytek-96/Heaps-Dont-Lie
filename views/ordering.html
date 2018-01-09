@@ -314,7 +314,6 @@
             <h1>{{ uiLabels.youOrder }}</h1>
 
             <div v-show="chosenFruitGreens.length>1">
-
             <div id=sliderPic>
 
                 <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
@@ -323,6 +322,7 @@
                 </div>
 
             </div>
+            <div id=overviewSlider> </div>
           </div>
 
           <div v-show="chosenFruitGreens.length<2">
@@ -336,15 +336,15 @@
                 <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
               </div>
             </div>
+
             <div v-show="chosenFruitGreens.length===0">
             <div id=noBaseBox :style="{'background-color': findBaseColor()}">
               <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
             </div>
           </div>
 
-
-
           </div>
+          <div id=overviewSlider> </div>
         </div>
             <div class=colorBoxJar>
 
@@ -353,8 +353,6 @@
             <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div></div>
 
             </div>
-
-            <div id=overviewSlider> </div>
 
             <button v-on:click="showExtras()" class="backButton1">{{ uiLabels.extras }}</button>
             <button v-on:click="payNshake()" class="nextButton1">Pay 'n' Shake</button>
