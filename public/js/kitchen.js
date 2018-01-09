@@ -267,6 +267,7 @@ var vm = new Vue({
                     window.setTimeout(function () {
                         if (vm.countOrders() > 0) {
                             vm.showListOfWaitingOrders = true;
+                            vm.unclickAll();
                             vm.selectFirstOrder();
                         } else {
                             vm.showStartPage();
