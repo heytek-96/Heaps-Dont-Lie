@@ -55,5 +55,8 @@
     "extraExpl": "A boost is an extra ingredient blended into your beverage and a topping adds an extra ingredient on top of your beverage",
     "extraAddMax": "You can add maximum 1 boost and 1 topping",
     "boostBlended": "Blended into your drink",
-    "toppingSprinkled": "Sprinkled on top of your drink"
+    "toppingSprinkled": "Sprinkled on top of your drink",
+    "helpOver": "Here is an overview of your order. Want to change something? Go back clicking the navigation buttons in the bottom of this page",
+    "clickPay": "Click on Pay n Shake to send your order to the kitchen",
+    "youOrder": "Your Order"
 }

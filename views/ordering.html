@@ -277,9 +277,9 @@
 
         <div v-show="overviewShown">
             <div class="popup" onclick="helpOverview()">?
-                <span class="popuptext" id="helpOverview">Here is an overview of your order. Want to change something? Go back using the navigation bar in the bottom of this page.<br><br>Click on "Pay n Shake" to send your order to the kitchen. <br><br> Tap here to continue</span>
+                <span class="popuptext" id="helpOverview">{{ uiLabels.helpOver }}.<br><br>{{ uiLabels.clickPay }}. <br><br> {{ uiLabels.helpClose }}</span>
             </div>
-            <h1>Your Order</h1>
+            <h1>{{ uiLabels.youOrder }}</h1>
             <p>Base: {{ chosenBase }}</p>
             <p>Fruit/Greens: {{ chosenFruitGreens.map(item => item["ingredient_en"]).join(', ') }}</p>
             <p>Topping: {{ chosenTopping }}</p>
@@ -292,15 +292,15 @@
 
             </div>
             <div id=overviewSlider> </div>
-            <button v-on:click="showExtras()" class="backButton">Choose Extras</button>
+            <button v-on:click="showExtras()" class="backButton">{{ uiLabels.extras }}</button>
             <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
 
             <div class="navBar">
-                <button v-on:click="showSize()" :disabled="size.length < 1">Size</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">Ingredients</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">Customize</button>
-                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">Extras</button>
-                <button v-on:click="showOverview()" disabled class="activePageButton">Overview</button>
+                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
+                <button v-on:click="showOverview()" disabled class="activePageButton">{{ uiLabels.overview }}</button>
 
             </div>
         </div>

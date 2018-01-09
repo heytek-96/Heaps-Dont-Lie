@@ -13,8 +13,8 @@
     "language": "English",
     "cancel": "Avbryt",
     "homeTitle": "Färska juicer och smoothies från",
-    "startOrder": "Starta din order",
-    "restartOrder": "Starta om order",
+    "startOrder": "Påbörja beställning",
+    "restartOrder": "Starta om beställning",
     "helpClose": "Tryck här för att stänga",
     "selectSize": "Välj storlek",
     "helpSmall": "Storlek Liten: max 2 frukter/grönsaker",
@@ -55,5 +55,8 @@
     "extraExpl": "En boost är en extraingrediens som blandas med din dryck och en topping är en extraingrediens som strös ovanpå din dryck",
     "extraAddMax": "Du kan lägga till max 1 boost och 1 topping",
     "boostBlended": "Blandas med din dryck",
-    "toppingSprinkled": "Strös ovanpå din dryck"
+    "toppingSprinkled": "Strös ovanpå din dryck",
+    "helpOver": "Här är en överblick av din beställning. Vill du ändra något? Gå bakåt genom att klicka på navigationsknapparna längst ner på sidan",
+    "clickPay": "Tryck på Pay n Shake för att skicka din beställning till köket",
+    "youOrder": "Din beställning"
 }
