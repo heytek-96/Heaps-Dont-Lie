@@ -10,7 +10,7 @@ ingredient_id,ingredient_sv,ingredient_en,vol_smoothie,vol_juice,selling_price,f
 9,is,ice,50,50,1,0,0,0,1,0,#f8fbfc
 10,guava,guava,10,10,10,1,0,0,0,0,#eed3e8
 11,grönkål,kale,50,20,5,0,1,0,0,0,#4f7b28
-12,morot,carrot,50,30,5,0,1,0,0,1,#fddcaa
+12,morot,carrot,50,30,5,0,1,0,0,1,#f48455
 13,ingefära,ginger,10,5,5,0,0,0,1,0,#f2df97
 14,chili,chili,5,5,5,0,0,0,1,0,#f79b97
 15,kanel,cinnamon,1,1,1,0,0,1,0,0,#90510e

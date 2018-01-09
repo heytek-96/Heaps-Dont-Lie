@@ -61,7 +61,7 @@
     "youOrder": "Your Order",
     "thanks": "Thanks",
     "backToStart": "Go back to start",
-    "helpBaseSize": "The base's proportion of the beverage is always a third and cannot be changed",
+    "helpBaseSize": "The base's proportion of the beverage is always 1/3 and cannot be changed",
     "havetoBase": "You have to select 1 base in order to proceed",
     "chosenOneBase":"You have chosen one base and",
     "ingreds": "ingredient",
