@@ -664,6 +664,15 @@ var vm = new Vue({
                 }
             }
         },
+        findBaseColor: function(){
+          var baseColor="";
+          for (var i = 0; i < this.chosenIngredients.length; i++) {
+              if (this.chosenBase === this.chosenIngredients[i].ingredient_en) {
+                  baseColor = this.chosenIngredients[i].color;
+              }
+          }
+          return baseColor
+        },
 
         computeSliderVolumes: function () {
             var computedVolumes = []

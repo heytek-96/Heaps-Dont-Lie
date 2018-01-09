@@ -31,7 +31,7 @@ table, th, td {
     top: 120px;
     margin: 0px;
     width: 80em;
-    
+
 }
 
 #homepageText {
@@ -243,7 +243,7 @@ table, th, td {
 }
 /* Ingrediensknapparna */
 .ingred label {
-    
+
     height: 100%;
     width: 100%;
     display: block;
@@ -289,9 +289,32 @@ button:disabled {
 
 #sliderPic {
     /*background-image:url(http://moziru.com/images/jar-clipart-8.png);*/
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 545px;
     position: relative;
 z-index: 0;
 
+}
+
+#baseBox{
+  border: 2px solid lightgrey;
+  position: absolute;
+  bottom: 30px;
+  margin-left: 35px;
+  width: 177px;
+  height: 110px;
+  border-radius: 4px;
+  border: 1px solid #D3D3D3;
+  float: bottom;
+}
+
+#baseText{
+  position: absolute;
+  bottom: 2px;
+  width: 145px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #slider-color {
