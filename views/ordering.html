@@ -109,9 +109,14 @@
 
 
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown || overviewShown">
-
-            <br><br><br><br><br><br> {{ uiLabels.order }} <br><br> {{ uiLabels.size }}: {{ getSize() }}<br><br> {{ uiLabels.base }}: {{ findBaseString() }}<br><br> {{ uiLabels.fruitGreens }}:
-            <br>
+            
+        <div class = "clipboardTextCenter">
+       <br><br><br>{{ uiLabels.order }} 
+        </div>
+            
+        <div class = "clipboardText">
+            
+            <br>{{ uiLabels.size }}: {{ getSize() }}<br><br> {{ uiLabels.base }}: {{ findBaseString() }}<br><br> {{ uiLabels.fruitGreens }}:
             <div v-if="languageSV()"><div v-for="choice in chosenFruitGreens" > {{choice.ingredient_sv}}<br></div></div>
             <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}}<br></div></div>
             <br>
@@ -119,10 +124,13 @@
             <div v-if="extraHasBeenShown">
                 Topping: {{findToppingString()}} <br><br> Boost:{{findBoostString()}} <br><br>
             </div>
-            <br><br>
+        </div>
+            
+        <div class = "clipboardTextPrice">
             {{ uiLabels.price }}: {{priceTot}} kr
             <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
-            <br><br><br><br><br>
+            <br><br>
+        </div>
 
 
 <!-- Kommenterar bort order queue så länge /Anna -->
