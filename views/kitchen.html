@@ -106,20 +106,20 @@
 <!-- testar v-show här/A -->
 
         <div id= showOrderPage v-show="showOrder">
-            
-            <h2>Order: {{orderBeingDisplayed.nr}}</h2> 
+
+            <h2>Order: {{orderBeingDisplayed.nr}}</h2>
             <div id=showOrderContainer>
-            <div id=orderInfo> 
+            <div id=orderInfo>
             <br>
             <div v-if="!orderBeingDisplayed.done">
-                <button v-on:click="markDone(orderBeingDisplayed.nr); destroyStaffSlider()">
+                <button v-on:click="markDone(orderBeingDisplayed.nr)">
             {{uiLabels.ready}}
             </button>
-                <button v-on:click="sendCancel(orderBeingDisplayed.nr); destroyStaffSlider()">
+                <button v-on:click="sendCancel(orderBeingDisplayed.nr)">
             {{uiLabels.cancel}}
             </button>
             </div>
-            <br>           
+            <br>
            <h3>Storlek:</h3>
             {{orderBeingDisplayed.size}}<br>
             <h3>Bas:</h3>
@@ -127,25 +127,25 @@
             <h3>Ingredienser:</h3>
             <div v-for="ingredient in orderBeingDisplayed.chosenFruitGreens">
             {{ingredient.ingredient_sv}} <span class=colorBox :style= "{'background-color': ingredient.color }"> </span>
-                
+
             </div>
             <h3> Extras: </h3>
             Topping: {{orderBeingDisplayed.chosenTopping}}<br>
             Boost: {{orderBeingDisplayed.chosenBoost}}<br>
-              
+
                 </div>
-            <div id= staffSliderContainer> 
+            <div id= staffSliderContainer>
             <div id=sliderPic>
 
                 <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
 
             </div>
             <div id=staffSlider></div>
-                
+
                 </div>
             </div>
-            
-            
+
+
             <!--
             ingredients: this.chosenIngredients,
                         volume: this.volume,
@@ -164,7 +164,7 @@
             <div class="kitchenNavbar">
                 <span class="inactive">&larr;</span>
                 <span>Esc: <p>{{uiLabels.goBack}}</p> </span>
-                <span>Enter: <p>lägg till i uilabels!</p></span>
+                <span>Enter: <p>{{uiLabels.done}}</p></span>
                 <span class="inactive">&rarr;</span>
             </div>
 

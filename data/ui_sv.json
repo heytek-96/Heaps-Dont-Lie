@@ -68,5 +68,6 @@
     "recommend": "Vi rekommenderar dig att välja minst 2 ingredienser så att du kan skräddarsy dina proportioner",
     "satisfied": "Om du är nöjd med ditt val och vill fortsätta, tryck på Choose Extras",
     "notAbleCustom": "Du kan inte skräddarsy dina proportioner på grund av att du har valt färre än 2 ingredienser",
-    "ifMoreIngred": "Om du vill lägga till fler ingredienser, gå tillbaka genom att trycka på Ingrediens-knappen"
+    "ifMoreIngred": "Om du vill lägga till fler ingredienser, gå tillbaka genom att trycka på Ingrediens-knappen",
+    "done": "Färdig"
 }

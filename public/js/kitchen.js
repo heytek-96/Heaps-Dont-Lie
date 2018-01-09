@@ -103,8 +103,8 @@ var vm = new Vue({
                     this.displayOrder();
                 } else if (this.showListOfWaitingOrders || this.showListOfPreviousOrders) {
                     this.displayOrder();
-                } else if (this.showOrder) {
-                    //Om man är inne på en order
+                } else if (this.showOrder && this.countOrders() > 0) {
+                    this.markDone(this.orderBeingDisplayed.nr);
                 }
             }
 
@@ -152,6 +152,7 @@ var vm = new Vue({
         markDone: function (orderid) {
             socket.emit("orderDone", orderid);
             this.goBack();
+            this.destroyStaffSlider();
         },
 
         countOrders: function () {
@@ -176,6 +177,7 @@ var vm = new Vue({
         sendCancel: function (orderid) {
             socket.emit("cancelOrder", orderid);
             this.goBack();
+            this.destroyStaffSlider();
         },
 
         selectFirstOrder: function () {
@@ -256,9 +258,9 @@ var vm = new Vue({
             if (this.orderBeingDisplayed.chosenFruitGreens.length>1){
                 this.destroyStaffSlider();
                 this.createStaffSlider();
-                
+
             }
-            
+
             this.showOrder = true;
         },
 
@@ -309,12 +311,12 @@ var vm = new Vue({
         createStaffSlider: function () {
             var connectArray = [];
             this.colors = [];
-            
+
             for (var i = 0; i < this.orderBeingDisplayed.chosenFruitGreens.length; i++) {
                 connectArray.push(true);
                 this.colors.push(this.orderBeingDisplayed.chosenFruitGreens[i].color);
             }
-            
+
             this.staffSlider = document.getElementById('staffSlider');
             noUiSlider.create(this.staffSlider, {
                 start: this.orderBeingDisplayed.sliderArray,
@@ -339,7 +341,7 @@ var vm = new Vue({
                 origins[i].setAttribute('disabled', true);
             }
         },
-        
+
         destroyStaffSlider: function () {
             if (this.staffSlider !== "") {
                 this.staffSlider.noUiSlider.destroy();

@@ -68,5 +68,6 @@
     "recommend": "We recommend to choose at least 2 ingredients so that you can customize your proportions",
     "satisfied": "If you are satisfied with your choice and wish to continue anyway, go forward using the Choose Extras button",
     "notAbleCustom": "You are not able to customize your proportions because you have chosen fewer than 2 ingredients",
-    "ifMoreIngred": "If you would like to add more ingredients, go back using the Ingredients button"
+    "ifMoreIngred": "If you would like to add more ingredients, go back using the Ingredients button",
+    "done": "Done"
 }
