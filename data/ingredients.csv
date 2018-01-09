@@ -1,5 +1,5 @@
 ingredient_id,ingredient_sv,ingredient_en,vol_smoothie,vol_juice,selling_price,fruit,green,topping,boost,base, color
-1,banan, banana,80,0,8,1,0,0,0,1,##fdf9c9
+1,banan, banana,80,0,8,1,0,0,0,1,#fdf9c9
 2,citron,lemon,40,30,8,1,0,0,0,0,#ffff7f
 3,lime,lime,30,20,8,1,0,0,0,0,#ecfcca
 4,apelsin,orange,100,80,7,1,0,0,0,1,#fbe489

@@ -70,7 +70,8 @@ var vm = new Vue({
         showListOfPreviousOrders: false,
         showOrder: false,
         currentRow: "",
-        orderBeingDisplayed: {}
+        orderBeingDisplayed: {},
+        staffSlider: ""
     },
     created: function () {
         window.addEventListener("keydown", function (e) {
@@ -252,6 +253,8 @@ var vm = new Vue({
                 this.showListOfPreviousOrders = false;
                 this.openOrder('prevorder');
             }
+            this.destroyStaffSlider();
+            this.createStaffSlider();
             this.showOrder = true;
         },
 
@@ -298,7 +301,47 @@ var vm = new Vue({
                     this.orderBeingDisplayed = orderRows[i].order;
                 }
             }
-        }
+        },
+        createStaffSlider: function () {
+            var connectArray = [];
+            this.colors = [];
+            
+            for (var i = 0; i < this.orderBeingDisplayed.chosenFruitGreens.length; i++) {
+                connectArray.push(true);
+                this.colors.push(this.orderBeingDisplayed.chosenFruitGreens[i].color);
+            }
+            
+            this.staffSlider = document.getElementById('staffSlider');
+            noUiSlider.create(this.staffSlider, {
+                start: this.orderBeingDisplayed.sliderArray,
+                connect: connectArray,
+                orientation: 'vertical',
+                margin: 10,
+                direction: 'rtl',
+                padding: 10,
+                range: {
+                    'min': [0],
+                    'max': [100]
+                }
+            });
+
+            var connect = this.staffSlider.querySelectorAll('.noUi-connect');
+            for (var i = 0; i < connect.length; i++) {
+                //baklänges för att få färgerna i rätt ordning i koppen
+                connect[i].style.background = this.colors[connect.length - i - 1];
+            }
+            var origins = this.staffSlider.getElementsByClassName('noUi-origin');
+            for (var i = 0; i < origins.length; i++) {
+                origins[i].setAttribute('disabled', true);
+            }
+        },
+        
+        destroyStaffSlider: function () {
+            if (this.staffSlider !== "") {
+                this.staffSlider.noUiSlider.destroy();
+                this.staffSlider = "";
+            }
+        },
 
     }
 });

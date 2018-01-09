@@ -107,6 +107,7 @@ table, th, td {
 
 .nextButton1 {
 
+
     position: relative;
     left: 30%;
     color: black;
@@ -119,6 +120,11 @@ table, th, td {
     z-index: -1;
     margin: 1px;
     font-size: 2em;
+}
+
+
+#orders div {
+    /*margin: inherit;*/
 
 }
 
@@ -283,11 +289,8 @@ button:disabled {
 
 #sliderPic {
     /*background-image:url(http://moziru.com/images/jar-clipart-8.png);*/
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 400px;
     position: relative;
-    z-index: 0;
+z-index: 0;
 
 }
 
@@ -312,6 +315,33 @@ button:disabled {
 [disabled] .noUi-handle {
     background: none;
     border: none;
+}
+#orderInfo{
+    float: left;
+text-align: center;
+padding-left: 23%;
+}
+
+#staffSliderContainer{
+        float: right;
+    position: relative;
+    top: 4em;
+    right: 30em;
+}
+
+#showOrderPage{
+    text-align:center;
+}
+
+
+#staffSlider {
+    left: 14%;
+    height: 19em;
+    width: 13em;
+    position: absolute;
+    top: 22%;
+    margin: 0;
+    z-index: 1;
 }
 
 [disabled] .noUi-handle:before,
@@ -438,4 +468,18 @@ button:disabled {
 .inactive {
     background-color: lightgray !important;
     color: darkgray !important;
+}
+
+[disabled] .noUi-handle {
+    background: none;
+    border: none;
+}
+
+[disabled] .noUi-handle:before,
+[disabled] .noUi-handle:after {
+    content: none;
+}
+
+[disabled] .noUi-handle {
+    display: none;
 }

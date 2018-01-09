@@ -103,11 +103,17 @@
             </div>
 
         </div>
+<!-- testar v-show här/A -->
 
-
-        <div v-if="showOrder">
-
+        <div id= showOrderPage v-show="showOrder">
+            
             <h2>Order: {{orderBeingDisplayed.nr}}</h2>
+            
+            
+            <div id=showOrderContainer>
+            <div id=orderInfo> 
+
+            
             <br>
             <div v-if="!orderBeingDisplayed.done">
                 <button v-on:click="markDone(orderBeingDisplayed.nr)">
@@ -117,8 +123,45 @@
             {{uiLabels.cancel}}
             </button>
             </div>
-            <br>
-            <h3>lägg till resten här</h3>
+            <br>           
+           <h3>Storlek:</h3>
+            {{orderBeingDisplayed.size}}<br>
+            <h3>Bas:</h3>
+            {{orderBeingDisplayed.chosenBase}}<br>
+            <h3>Ingredienser:</h3>
+            <div v-for="ingredient in orderBeingDisplayed.chosenFruitGreens">
+            {{ingredient.ingredient_sv}} <span class=colorBox :style= "{'background-color': ingredient.color }"> </span>
+                
+            </div>
+            <h3> Extras: </h3>
+            Topping: {{orderBeingDisplayed.chosenTopping}}<br>
+            Boost: {{orderBeingDisplayed.chosenBoost}}<br>
+                </div>
+            <div id= staffSliderContainer> 
+            <div id=sliderPic>
+
+                <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
+
+            </div>
+            <div id=staffSlider></div>
+                
+                </div>
+            </div>
+            
+            
+            <!--
+            ingredients: this.chosenIngredients,
+                        volume: this.volume,
+                        type: this.type,
+                        price: this.price,
+                        priceTot: this.priceTot,
+                        size: this.size,
+                        chosenBase: this.chosenBase,
+                        chosenTopping: this.chosenTopping,
+                        chosenBoost: this.chosenBoost,
+                        chosenFruitGreens: this.chosenFruitGreens,
+                        changeArray: this.computeChange()
+-->
             <!-- Lägg till hur det ska se ut när en order är öppnad -->
 
             <div class="kitchenNavbar">

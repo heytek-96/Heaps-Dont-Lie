@@ -310,7 +310,8 @@ var vm = new Vue({
                         chosenTopping: this.chosenTopping,
                         chosenBoost: this.chosenBoost,
                         chosenFruitGreens: this.chosenFruitGreens,
-                        changeArray: this.computeChange()
+                        changeArray: this.computeChange(),
+                        sliderArray: this.sliderArray
                     };
                     // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
                     socket.emit('order', {
@@ -457,6 +458,7 @@ var vm = new Vue({
                 this.colors.push(this.chosenFruitGreens[i].color);
             }
             this.slider = document.getElementById('slider-color');
+          
             noUiSlider.create(this.slider, {
                 start: startArray,
                 connect: connectArray,
