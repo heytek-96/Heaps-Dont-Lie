@@ -58,5 +58,7 @@
     "toppingSprinkled": "Strös ovanpå din dryck",
     "helpOver": "Här är en överblick av din beställning. Vill du ändra något? Gå bakåt genom att klicka på navigationsknapparna längst ner på sidan",
     "clickPay": "Tryck på Pay n Shake för att skicka din beställning till köket",
-    "youOrder": "Din beställning"
+    "youOrder": "Din beställning",
+    "thanks": "Tack",
+    "backToStart": "Tillbaka till startsidan"
 }
