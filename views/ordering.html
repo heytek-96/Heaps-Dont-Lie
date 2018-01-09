@@ -89,20 +89,21 @@
             </label>
             </div>
 
-            <div>
-                <button v-on:click="showStart()" class="backButton1">{{ uiLabels.homePage }}</button>
-                <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton1">{{ uiLabels.ingredients }}</button>
-            </div>
+            <div class="nav">
+                <div class="navButtons">
+                    <button v-on:click="showStart()" class="backButton1">{{ uiLabels.homePage }}</button>
+                    <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton1">{{ uiLabels.ingredients }}</button>
+                </div>
 
-            <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
-            <div class="navBar">
-                <button v-on:click="showSize()" :disabled="size.length < 1" class="activePageButton">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
+                <div class="navBar">
+                    <button v-on:click="showSize()" :disabled="size.length < 1" class="activePageButton">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                </div>
             </div>
-
         </div>
 
         <!-- TEstar att ändra till v-show/A--->
@@ -185,21 +186,23 @@
                     </ingredient>
                 </div>
             </div>
+          
+          <div class="nav">
+                <div class="navButtons">
+                    <button v-on:click="showSize()" class="backButton1">{{ uiLabels.selectSize }}</button>
+                    <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton1">{{ uiLabels.customize }}</button>
+                </div>
 
-        <div>
-            <button v-on:click="showSize()" class="backButton1">{{ uiLabels.selectSize }}</button>
-            <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton1">{{ uiLabels.customize }}</button>
-        </div>
-
-            <div class="navBar">
-                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" disabled class="activePageButton">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                <div class="navBar">
+                    <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" disabled class="activePageButton">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                </div>
             </div>
         </div>
-
+        
         <div v-show="customizeShown" >
           <!-- Hjälpknapp när man har valt rätt antal ingredienser -->
           <div v-show="chosenFruitGreens.length>1">
@@ -243,17 +246,20 @@
             <div v-show= "chosenFruitGreens.length<2" id="recommend">
             <h2 > {{ uiLabels.chosenOneBase }} {{chosenFruitGreens.length}} {{ uiLabels.ingreds }}.<br><br> {{ uiLabels.recommend }}. <br>{{ uiLabels.satisfied }}.  </h2>
           </div>
-
-            <button v-on:click="showIngredients()" class="backButton1">{{ uiLabels.ingredients }}</button>
-            <button v-on:click="showExtras()" class="nextButton1">{{ uiLabels.chooseExtras }}</button>
-
+          <div class="nav">  
+            <div class="navButtons">
+                <button v-on:click="showIngredients()" class="backButton1">{{ uiLabels.ingredients }}</button>
+                <button v-on:click="showExtras()" class="nextButton1">{{ uiLabels.chooseExtras }}</button>
+            </div>
+            
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
                 <button v-on:click="showCustomize()" disabled class="activePageButton">{{ uiLabels.customize }}</button>
                 <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button></div>
-
+                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+            </div>
+            </div>
         </div>
 
 
@@ -290,20 +296,21 @@
                     </ingredient>
                 </div>
             </div>
+            
+            <div class="nav">
+                <div class="navButtons">
+                    <button v-on:click="showCustomize()" class="backButton1">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showOverview()" class="nextButton1">{{ uiLabels.overview }}</button>
+                </div>
 
-            <div>
-                <button v-on:click="showCustomize()" class="backButton1">{{ uiLabels.customize }}</button>
-                <button v-on:click="showOverview()" class="nextButton1">{{ uiLabels.overview }}</button>
+                <div class="navBar">
+                    <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" disabled class="activePageButton">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                </div>
             </div>
-
-            <div class="navBar">
-                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" disabled class="activePageButton">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
-            </div>
-
         </div>
 
 
@@ -354,20 +361,22 @@
             <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div></div>
 
             </div>
+            <div class="nav">
+                <div class="navButtons">
+                    <button v-on:click="showExtras()" class="backButton1">{{ uiLabels.extras }}</button>
+                    <button v-on:click="payNshake()" class="nextButton1">Pay 'n' Shake</button>
+                </div>
 
-            <button v-on:click="showExtras()" class="backButton1">{{ uiLabels.extras }}</button>
-            <button v-on:click="payNshake()" class="nextButton1">Pay 'n' Shake</button>
 
+                <div class="navBar">
+                    <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" disabled class="activePageButton">{{ uiLabels.overview }}</button>
 
-
-            <div class="navBar">
-                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" disabled class="activePageButton">{{ uiLabels.overview }}</button>
-
-            </div>
+                </div>
+            </div>    
         </div>
 
         <div v-show="payShown">
