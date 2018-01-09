@@ -189,7 +189,7 @@
           <button v-on:click="showSize()" class="backButton1">{{ uiLabels.selectSize }}</button>
         </div>
         <div>
-            <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton">{{ uiLabels.customize }}</button>
+            <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton1">{{ uiLabels.customize }}</button>
         </div>
 
             <div class="navBar">
@@ -246,7 +246,7 @@
           </div>
 
             <button v-on:click="showIngredients()" class="backButton1">{{ uiLabels.ingredients }}</button>
-            <button v-on:click="showExtras()" class="nextButton">{{ uiLabels.chooseExtras }}</button>
+            <button v-on:click="showExtras()" class="nextButton1">{{ uiLabels.chooseExtras }}</button>
 
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
@@ -286,7 +286,7 @@
             </div>
 
             <div>
-                <button v-on:click="showCustomize()" class="backButton">{{ uiLabels.customize }}</button>
+                <button v-on:click="showCustomize()" class="backButton1">{{ uiLabels.customize }}</button>
                 <button v-on:click="showOverview()" class="nextButton">{{ uiLabels.overview }}</button>
             </div>
 
@@ -329,8 +329,8 @@
             </div>
 
             <div id=overviewSlider> </div>
-            <button v-on:click="showExtras()" class="backButton">{{ uiLabels.extras }}</button>
-            <button v-on:click="showPay()" class="nextButton">Pay 'n' Shake</button>
+            <button v-on:click="showExtras()" class="backButton1">{{ uiLabels.extras }}</button>
+            <button v-on:click="showPay()" class="nextButton1">Pay 'n' Shake</button>
 
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
