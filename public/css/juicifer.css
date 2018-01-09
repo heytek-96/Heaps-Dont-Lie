@@ -31,6 +31,7 @@ table, th, td {
     top: 120px;
     margin: 0px;
     width: 80em;
+    
 }
 
 #homepageText {
@@ -52,8 +53,9 @@ table, th, td {
 #lemonPic {
     position: relative;
     margin-bottom: 5%;
-    top: 10%;
+    top: 50%;
     left: 27%;
+    z-index: -1;
 }
 
 #restartButton {
@@ -187,8 +189,9 @@ table, th, td {
 
 .yourOrder {
 
-    background-image: url(https://cdn4.iconfinder.com/data/icons/fineline-art-and-design/128/art_design_publishing_graphics-01-512.png);
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Clipboard_01.svg/2000px-Clipboard_01.svg.png);
     background-position: center;
+    background-size: 400px;
     background-color: #fff9bb;
     position: absolute;
     left: 700px;
@@ -196,7 +199,7 @@ table, th, td {
     text-align: center;
     max-width: 500px;
     height: 550px;
-    width: 330px;
+    width: 430px;
     margin-top: 10px;
     margin-right;
     50px;

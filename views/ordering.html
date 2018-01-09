@@ -108,7 +108,7 @@
         <!-- TEstar att ändra till v-show/A--->
 
 
-        <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown">
+        <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown || overviewShown">
 
             <br><br><br><br><br><br> {{ uiLabels.order }} <br><br> {{ uiLabels.size }}: {{ getSize() }}<br><br> {{ uiLabels.base }}: {{ findBaseString() }}<br><br> {{ uiLabels.fruitGreens }}:<br>{{ chosenFruitGreens.map(item => item["ingredient_"+lang]).join(', ') }} <br>
 
