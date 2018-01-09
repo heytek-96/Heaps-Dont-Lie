@@ -139,7 +139,7 @@
       <div v-show="ingredientsShown">
 
         <div class="popup" onclick="helpIngred()">?
-          <span class="popuptext" id="helpIngred">{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitsAndOrGreens }}.<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.toAddMore }} {{maxIngred}} {{ uiLabels.fruitsOrGreens }}: {{ uiLabels.changeBiggerSize }} "{{ uiLabels.selectSize }}"<br><br>{{ uiLabels.helpClose }}</span>
+          <span class="popuptext" id="helpIngred">{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitsAndOrGreens }}.<br><br><div v-show= "chosenBase.length<1">{{ uiLabels.havetoBase }}.<br><br></div>{{ uiLabels.toAddMore }} {{maxIngred}} {{ uiLabels.fruitsOrGreens }}: {{ uiLabels.changeBiggerSize }} "{{ uiLabels.selectSize }}".<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.helpClose }}</span>
         </div>
 
         <h1>{{ uiLabels.ingredients }}</h1>
