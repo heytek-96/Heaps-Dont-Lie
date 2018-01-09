@@ -186,9 +186,7 @@
             </div>
 
         <div>
-          <button v-on:click="showSize()" class="backButton1">{{ uiLabels.selectSize }}</button>
-        </div>
-        <div>
+            <button v-on:click="showSize()" class="backButton1">{{ uiLabels.selectSize }}</button>
             <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton1">{{ uiLabels.customize }}</button>
         </div>
 
@@ -287,7 +285,7 @@
 
             <div>
                 <button v-on:click="showCustomize()" class="backButton1">{{ uiLabels.customize }}</button>
-                <button v-on:click="showOverview()" class="nextButton">{{ uiLabels.overview }}</button>
+                <button v-on:click="showOverview()" class="nextButton1">{{ uiLabels.overview }}</button>
             </div>
 
             <div class="navBar">
