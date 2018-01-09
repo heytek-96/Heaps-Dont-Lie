@@ -60,5 +60,6 @@
     "clickPay": "Tryck på Pay n Shake för att skicka din beställning till köket",
     "youOrder": "Din beställning",
     "thanks": "Tack",
-    "backToStart": "Tillbaka till startsidan"
+    "backToStart": "Tillbaka till startsidan",
+    "helpBaseSize": "Basen är utgör alltid en tredjedel av dryckens storlek och kan inte ändra proportion"
 }

@@ -60,5 +60,6 @@
     "clickPay": "Click on Pay n Shake to send your order to the kitchen",
     "youOrder": "Your Order",
     "thanks": "Thanks",
-    "backToStart": "Go back to start"
+    "backToStart": "Go back to start",
+    "helpBaseSize": "The base's proportion of the beverage is always a third and cannot be changed"
 }

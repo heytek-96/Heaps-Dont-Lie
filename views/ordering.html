@@ -139,7 +139,7 @@
       <div v-show="ingredientsShown">
 
         <div class="popup" onclick="helpIngred()">?
-          <span class="popuptext" id="helpIngred">{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitsAndOrGreens }}.<br><br>{{ uiLabels.toAddMore }} {{maxIngred}} {{ uiLabels.fruitsOrGreens }}: {{ uiLabels.changeBiggerSize }} "{{ uiLabels.selectSize }}"<br><br>{{ uiLabels.helpClose }}</span>
+          <span class="popuptext" id="helpIngred">{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitsAndOrGreens }}.<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.toAddMore }} {{maxIngred}} {{ uiLabels.fruitsOrGreens }}: {{ uiLabels.changeBiggerSize }} "{{ uiLabels.selectSize }}"<br><br>{{ uiLabels.helpClose }}</span>
         </div>
 
         <h1>Ingredients</h1>
@@ -197,7 +197,7 @@
 
 
           <div class="popup" onclick="helpCustomize()">?
-            <span class="popuptext" id="helpCustomize">{{ uiLabels.helpCustom }}.<br><br>{{ uiLabels.helpClose }}</span>
+            <span class="popuptext" id="helpCustomize">{{ uiLabels.helpCustom }}.<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.helpClose }}</span>
           </div>
 
           <h1>{{ uiLabels.customize }}</h1>
@@ -206,7 +206,7 @@
                 <div id=sliderPic>
 
                     <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
-                    <div id=baseBox :style="{'background-color': findBaseColor()}"> 
+                    <div id=baseBox :style="{'background-color': findBaseColor()}">
                       <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
                     </div>
 
