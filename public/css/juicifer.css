@@ -342,7 +342,11 @@ button:disabled {
 }
 
 #recommend {
-    width: 50vw;
+    width: 70vw;
+    text-align:center;
+    border: 5px solid black;
+    display:block;
+    margin-left: 10vw;
 }
 
 #sliderPic {
