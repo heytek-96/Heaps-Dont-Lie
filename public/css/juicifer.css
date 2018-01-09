@@ -271,7 +271,7 @@ table, th, td {
     display: inline-block;
     vertical-align: top;
     margin: 0px;
-    width 100px;
+    width 320px;
 }
 
 .ingredientList {
@@ -282,7 +282,7 @@ table, th, td {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     border-top-right-radius:20px;
-    width: 320px;
+    width: 100%;
 }
 
 /* Själva lådorna som ingrediensknapparna ligger i */
