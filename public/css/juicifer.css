@@ -164,6 +164,7 @@ table, th, td {
     text-align: center;
     border-radius: 25px;
     border: solid black;
+
 }
 
 .allButtons {
@@ -461,7 +462,7 @@ padding-left: 23%;
 }
 
 #orders div {
-    margin: inherit;
+    /*margin: inherit;*/
 }
 
 #orders h1 {
