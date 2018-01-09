@@ -107,19 +107,15 @@
 
         <div id= showOrderPage v-show="showOrder">
             
-            <h2>Order: {{orderBeingDisplayed.nr}}</h2>
-            
-            
+            <h2>Order: {{orderBeingDisplayed.nr}}</h2> 
             <div id=showOrderContainer>
             <div id=orderInfo> 
-
-            
             <br>
             <div v-if="!orderBeingDisplayed.done">
-                <button v-on:click="markDone(orderBeingDisplayed.nr)">
+                <button v-on:click="markDone(orderBeingDisplayed.nr); destroyStaffSlider()">
             {{uiLabels.ready}}
             </button>
-                <button v-on:click="sendCancel(orderBeingDisplayed.nr)">
+                <button v-on:click="sendCancel(orderBeingDisplayed.nr); destroyStaffSlider()">
             {{uiLabels.cancel}}
             </button>
             </div>
@@ -136,6 +132,7 @@
             <h3> Extras: </h3>
             Topping: {{orderBeingDisplayed.chosenTopping}}<br>
             Boost: {{orderBeingDisplayed.chosenBoost}}<br>
+              
                 </div>
             <div id= staffSliderContainer> 
             <div id=sliderPic>

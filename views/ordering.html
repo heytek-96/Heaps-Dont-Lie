@@ -193,7 +193,7 @@
             </div>
         </div>
 
-        <div v-show="customizeShown">
+        <div v-show="customizeShown" >
 
 
           <div class="popup" onclick="helpCustomize()">?
@@ -201,6 +201,7 @@
           </div>
 
           <h1>{{ uiLabels.customize }}</h1>
+        <div v-show= "chosenFruitGreens.length>1">
           <div id=sliderContainer>
 
                 <div id=sliderPic>
@@ -220,6 +221,14 @@
             <div v-if="languageSV()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_sv}}<br></div></div>
             <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div></div>
 
+            </div>
+            
+            </div>
+            
+            <div v-show= "chosenFruitGreens.length<2">
+            <h2 > Du har valt en bas och {{chosenFruitGreens.length}} ingrediens(er). Vi på HeapsDontLie AB rekommenderar dig att välja minst 2 ingredienser. Om du är nöjd med ditt val och vill fortsätta, tryck på "Choose Extras"  </h2>
+               
+                
             </div>
 
             <button v-on:click="showIngredients()" class="backButton1">{{ uiLabels.ingredients }}</button>

@@ -390,8 +390,11 @@ var vm = new Vue({
 
         showCustomize: function () {
             this.getCurrentSliderArray();
-            this.destroySlider();
-            this.createSlider();
+             this.destroySlider();
+            if (this.chosenFruitGreens.length>1){
+                this.createSlider();
+                
+            }
             this.startShown = false;
             this.extrasShown = false;
             this.overviewShown = false;
@@ -418,8 +421,11 @@ var vm = new Vue({
 
         showOverview: function () {
             this.getCurrentSliderArray();
-            this.destroyOverviewSlider();
+            if (this.chosenFruitGreens.length>1){
+                this.destroyOverviewSlider();
             this.createOverviewSlider();
+                
+            }
             this.startShown = false;
             this.payShown = false;
             this.sizeShown = false;
@@ -619,7 +625,10 @@ var vm = new Vue({
 
         computeRatios: function () {
             var ratioArray = [];
-            if (Array.isArray(this.sliderArray)) {
+            if (this.chosenFruitGreens.length<1){
+                ratioarray[0]=100;
+            }
+            else if (Array.isArray(this.sliderArray)) {
                 ratioArray[0] = this.sliderArray[0];
 
                 for (var i = 1; i < this.chosenFruitGreens.length - 1; i++) {

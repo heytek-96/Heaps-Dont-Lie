@@ -253,8 +253,12 @@ var vm = new Vue({
                 this.showListOfPreviousOrders = false;
                 this.openOrder('prevorder');
             }
-            this.destroyStaffSlider();
-            this.createStaffSlider();
+            if (this.orderBeingDisplayed.chosenFruitGreens.length>1){
+                this.destroyStaffSlider();
+                this.createStaffSlider();
+                
+            }
+            
             this.showOrder = true;
         },
 
