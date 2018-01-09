@@ -109,12 +109,12 @@ function adjustSelectedIngredType() {
         vm.showingFruit = false;
         vm.showingGreens = false;
     } else if (button.value === 'fruit') {
-        
+
         vm.showingBase = false;
         vm.showingFruit = true;
         vm.showingGreens = false;
     } else if (button.value === 'greens') {
-        
+
         vm.showingBase = false;
         vm.showingFruit = false;
         vm.showingGreens = true;
@@ -346,7 +346,7 @@ var vm = new Vue({
             this.price = 0;
             this.priceTot = 0;
             this.type = '';
-            
+
             // this.chosenIngredients = []; Tror detta redan körs eftersom allt avmarkeras. Om ni får märkliga buggar med ingrediensvalen kan det vara värt att testa att köra dessa rader.
             // this.chosenBase = '';
             //  this.chosenTopping = '';
@@ -360,7 +360,7 @@ var vm = new Vue({
             this.showingGreens= false;
             this.resetTabs();
             //this.adjustSelectedIngredType();
-            
+
             //Notera avsaknad av size och maxIngred
         },
 
@@ -460,7 +460,7 @@ var vm = new Vue({
             this.overviewShown = false;
             this.payShown = true;
             this.getCurrentSliderArray();
-            
+
         },
 
         getUniqueId: function (key, magnitude) { //Löser problem med duplicate keys. Säg till om ni behöver använda detta så gör vi system.
@@ -698,6 +698,16 @@ var vm = new Vue({
           }
           return baseColor
         },
+        findIngredColor: function(){
+          var ingredColor="";
+          for (var i = 0; i < this.chosenIngredients.length; i++) {
+              if (this.chosenFruitGreens === this.chosenIngredients[i].ingredient_en) {
+                  ingredColor = this.chosenIngredients[i].color;
+              }
+          }
+          console.log(ingredColor)
+          return ingredColor
+        },
 
         computeSliderVolumes: function () {
             var computedVolumes = []
@@ -762,12 +772,12 @@ var vm = new Vue({
             }
             return changeArray;
         },
-        
+
         payNshake: function(){
             this.placeOrder();
             this.showPay();
         },
-        
+
         resetTabs: function(){
             console.log("resetar tabs")
         var tabs = document.getElementsByName("ingredienttype");
@@ -779,17 +789,17 @@ var vm = new Vue({
             }
             else{
                 tabs[i].parentElement.setAttribute('style', 'border-color: #9ab591;');
-                
+
             }
-           
-            
+
+
            /* else{
                 tabs[i].checked=false;
             }
 */
     }
-        
-        
+
+
     }
     }
 });

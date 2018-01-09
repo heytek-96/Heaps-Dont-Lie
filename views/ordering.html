@@ -325,8 +325,7 @@
           <div id=sliderPic>
 
               <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
-              <div id="ingredBox">
-                <div id="ingredText"></div>
+              <div id="ingredBox" v-for="choice in chosenFruitGreens" :style= "{'background-color': choice.color} ">
               </div>
               <div id=baseBox :style="{'background-color': findBaseColor()}">
                 <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
