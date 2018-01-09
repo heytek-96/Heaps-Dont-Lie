@@ -113,9 +113,9 @@ function adjustSelectedIngredType() {
         vm.showingGreens = true;
     }
     for (var i = 0; i < buttons.length; i++) {
-        buttons[i].parentElement.setAttribute('style', 'border-color: lightgrey;');
+        buttons[i].parentElement.setAttribute('style', 'border-color: #9ab591;');
     }
-    button.parentElement.setAttribute('style', 'border-color: pink;');
+    button.parentElement.setAttribute('style', 'border-color: #709663;');
 }
 
 function getRandomInt(min, max) {

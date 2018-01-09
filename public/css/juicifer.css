@@ -213,23 +213,43 @@ table, th, td {
     background-repeat: no-repeat;
 }
 
+.ingHeading {
+
+    width: auto;
+    position: relative;
+    height: 10%;
+    background-color: black;
+    color: white;
+    font-size: 150%;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border: solid black;
+}
+
 .ingredientBlockHeadings label {
     display: inline-block;
     width: 4em;
     border: solid 10px;
-    border-color: lightgrey;
+    border-color: #9ab591;
 }
 
 .ingredientBlock {
     display: inline-block;
     vertical-align: top;
     margin: 0px;
-    width 15em;
+    width 100px;
 }
 
 .ingredientList {
     max-height: 50vh;
     overflow: scroll;
+    border: 20px solid #709663;
+    margin-bottom: 5px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 286px;
+    
 }
 
 /* Själva lådorna som ingrediensknapparna ligger i */
@@ -237,7 +257,7 @@ table, th, td {
     border: 1px solid;
     padding: 0px;
     min-width: 15em;
-    width: 15em;
+    width: 284px;
     min-height: 3em;
     height: 3em;
     margin-bottom: 0px;
