@@ -224,7 +224,7 @@ table, th, td {
     text-align: center;
     font-size: 2em;
     font-weight: bold;
-    
+
 
 }
 
@@ -234,7 +234,7 @@ table, th, td {
     text-align: center;
     font-size: 2em;
     font-weight: bold;
-    
+
 }
 
 .ingHeading {
@@ -360,6 +360,16 @@ z-index: 0;
   width: 145px;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+#ingredBox{
+  border: 2px solid blue;
+  position: absolute;
+  bottom: 130px;
+  margin-left: 37px;
+  width: 177px;
+  height: 300px;
+  border-radius: 4px;
 }
 
 #slider-color {

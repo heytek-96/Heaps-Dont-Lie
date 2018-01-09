@@ -109,13 +109,13 @@
 
 
         <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown || overviewShown">
-            
+
         <div class = "clipboardTextCenter">
-       <br><br><br>{{ uiLabels.order }} 
+       <br><br><br>{{ uiLabels.order }}
         </div>
-            
+
         <div class = "clipboardText">
-            
+
             <br>{{ uiLabels.size }}: {{ getSize() }}<br><br> {{ uiLabels.base }}: {{ findBaseString() }}<br><br> {{ uiLabels.fruitGreens }}:
             <div v-if="languageSV()"><div v-for="choice in chosenFruitGreens" > {{choice.ingredient_sv}}<br></div></div>
             <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}}<br></div></div>
@@ -125,7 +125,7 @@
                 Topping: {{findToppingString()}} <br><br> Boost:{{findBoostString()}} <br><br>
             </div>
         </div>
-            
+
         <div class = "clipboardTextPrice">
             {{ uiLabels.price }}: {{priceTot}} kr
 
@@ -312,7 +312,7 @@
             <p>Topping: {{ chosenTopping }}</p>
             <p>Boost: {{ chosenBoost }}</p>
             <p>Price: {{priceTot}} kr</p>
-
+            <div v-show="chosenFruitGreens.length>1">
             <div id=sliderPic>
 
                 <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
@@ -321,6 +321,22 @@
                 </div>
 
             </div>
+          </div>
+
+          <div v-show="chosenFruitGreens.length<2">
+          <div id=sliderPic>
+
+              <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
+              <div id="ingredBox">
+                <div id="ingredText"></div>
+              </div>
+              <div id=baseBox :style="{'background-color': findBaseColor()}">
+                <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
+              </div>
+
+
+          </div>
+        </div>
             <div class=colorBoxJar>
 
             {{ uiLabels.fruitGreens }}: <br><br>

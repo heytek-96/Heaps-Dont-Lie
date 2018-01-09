@@ -61,7 +61,7 @@
     "youOrder": "Din beställning",
     "thanks": "Tack",
     "backToStart": "Tillbaka till startsidan",
-    "helpBaseSize": "Basen är utgör alltid en tredjedel av dryckens storlek och kan inte ändra proportion",
+    "helpBaseSize": "Basen är utgör alltid en 1/3 av dryckens storlek och kan inte ändra proportion",
     "havetoBase": "You have to select 1 base in order to proceed",
     "chosenOneBase":"Du har valt en bas och",
     "ingreds": "ingrediens",
