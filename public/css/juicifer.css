@@ -456,12 +456,12 @@ float: left;
 text-align: right;
 padding-left: 1em;
 top: 10em;
-    
+
 }
 
 
 #orderText{
-    
+
     display: inline-block;
     width: 15em;
     margin-right: 5em;
@@ -594,6 +594,16 @@ top: 10em;
 
 #orders h1 {
     width: 100%;
+}
+
+#orderCountBox {
+  border: 2px solid #9ab591;
+  border-radius: 6px;
+  width: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  display: inline-block;
+  background-color: white;
 }
 
 .kitchenNavbar {
