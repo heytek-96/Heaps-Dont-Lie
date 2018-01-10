@@ -423,9 +423,10 @@ z-index: 0;
   position: absolute;
   bottom: 150px;
   margin-left: 37px;
-  width: 177px;
-  height: 270px;
+  width: 186px;
+  height: 275px;
   border-radius: 4px;
+  z-index: 10;
 }
 
 #slider-color {
@@ -572,7 +573,7 @@ top: 10em;
     display: block;
     max-height: 30em;
     overflow-y: scroll;
-   
+
 }
 
 #orders td {
