@@ -629,8 +629,8 @@ top: 10em;
 }
 
 .inactive {
-    background-color: lightgrey !important;
-    color: darkgray !important;
+    background-color: #9ab591 !important;
+    color: #709663 !important;
 }
 
 [disabled] .noUi-handle {

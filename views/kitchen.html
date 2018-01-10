@@ -112,7 +112,7 @@
             <div id=showOrderContainer>
             <div id=orderInfo>
             <br>
-
+   
             <div id = "orderText">
             <br>
             {{uiLabels.size}}: {{orderBeingDisplayed.size}}<br><br>
@@ -145,6 +145,7 @@
                     <div v-if="oneIngredChosen()"><div id="ingredKitchenBox" v-for="choice in orderBeingDisplayed.chosenFruitGreens" :style= "{'background-color': choice.color} "></div></div>
                     <div id=staffSlider></div>
                   </div>
+             
 
             </div>
 
