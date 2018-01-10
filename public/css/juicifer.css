@@ -629,7 +629,7 @@ top: 10em;
 }
 
 .inactive {
-    background-color: lightgray !important;
+    background-color: #9ab591 !important;
     color: darkgray !important;
 }
 
