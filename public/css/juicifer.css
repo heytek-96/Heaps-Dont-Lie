@@ -587,9 +587,12 @@ top: 10em;
 }
 
 #orders table {
+    width: 470px;
     background-color: white;
     border-radius: 17px;
     border: 3px solid black;
+    margin-bottom: 5em;
+    
 }
 
 #orders thead {
@@ -598,8 +601,9 @@ top: 10em;
 
 #orders tbody {
     display: block;
-    max-height: 30em;
+    max-height: 26em;
     overflow-y: scroll;
+    
 
 }
 
@@ -642,7 +646,6 @@ top: 10em;
     display: inline-block;
     width: 10em;
     height: 7em;
-    margin: 2px;
     border: 3px solid black;
     border-radius: 17px;
     background-color: white;
