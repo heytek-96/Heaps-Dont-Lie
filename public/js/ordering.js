@@ -2,6 +2,7 @@
 /*global sharedVueStuff, Vue, socket */
 'use strict';
 
+
 var priceList = {
     small: 35,
     medium: 40,
@@ -19,7 +20,7 @@ Vue.component('ingredient', {
     template: '<div class=ingred v-show="anyleft">\
   <label :class="customid" :for="id" style="display: block;">\
   <input :class="customid" :id="id" type="checkbox" @change="checkboxEvent(this.checkboxstate)" :checked="checkboxstate">\
-  <p>{{item["ingredient_en"]}}</p>\
+  <p>{{name}}</p>\
   </label>\
   </div>',
     data: function () {
@@ -38,6 +39,13 @@ Vue.component('ingredient', {
         },
         amountleft: function () {
             return vm.ingredients[vm.ingredients.indexOf(this.item)].stock;
+        },
+        name: function (){
+            if (vm.lang === 'en'){
+                return this.item.ingredient_en;
+            }else {
+                return this.item.ingredient_sv;
+            }
         }
     },
     mounted: function () {
@@ -64,6 +72,11 @@ Vue.component('ingredient', {
         }
     }
 });
+
+function showMobileNav() {
+    var popup = document.getElementById("mobileNav");
+    popup.classList.toggle("show");
+}
 
 //Help buttons
 function helpSize() {

@@ -9,7 +9,7 @@
     <title>Juicifer Craft Beverages </title>
     <link href="css/nouislider.min.css" rel="stylesheet">
     <script src="js/nouislider.min.js" defer></script>
-    <link rel="stylesheet" href="css/juicifer.css">
+    <link rel="stylesheet" href="css/bigscreen.css">
     <script src="/vue/vue.js" defer></script>
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="js/juicifer-main.js" defer></script>
@@ -23,78 +23,391 @@
     <!-- Kanske ta bort? /P -->
 
     <div id="ordering">
-        <button class="backButton" v-on:click="switchLang()">{{ uiLabels.language }}</button>
-        <button class="backButton" v-on:click="showStart()">{{ uiLabels.restartOrder }}</button>
 
-        <div v-if="startShown">
+        <header>
 
-            <div id="homepageText">
-                <h2>{{ uiLabels.homeTitle }}</h2>
-                <font size="150">Juicifer</font>
+            <button class="backButton" v-on:click="switchLang()">{{ uiLabels.language }}</button>
+            <button class="backButton" v-if="!startShown" v-on:click="showStart()">{{ uiLabels.restartOrder }}</button>
 
+            <div id="mobilePopup" onclick="showMobileNav()">
+                <p>=</p>
+                <p>=</p>
+                <span class="popuptext" id="mobileNav">
+            <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+        <button v-if="!startShown" v-on:click="showStart()">{{ uiLabels.restartOrder }}</button>
+            </span>
             </div>
 
-
-            <button class="allButtons" v-on:click="showSize()">{{ uiLabels.startOrder }}</button>
-
-
-            <img id="lemonPic" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
-
-
-        </div>
-
-        <div v-if="sizeShown">
-            <div class="popup" onclick="helpSize()">?
+            <div class="popup" v-show="sizeShown" onclick="helpSize()">
+                <p>?</p>
                 <span class="popuptext" id="helpSize">{{ uiLabels.selectSize }}<br><br>{{ uiLabels.helpSmall }}<br><br> {{ uiLabels.helpMedium }}<br><br> {{ uiLabels.helpLarge }}<br><br>{{ uiLabels.helpAllSizes }}<br><br> {{ uiLabels.helpClose }}</span>
             </div>
 
-
-            <h1>{{ uiLabels.selectSize }}</h1>
-            <div class="sizeButtonsContainer">
-                <!-- Jag gjorde nya knappar här, en osynlig button i en label som är klickbar /P -->
-                <label for="small">
-            <input type="button" id="small" v-on:click="selectSize('small')">
-            <div class="sizeHeading">
-              <p>{{ uiLabels.sizeSmall }}</p>
+            <div class="popup" v-show="ingredientsShown" onclick="helpIngred()">
+                <p>?</p>
+                <span class="popuptext" id="helpIngred">{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitsAndOrGreens }}.<br><br><div v-show= "chosenBase.length<1">{{ uiLabels.havetoBase }}.<br><br></div>{{ uiLabels.toAddMore }} {{maxIngred}} {{ uiLabels.fruitsOrGreens }}: {{ uiLabels.changeBiggerSize }} "{{ uiLabels.selectSize }}".<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.helpClose }}</span>
             </div>
 
-            <div class="sizeList">
-              <p>30cl</p><p>{{ uiLabels.smallIngred }}</p><p>{{ uiLabels.sizeBase }}</p>
+            <div v-show="customizeShown">
+                <div v-show="chosenFruitGreens.length<2">
+                    <div class="popup" onclick="helpCustomOneBase()">
+                        <p>?</p>
+                        <span class="popuptext" id="helpCustomOneBase">{{ uiLabels.notAbleCustom }}.<br><br>{{ uiLabels.ifMoreIngred }}. {{ uiLabels.satisfied }}.<br><br>{{ uiLabels.helpClose }}</span>
+                    </div>
+                </div>
+
+                <div v-show="(chosenFruitGreens.length>1) && customizeShown" class="popup" onclick="helpCustomize()">
+                    <p>?</p>
+                    <span class="popuptext" id="helpCustomize">{{ uiLabels.helpCustom }}.<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.helpClose }}</span>
+                </div>
+            </div>
+
+            <div v-show="extrasShown" class="popup" onclick="helpExtras()">
+                <p>?</p>
+                <span class="popuptext" id="helpExtras">{{ uiLabels.helpExtra }}. <br><br> {{ uiLabels.extraExpl }}. <br><br>{{ uiLabels.extraAddMax }}. <br><br> {{ uiLabels.helpClose }}</span>
+            </div>
+
+            <div v-show="overviewShown" class="popup" onclick="helpOverview()">
+                <p>?</p>
+                <span class="popuptext" id="helpOverview">{{ uiLabels.helpOver }}.<br><br>{{ uiLabels.clickPay }}. <br><br> {{ uiLabels.helpClose }}</span>
+            </div>
+        </header>
+
+        <div id="beforeSize">
+            <div id="homepage" v-if="startShown">
+                <div id="homepageText">
+                    <h2>{{ uiLabels.homeTitle }}</h2>
+                    <font size="150">Juicifer</font>
+
+                </div>
+
+                <img id="lemonPic" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
+
+                <button class="allButtons" v-on:click="showSize()">{{ uiLabels.startOrder }}</button>
 
             </div>
-            <img src="http://moziru.com/images/jar-clipart-8.png" height= "180" width="150">
-            <p>35kr</p>
-          </label>
-                <label for="medium">
-            <input type="button" id="medium" v-on:click="selectSize('medium')">
-            <div class="sizeHeading">
-              <p>{{ uiLabels.sizeMedium }}</p>
+
+            <div id="sizepage" v-if="sizeShown">
+
+                <h1>{{ uiLabels.selectSize }}</h1>
+
+                <div class="sizeButtonsContainer">
+                    <div id="smallBalloon"></div>
+
+                    <label>
+                    <div>
+                    <input type="button" v-on:click="selectSize('small')">
+                    <h2>{{ uiLabels.sizeSmall }}</h2>
+                    </div>
+                    
+                    <div id="smalljar">
+                    <img src="http://moziru.com/images/jar-clipart-8.png">
+                    <p>30cl</p>
+                    <p>{{ uiLabels.smallIngred }}</p>
+                    <p>{{ uiLabels.sizeBase }}</p>
+                    <br>
+                    <p>35kr</p>
+                    </div>
+                </label>
+                </div>
+
+                <div class="sizeButtonsContainer">
+                    <div id="mediumBalloon"></div>
+                    <label>
+                    <div>
+                    <input type="button" v-on:click="selectSize('medium')">
+                    <h2>{{ uiLabels.sizeMedium }}</h2>
+                    </div>
+              
+                    <div id="mediumjar">
+                    <img src="http://moziru.com/images/jar-clipart-8.png">
+                    <p>40cl</p>
+                    <p>{{ uiLabels.mediumIngred }}</p>
+                    <p>{{ uiLabels.sizeBase }}</p>
+                    <br>
+                    <p>40kr</p>
+                    </div>
+                </label>
+                </div>
+
+                <div class="sizeButtonsContainer">
+                    <div id="largeBalloon"></div>
+                    <label>
+                    <div>
+                    <input type="button" v-on:click="selectSize('large')">
+                    <h2>{{ uiLabels.sizeLarge }}</h2>
+                    </div>
+                    
+                    <div id="largejar">
+                    <img src="http://moziru.com/images/jar-clipart-8.png" >
+                    <p>50cl</p>
+                    <p>{{ uiLabels.largeIngred }}</p>
+                    <p>{{ uiLabels.sizeBase }}</p>
+                    <br>
+                    <p>45kr</p>
+                    </div>
+                </label>
+                </div>
             </div>
-            <div class="sizeList">
-              <p>40cl</p><p>{{ uiLabels.mediumIngred }}</p><p>{{ uiLabels.sizeBase }}</p>
-              </div>
-              <img src="http://moziru.com/images/jar-clipart-8.png" height= "240" width="150">
-            <p>40kr</p>
-          </label>
-                <label for="large">
-            <input type="button" id="large" v-on:click="selectSize('large')">
-            <div class="sizeHeading">
-              <p>{{ uiLabels.sizeLarge }}</p>
+
+            <div v-show="payShown">
+                <div id=lastPageText>{{ uiLabels.thanks }}!</div>
+                <button class="allButtons" v-on:click="showStart()">{{ uiLabels.backToStart }} </button>
+                <img id="lemonPic" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
             </div>
-              <div class="sizeList">
-              <p>50cl</p><p>{{ uiLabels.largeIngred }}</p><p>{{ uiLabels.sizeBase }}</p>
-              </div>
-              <img src="http://moziru.com/images/jar-clipart-8.png" height= "300" width="150">
-              <p>45kr</p>
+
+        </div>
+
+        <div id="afterSize">
+
+            <div class="ingredientSelection" v-show="ingredientsShown">
+
+                <h1>{{ uiLabels.ingredients }}</h1>
+                <p>{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitGreensSmall }}</p><br>
+
+                <div class="ingredientBlockHeadings">
+                    <label class="ingHeading" style="border-color: #709663;">
+                    <input name="ingredienttype" checked=true value="base" type="radio" onclick="adjustSelectedIngredType()" ><p>{{uiLabels.base}}</p>
+                </label>
+                    <label class="ingHeading">
+                    <input name="ingredienttype" checked=false value="fruit" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.fruits}}</p>
+                </label>
+                    <label class="ingHeading">
+                    <input name="ingredienttype" checked=false value="greens" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.greens}}</p>
+                </label>
+                </div>
+
+                <div class="ingredientBlock" v-show="showingBase">
+                    <div class="ingredientList">
+                        <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :customid="'base'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 1)">
+                        </ingredient>
+                    </div>
+                </div>
+
+                <div class="ingredientBlock" v-show="showingFruit">
+                    <div class="ingredientList">
+                        <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :customid="'fruit'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 2)">
+                        </ingredient>
+                    </div>
+                </div>
+                <div class="ingredientBlock" v-show="showingGreens">
+                    <div class="ingredientList">
+                        <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :customid="'green'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 3)">
+                        </ingredient>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div v-show="customizeShown">
+                <!-- Hjälpknapp när man har valt rätt antal ingredienser -->
+
+                <h1>{{ uiLabels.customize }}</h1>
+                <div v-show="chosenFruitGreens.length>1">
+                    <div id=sliderContainer>
+
+                        <div id=sliderPic>
+
+                            <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
+                            <div id=baseBox :style="{'background-color': findBaseColor()}">
+                                <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
+                            </div>
+
+                        </div>
+                        <div id=slider-color> </div>
+                    </div>
+
+                    <div class=colorBoxJar>
+
+                        {{ uiLabels.fruitGreens }}: <br><br>
+                        <div v-if="languageSV()">
+                            <div v-for="choice in chosenFruitGreens"><span class=colorBox :style="{'background-color': choice.color }"> </span> {{choice.ingredient_sv}}<br></div>
+                        </div>
+                        <div v-if="languageEN()">
+                            <div v-for="choice in chosenFruitGreens"><span class=colorBox :style="{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div v-show="chosenFruitGreens.length<2" id="recommend">
+                    <h2> {{ uiLabels.chosenOneBase }} {{chosenFruitGreens.length}} {{ uiLabels.ingreds }}.<br><br> {{ uiLabels.recommend }}. <br>{{ uiLabels.satisfied }}. </h2>
+                </div>
+
+                <button v-on:click="showIngredients()" class="backButton1">{{ uiLabels.ingredients }}</button>
+                <button v-on:click="showExtras()" class="nextButton1">{{ uiLabels.chooseExtras }}</button>
+
+            </div>
+
+            <div v-show="extrasShown">
+
+                <h1>{{ uiLabels.extras }}</h1>
+
+
+                <div class="ingredientBlockHeadings">
+                    <label class="ingHeading" style="border-color: #709663;">
+                <input name="extrastype" checked=true value="boost" type="radio" onclick="adjustSelectedExtrasType()" ><p>Boosts (+7kr)</p>
             </label>
+                    <label class="ingHeading">
+                <input name="extrastype" checked=false value="topping" type="radio" onclick="adjustSelectedExtrasType()"><p>Toppings (+7kr)</p>
+            </label>
+                </div>
+
+
+
+                <!-- Samma sorts knappar som övriga ingredienser -->
+                <div class="ingredientBlock" v-show="showingBoost">
+
+                    <div class="ingredientList">
+                        <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'boost')" v-on:checkbox-untick="removeFromOrder(item, 'boost')" :item="item" :customid="'boost'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 4)">
+                        </ingredient>
+                    </div>
+                </div>
+
+                <div class="ingredientBlock" v-show="showingTopping">
+                    <div class="ingredientList">
+                        <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'topping')" v-on:checkbox-untick="removeFromOrder(item, 'topping')" :item="item" :customid="'topping'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 5)">
+                        </ingredient>
+                    </div>
+                </div>
+
+                <div>
+                    <button v-on:click="showCustomize()" class="backButton1">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showOverview()" class="nextButton1">{{ uiLabels.overview }}</button>
+                </div>
+
             </div>
 
+
+
+            <div v-show="overviewShown">
+                <h1>{{ uiLabels.youOrder }}</h1>
+
+                <div v-show="chosenFruitGreens.length>1">
+                    <div id=sliderPic>
+
+                        <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
+                        <div id=baseBox :style="{'background-color': findBaseColor()}">
+                            <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
+                        </div>
+
+                    </div>
+                    <div id=overviewSlider> </div>
+                </div>
+
+                <div v-show="chosenFruitGreens.length<2">
+                    <div id=sliderPic>
+
+                        <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
+                        <div v-show="chosenFruitGreens.length===1">
+                            <div id="ingredBox" v-for="choice in chosenFruitGreens" :style="{'background-color': choice.color} ">
+                            </div>
+                            <div id=baseBox :style="{'background-color': findBaseColor()}">
+                                <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
+                            </div>
+                        </div>
+
+                        <div v-show="chosenFruitGreens.length===0">
+                            <div id=noBaseBox :style="{'background-color': findBaseColor()}">
+                                <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Ta inte bort. Används i JS.-->
+                    <div id=overviewSlider> </div>
+                </div>
+                
+                
+                <div class=colorBoxJar>
+                    {{ uiLabels.fruitGreens }}: <br><br>
+                    <div v-if="languageSV()">
+                        <div v-for="choice in chosenFruitGreens"><span class=colorBox :style="{'background-color': choice.color }"> </span> {{choice.ingredient_sv}}<br></div>
+                    </div>
+                    <div v-if="languageEN()">
+                        <div v-for="choice in chosenFruitGreens"><span class=colorBox :style="{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown || overviewShown">
+                <img id="clipboard" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Clipboard_01.svg/2000px-Clipboard_01.svg.png">
+
+                <div class="clipboardText">
+                    <h3>{{ uiLabels.order }}</h3>
+                </div>
+
+                <div class="clipboardText">
+
+                    <p>{{ uiLabels.size }}: {{ getSize() }}</p>
+
+                    <p>{{ uiLabels.base }}: {{ findBaseString() }}</p>
+
+                    <p>{{ uiLabels.fruitGreens }}:</p>
+
+                    <div v-if="languageSV()">
+                        <div v-for="choice in chosenFruitGreens">
+                            <p>{{choice.ingredient_sv}}</p>
+                        </div>
+                    </div>
+                    <div v-if="languageEN()">
+                        <div v-for="choice in chosenFruitGreens">
+                            <p>{{choice.ingredient_en}}</p>
+                        </div>
+                    </div>
+                    <div v-if="extraHasBeenShown">
+                        <p>Topping: {{findToppingString()}}</p>
+                        <p>Boost:{{findBoostString()}}</p>
+                    </div>
+                </div>
+
+                <div class="clipboardText">
+                    <h4>{{ uiLabels.price }}: {{priceTot}} kr </h4>
+                </div>
+
+
+                <!-- Kommenterar bort order queue så länge /Anna -->
+
+                <!--   {{ uiLabels.ordersInQueue }}
             <div>
-                <button v-on:click="showStart()" class="backButton1">{{ uiLabels.homePage }}</button>
-                <button v-on:click="showIngredients()" :disabled="size.length < 1" class="nextButton1">{{ uiLabels.ingredients }}</button>
+                <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
+                </order-item>
+            </div>
+-->
+
+            </div>
+            <div class="navButtons" v-show="ingredientsShown">
+                <label id="back">
+                    <input v-on:click="showSize()">
+                    <img src="https://i.imgur.com/AkLpIrX.png">
+                    <p>{{ uiLabels.homePage }}</p>
+                </label>
+                <label id="forward">
+                    <input v-on:click="showCustomize" :disabled="chosenBase.length < 1">
+                    <img src="https://i.imgur.com/wLFxNy4.png">
+                    <p>{{ uiLabels.ingredients }}</p>
+                </label>
             </div>
 
-            <!-- Ingredients blir nu klickbar så fort man har valt en vara som kostar pengar. Detta kan vi ändra senare till att man har valt en bas. //CE-->
+        </div>
+
+        <footer v-if="!startShown">
+
+            <div class="navButtons">
+                <label id="back">
+                    <input v-on:click="showStart()">
+                    <img src="https://i.imgur.com/AkLpIrX.png">
+                    <p>{{ uiLabels.homePage }}</p>
+                </label>
+                <!--<div class="navBalloon"></div>-->
+                <label id="forward">
+                    <input v-on:click="showIngredients()" :disabled="size.length < 1">
+                    <img src="https://i.imgur.com/wLFxNy4.png">
+                    <p>{{ uiLabels.ingredients }}</p>
+                </label>
+            </div>
             <div class="navBar">
                 <button v-on:click="showSize()" :disabled="size.length < 1" class="activePageButton">{{ uiLabels.size }}</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
@@ -103,200 +416,23 @@
                 <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
             </div>
 
-        </div>
-
-        <!-- TEstar att ändra till v-show/A--->
-
-
-        <div class="yourOrder" v-if="ingredientsShown || customizeShown || extrasShown || overviewShown">
-
-        <div class = "clipboardTextCenter">
-       <br><br><br>{{ uiLabels.order }}
-        </div>
-
-        <div class = "clipboardText">
-
-            <br>{{ uiLabels.size }}: {{ getSize() }}<br><br> {{ uiLabels.base }}: {{ findBaseString() }}<br><br> {{ uiLabels.fruitGreens }}:
-            <div v-if="languageSV()"><div v-for="choice in chosenFruitGreens" > {{choice.ingredient_sv}}<br></div></div>
-            <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" > {{choice.ingredient_en}}<br></div></div>
-            <br>
-
-            <div v-if="extraHasBeenShown">
-                Topping: {{findToppingString()}} <br><br> Boost:{{findBoostString()}} <br><br>
-            </div>
-        </div>
-
-        <div class = "clipboardTextPrice">
-            {{ uiLabels.price }}: {{priceTot}} kr
-
-        </div>
-         <!--  <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
-            <br><br><br><br><br> -->
-
-
-<!-- Kommenterar bort order queue så länge /Anna -->
-
-         <!--   {{ uiLabels.ordersInQueue }}
-            <div>
-                <order-item v-for="(order, key) in orders" v-if="!order.done" :order-id="key" :order="order" :ui-labels="uiLabels" :lang="lang" :key="key">
-                </order-item>
-            </div>
--->
-
-        </div>
-
-      <div v-show="ingredientsShown">
-
-        <div class="popup" onclick="helpIngred()">?
-          <span class="popuptext" id="helpIngred">{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitsAndOrGreens }}.<br><br><div v-show= "chosenBase.length<1">{{ uiLabels.havetoBase }}.<br><br></div>{{ uiLabels.toAddMore }} {{maxIngred}} {{ uiLabels.fruitsOrGreens }}: {{ uiLabels.changeBiggerSize }} "{{ uiLabels.selectSize }}".<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.helpClose }}</span>
-        </div>
-
-        <h1>{{ uiLabels.ingredients }}</h1>
-        <p>{{ uiLabels.helpChoose }} {{maxIngred}} {{ uiLabels.fruitGreensSmall }}</p><br>
-
-            <div class="ingredientBlockHeadings">
-                <label class="ingHeading" style="border-color: #709663;">
-                    <input name="ingredienttype" checked=true value="base" type="radio" onclick="adjustSelectedIngredType()" ><p>{{uiLabels.base}}</p>
-                </label>
-                <label class="ingHeading">
-                    <input name="ingredienttype" checked=false value="fruit" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.fruits}}</p>
-                </label>
-                <label class="ingHeading">
-                    <input name="ingredienttype" checked=false value="greens" type="radio" onclick="adjustSelectedIngredType()":disabled="chosenBase.length < 1"><p>{{uiLabels.greens}}</p>
-                </label>
-            </div>
-
-            <div class="ingredientBlock" v-show="showingBase">
-                <div class="ingredientList">
-                    <ingredient ref="ingredient" type="base" v-for="item in ingredients" v-if="item.base > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'base')" v-on:checkbox-untick="removeFromOrder(item, 'base')" :item="item" :customid="'base'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 1)">
-                    </ingredient>
-                </div>
-            </div>
-
-            <div class="ingredientBlock" v-show="showingFruit">
-                <div class="ingredientList">
-                    <ingredient ref="ingredient" type="fruit" v-for="item in ingredients" v-if="item.fruit > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'fruit')" v-on:checkbox-untick="removeFromOrder(item, 'fruit')" :item="item" :customid="'fruit'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 2)">
-                    </ingredient>
-                </div>
-            </div>
-            <div class="ingredientBlock" v-show="showingGreens">
-                <div class="ingredientList">
-                    <ingredient ref="ingredient" type="green" v-for="item in ingredients" v-if="item.green > 0" v-on:checkbox-tick="newFruitGreenSelected(item, 'green')" v-on:checkbox-untick="removeFromOrder(item, 'green')" :item="item" :customid="'green'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 3)">
-                    </ingredient>
-                </div>
-            </div>
-
-        <div>
-            <button v-on:click="showSize()" class="backButton1">{{ uiLabels.selectSize }}</button>
-            <button v-on:click="showCustomize()" :disabled="chosenBase.length < 1" class="nextButton1">{{ uiLabels.customize }}</button>
-        </div>
-
-            <div class="navBar">
+            <div class="navBar" v-show="ingredientsShown">
                 <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
                 <button v-on:click="showIngredients()" disabled class="activePageButton">{{ uiLabels.ingredients }}</button>
                 <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
                 <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
                 <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
             </div>
-        </div>
 
-        <div v-show="customizeShown" >
-          <!-- Hjälpknapp när man har valt rätt antal ingredienser -->
-          <div v-show="chosenFruitGreens.length>1">
-            <div class="popup" onclick="helpCustomize()">?
-              <span class="popuptext" id="helpCustomize">{{ uiLabels.helpCustom }}.<br><br>{{ uiLabels.helpBaseSize }}.<br><br>{{ uiLabels.helpClose }}</span>
-            </div>
-          </div>
-
-          <div v-show= "chosenFruitGreens.length<2">
-            <!-- Hjälpknapp när man har valt för få ingredienser -->
-            <div class="popup" onclick="helpCustomOneBase()">?
-              <span class="popuptext" id="helpCustomOneBase">{{ uiLabels.notAbleCustom }}.<br><br>{{ uiLabels.ifMoreIngred }}. {{ uiLabels.satisfied }}.<br><br>{{ uiLabels.helpClose }}</span>
-            </div>
-          </div>
-
-          <h1>{{ uiLabels.customize }}</h1>
-        <div v-show= "chosenFruitGreens.length>1">
-          <div id=sliderContainer>
-
-                <div id=sliderPic>
-
-                    <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
-                    <div id=baseBox :style="{'background-color': findBaseColor()}">
-                      <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
-                    </div>
-
-                </div>
-                <div id=slider-color> </div>
-            </div>
-
-            <div class=colorBoxJar>
-
-            {{ uiLabels.fruitGreens }}: <br><br>
-            <div v-if="languageSV()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_sv}}<br></div></div>
-            <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div></div>
-
-            </div>
-
-            </div>
-
-            <div v-show= "chosenFruitGreens.length<2">
-            <h2 > {{ uiLabels.chosenOneBase }} {{chosenFruitGreens.length}} {{ uiLabels.ingreds }}.<br><br> {{ uiLabels.recommend }}. <br>{{ uiLabels.satisfied }}.  </h2>
-          </div>
-
-            <button v-on:click="showIngredients()" class="backButton1">{{ uiLabels.ingredients }}</button>
-            <button v-on:click="showExtras()" class="nextButton1">{{ uiLabels.chooseExtras }}</button>
-
-            <div class="navBar">
+            <div class="navBar" v-show="customizeShown">
                 <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
                 <button v-on:click="showCustomize()" disabled class="activePageButton">{{ uiLabels.customize }}</button>
                 <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button></div>
-
-        </div>
-
-
-        <div v-show="extrasShown">
-            <div class="popup" onclick="helpExtras()">?
-                <span class="popuptext" id="helpExtras">{{ uiLabels.helpExtra }}. <br><br> {{ uiLabels.extraExpl }}. <br><br>{{ uiLabels.extraAddMax }}. <br><br> {{ uiLabels.helpClose }}</span>
-            </div>
-            <h1>{{ uiLabels.extras }}</h1>
-
-
-        <div class="ingredientBlockHeadings" >
-            <label class="ingHeading" style="border-color: #709663;">
-                <input name="extrastype" checked=true value="boost" type="radio" onclick="adjustSelectedExtrasType()" ><p>Boosts (+7kr)</p>
-            </label>
-            <label class="ingHeading">
-                <input name="extrastype" checked=false value="topping" type="radio" onclick="adjustSelectedExtrasType()"><p>Toppings (+7kr)</p>
-            </label>
-         </div>
-
-
-
-            <!-- Samma sorts knappar som övriga ingredienser -->
-            <div class="ingredientBlock" v-show= "showingBoost">
-
-                <div class="ingredientList">
-                    <ingredient ref="ingredient" type="boost" v-for="item in ingredients" v-if="item.boost > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'boost')" v-on:checkbox-untick="removeFromOrder(item, 'boost')" :item="item" :customid="'boost'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 4)">
-                    </ingredient>
-                </div>
+                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
             </div>
 
-            <div class="ingredientBlock" v-show= "showingTopping">
-                <div class="ingredientList">
-                    <ingredient ref="ingredient" type="topping" v-for="item in ingredients" v-if="item.topping > 0" v-on:checkbox-tick="newSinglechoiceSelected(item, 'topping')" v-on:checkbox-untick="removeFromOrder(item, 'topping')" :item="item" :customid="'topping'+item.ingredient_en" :key="getUniqueId(item.ingredient_id, 5)">
-                    </ingredient>
-                </div>
-            </div>
-
-            <div>
-                <button v-on:click="showCustomize()" class="backButton1">{{ uiLabels.customize }}</button>
-                <button v-on:click="showOverview()" class="nextButton1">{{ uiLabels.overview }}</button>
-            </div>
-
-            <div class="navBar">
+            <div class="navBar" v-show="extrasShown">
                 <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
                 <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
@@ -304,64 +440,7 @@
                 <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
             </div>
 
-        </div>
-
-
-        <div v-show="overviewShown">
-            <div class="popup" onclick="helpOverview()">?
-                <span class="popuptext" id="helpOverview">{{ uiLabels.helpOver }}.<br><br>{{ uiLabels.clickPay }}. <br><br> {{ uiLabels.helpClose }}</span>
-            </div>
-            <h1>{{ uiLabels.youOrder }}</h1>
-
-            <div v-show="chosenFruitGreens.length>1">
-
-            <div id=sliderPic>
-
-                <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
-                <div id=baseBox :style="{'background-color': findBaseColor()}">
-                  <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
-                </div>
-
-            </div>
-          </div>
-
-          <div v-show="chosenFruitGreens.length<2">
-          <div id=sliderPic>
-
-              <img src="http://moziru.com/images/jar-clipart-8.png" height="550" width="260">
-              <div v-show="chosenFruitGreens.length===1">
-              <div id="ingredBox" v-for="choice in chosenFruitGreens" :style= "{'background-color': choice.color} ">
-              </div>
-              <div id=baseBox :style="{'background-color': findBaseColor()}">
-                <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
-              </div>
-            </div>
-            <div v-show="chosenFruitGreens.length===0">
-            <div id=noBaseBox :style="{'background-color': findBaseColor()}">
-              <div id="baseText">{{ uiLabels.base }}: {{ findBaseString() }}</div>
-            </div>
-          </div>
-
-
-
-          </div>
-        </div>
-            <div class=colorBoxJar>
-
-            {{ uiLabels.fruitGreens }}: <br><br>
-            <div v-if="languageSV()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_sv}}<br></div></div>
-            <div v-if="languageEN()"><div v-for="choice in chosenFruitGreens" ><span class=colorBox :style= "{'background-color': choice.color }"> </span> {{choice.ingredient_en}}<br></div></div>
-
-            </div>
-
-            <div id=overviewSlider> </div>
-
-            <button v-on:click="showExtras()" class="backButton1">{{ uiLabels.extras }}</button>
-            <button v-on:click="payNshake()" class="nextButton1">Pay 'n' Shake</button>
-
-
-
-            <div class="navBar">
+            <div class="navBar" v-show="overviewShown">
                 <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
                 <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
                 <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
@@ -369,13 +448,8 @@
                 <button v-on:click="showOverview()" disabled class="activePageButton">{{ uiLabels.overview }}</button>
 
             </div>
-        </div>
 
-        <div v-show="payShown">
-            <div id=lastPageText>{{ uiLabels.thanks }}!</div>
-            <button class="allButtons" v-on:click="showStart()">{{ uiLabels.backToStart }} </button>
-            <img id="lemonPic" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
-        </div>
+        </footer>
 
     </div>
 
