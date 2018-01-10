@@ -353,14 +353,22 @@ var vm = new Vue({
         },
         oneIngredChosen: function(){
           var oneIngred = false;
-          console.log(this.orderBeingDisplayed.chosenFruitGreens)
           if(this.showOrder){
-            if(this.orderBeingDisplayed.chosenFruitGreens.length<2){
+            if(this.orderBeingDisplayed.chosenFruitGreens.length===1){
               oneIngred = true;
-              console.log("one Ingred Chosen: " + oneIngred)
             }
           }
           return oneIngred;
+        },
+
+        noIngredChosen: function(){
+          var noIngred = false;
+          if(this.showOrder){
+            if(this.orderBeingDisplayed.chosenFruitGreens.length===0){
+              noIngred = true;
+            }
+          }
+          return noIngred;
         },
 
     },

@@ -34,9 +34,9 @@
 
             <h1 v-if="countOrders() === 0">{{ uiLabels.waitingFor }}</h1>
             <h1 v-if="countOrders() > 0">{{ uiLabels.juiceWaiting }}</h1>
-            
+
             <img id="lemonPicKitchen" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
-            
+
 
             <div class="kitchenNavbar">
                 <span>&larr; <p>{{ uiLabels.ordersFinished }}</p></span>
@@ -109,14 +109,14 @@
         </div>
 <!-- testar v-show här/A -->
 
-        <div id= showOrderPage v-show="showOrder"> 
-            
-            
+        <div id= showOrderPage v-show="showOrder">
+
+
             <h1>Order: {{orderBeingDisplayed.nr}}</h1>
             <div id=showOrderContainer>
             <div id=orderInfo>
-         
-                
+
+
             <div id = "orderText">
             <br>
             {{uiLabels.size}}: {{orderBeingDisplayed.size}}<br><br>
@@ -147,9 +147,10 @@
                       <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
                     </div>
                     <div v-if="oneIngredChosen()"><div id="ingredKitchenBox" v-for="choice in orderBeingDisplayed.chosenFruitGreens" :style= "{'background-color': choice.color} "></div></div>
+                    <div v-if="noIngredChosen()"><div id="noIngredKitchenBox"></div></div>
                     <div id=staffSlider></div>
                   </div>
-             
+
 
             </div>
 
