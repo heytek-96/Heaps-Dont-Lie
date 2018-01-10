@@ -106,13 +106,14 @@
         </div>
 <!-- testar v-show här/A -->
 
-        <div id= showOrderPage v-show="showOrder">
-
-            <h2>Order: {{orderBeingDisplayed.nr}}</h2>
+        <div id= showOrderPage v-show="showOrder"> 
+            
+            
+            <h1>Order: {{orderBeingDisplayed.nr}}</h1>
             <div id=showOrderContainer>
             <div id=orderInfo>
-            <br>
-   
+         
+                
             <div id = "orderText">
             <br>
             {{uiLabels.size}}: {{orderBeingDisplayed.size}}<br><br>

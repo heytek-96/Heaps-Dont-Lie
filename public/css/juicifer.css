@@ -463,20 +463,26 @@ top: 10em;
 #orderText{
 
     display: inline-block;
-    width: 15em;
+    width: 10em;
     margin-right: 5em;
+    margin-top: 6em;
+
+    
 }
 
 #staffSliderContainer{
     float: right;
     position: relative;
     margin-bottom: 5em;
-    top: 1em;
-    right: 30em;
+    top: -1em;
+    right: 47em;
+
 }
 
+
 #showOrderPage{
-    text-align:center;
+    text-align:left;
+
 }
 
 
@@ -599,11 +605,11 @@ top: 10em;
 #orderCountBox {
   border: 2px solid #9ab591;
   border-radius: 6px;
-  width: 2em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  width: 1.7em;
+  
   display: inline-block;
   background-color: white;
+    text-align: center;
 }
 
 .kitchenNavbar {
@@ -622,6 +628,7 @@ top: 10em;
     vertical-align: middle;
     text-align: center;
     font-size: 1.1em;
+    padding-top: 1.8em;
 }
 
 .kitchenNavbar p {
@@ -630,7 +637,7 @@ top: 10em;
 
 .inactive {
     background-color: #9ab591 !important;
-    color: #709663 !important;
+    color: #355A47 !important;
 }
 
 [disabled] .noUi-handle {
