@@ -319,8 +319,8 @@
                     <!-- Ta inte bort. Används i JS.-->
                     <div id=overviewSlider> </div>
                 </div>
-                
-                
+
+
                 <div class=colorBoxJar>
                     {{ uiLabels.fruitGreens }}: <br><br>
                     <div v-if="languageSV()">
@@ -377,81 +377,119 @@
             </div>
 -->
 
-            </div>
-            <div class="navButtons" v-show="ingredientsShown">
-                <label id="back">
-                    <input v-on:click="showSize()">
-                    <img src="https://i.imgur.com/AkLpIrX.png">
-                    <p>{{ uiLabels.homePage }}</p>
-                </label>
-                <label id="forward">
-                    <input v-on:click="showCustomize" :disabled="chosenBase.length < 1">
-                    <img src="https://i.imgur.com/wLFxNy4.png">
-                    <p>{{ uiLabels.ingredients }}</p>
-                </label>
-            </div>
-
+            </div>>
         </div>
 
-        <footer v-if="!startShown">
-
-            <div class="navButtons">
-                <label id="back">
+        <footer>
+            
+            
+                <div class="navButtons" v-show="sizeShown">
+                    <label id="back">
                     <input v-on:click="showStart()">
                     <img src="https://i.imgur.com/AkLpIrX.png">
                     <p>{{ uiLabels.homePage }}</p>
                 </label>
-                <!--<div class="navBalloon"></div>-->
-                <label id="forward">
+                    <label id="forward">
                     <input v-on:click="showIngredients()" :disabled="size.length < 1">
                     <img src="https://i.imgur.com/wLFxNy4.png">
                     <p>{{ uiLabels.ingredients }}</p>
                 </label>
-            </div>
-            <div class="navBar">
-                <button v-on:click="showSize()" :disabled="size.length < 1" class="activePageButton">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
-            </div>
+                </div>
+                <div class="navBar" v-show="sizeShown">
+                    <button v-on:click="showSize()" :disabled="size.length < 1" class="activePageButton">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                </div>
 
-            <div class="navBar" v-show="ingredientsShown">
-                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" disabled class="activePageButton">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
-            </div>
+            
+                <div class="navButtons" v-show="ingredientsShown">
+                    <label id="back">
+                    <input v-on:click="showStart()">
+                    <img src="https://i.imgur.com/AkLpIrX.png">
+                    <p>{{ uiLabels.homePage }}</p>
+                </label>
+                    <label id="forward">
+                    <input v-on:click="showIngredients()" :disabled="size.length < 1">
+                    <img src="https://i.imgur.com/wLFxNy4.png">
+                    <p>{{ uiLabels.ingredients }}</p>
+                </label>
+                </div>
+                <div class="navBar" v-show="ingredientsShown">
+                    <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" disabled class="activePageButton">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                </div>
 
-            <div class="navBar" v-show="customizeShown">
-                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" disabled class="activePageButton">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
-            </div>
+            
+                <div class="navButtons" v-show="customizeShown">
+                    <label id="back">
+                    <input v-on:click="showStart()">
+                    <img src="https://i.imgur.com/AkLpIrX.png">
+                    <p>{{ uiLabels.homePage }}</p>
+                </label>
+                    <label id="forward">
+                    <input v-on:click="showIngredients()" :disabled="size.length < 1">
+                    <img src="https://i.imgur.com/wLFxNy4.png">
+                    <p>{{ uiLabels.ingredients }}</p>
+                </label>
+                </div>
+                <div class="navBar" v-show="customizeShown">
+                    <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" disabled class="activePageButton">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                </div>
 
-            <div class="navBar" v-show="extrasShown">
-                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" disabled class="activePageButton">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
-            </div>
+            
+                <div class="navButtons" v-show="extrasShown">
+                    <label id="back">
+                    <input v-on:click="showStart()">
+                    <img src="https://i.imgur.com/AkLpIrX.png">
+                    <p>{{ uiLabels.homePage }}</p>
+                </label>
+                    <label id="forward">
+                    <input v-on:click="showIngredients()" :disabled="size.length < 1">
+                    <img src="https://i.imgur.com/wLFxNy4.png">
+                    <p>{{ uiLabels.ingredients }}</p>
+                </label>
+                </div>
+                <div class="navBar" v-show="extrasShown">
+                    <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" disabled class="activePageButton">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" :disabled="overviewHasBeenShown===false">{{ uiLabels.overview }}</button>
+                </div>
 
-            <div class="navBar" v-show="overviewShown">
-                <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
-                <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
-                <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
-                <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
-                <button v-on:click="showOverview()" disabled class="activePageButton">{{ uiLabels.overview }}</button>
-
-            </div>
+                <div class="navButtons" v-show="overviewShown">
+                    <label id="back">
+                    <input v-on:click="showStart()">
+                    <img src="https://i.imgur.com/AkLpIrX.png">
+                    <p>{{ uiLabels.homePage }}</p>
+                </label>
+                    <label id="forward">
+                    <input v-on:click="showIngredients()" :disabled="size.length < 1">
+                    <img src="https://i.imgur.com/wLFxNy4.png">
+                    <p>{{ uiLabels.ingredients }}</p>
+                </label>
+                </div>
+                <div class="navBar" v-show="overviewShown">
+                    <button v-on:click="showSize()" :disabled="size.length < 1">{{ uiLabels.size }}</button>
+                    <button v-on:click="showIngredients()" :disabled="chosenBase.length < 1">{{ uiLabels.ingredients }}</button>
+                    <button v-on:click="showCustomize()" :disabled="customizeHasBeenShown===false">{{ uiLabels.customize }}</button>
+                    <button v-on:click="showExtras()" :disabled="extraHasBeenShown===false">{{ uiLabels.extras }}</button>
+                    <button v-on:click="showOverview()" disabled class="activePageButton">{{ uiLabels.overview }}</button>
+                </div>
 
         </footer>
-
+        <!-- Viktigt att footern ligger inuti ordering /P -->
     </div>
+
 
 </body>
 
