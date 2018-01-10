@@ -34,6 +34,9 @@
 
             <h1 v-if="countOrders() === 0">{{ uiLabels.waitingFor }}</h1>
             <h1 v-if="countOrders() > 0">{{ uiLabels.juiceWaiting }}</h1>
+            
+            <img id="lemonPicKitchen" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
+            
 
             <div class="kitchenNavbar">
                 <span>&larr; <p>{{ uiLabels.ordersFinished }}</p></span>

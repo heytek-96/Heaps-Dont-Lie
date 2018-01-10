@@ -565,6 +565,16 @@ top: 10em;
     height: 45em;
 }
 
+
+#lemonPicKitchen {
+    position: relative;
+    margin-bottom: 5%;
+    top: 2.3em;
+    left: 12%;
+    z-index: -1;
+    
+}
+
 #orders table {
     background-color: white;
     border-radius: 17px;
