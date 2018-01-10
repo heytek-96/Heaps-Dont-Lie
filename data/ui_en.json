@@ -69,5 +69,6 @@
     "satisfied": "If you are satisfied with your choice and wish to continue anyway, go forward using the Choose Extras button",
     "notAbleCustom": "You are not able to customize your proportions because you have chosen fewer than 2 ingredients",
     "ifMoreIngred": "If you would like to add more ingredients, go back using the Ingredients button",
-    "done": "Done"
+    "done": "Done",
+    "paynshake": "Pay 'n' Shake"
 }

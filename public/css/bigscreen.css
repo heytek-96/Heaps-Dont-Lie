@@ -5,338 +5,539 @@
 @media screen and (min-width: 601px) and (max-width: 1024px) and (min-height: 1024px) {
     body {
         font-size: 18pt;
-    }   
-    #mobilePopup{
+    }
+    #mobilePopup {
         visibility: hidden;
     }
-    .backButton, .navbar{
+    .backButton,
+    .navbar {
         visibility: visible;
+    }
+    .navbutton {
+        position: relative;
+        top: -0.5em;
+    }
+    .colorBoxJar {
+        visibility: visible;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-right: 0;
+    }
+    #clipboard {
+        width: 100%;
+        position: absolute;
+        min-height: 110%;
+        max-height: 110%;
+    }
+    .ingredientList {
+        max-height: 16em;
+        /* height: 2%; */
+        overflow: scroll;
+        border: 0.8em solid #709663;
+        margin-bottom: 0.2em;
+        border-bottom-left-radius: 0.8em;
+        border-bottom-right-radius: 0.8em;
+        /* border-top-right-radius: 0; */
+        width: 100%;
+    }
+
+    .clipboardText {
+        font-size: 1.2em;
+
+        text-transform: uppercase;
+        position: relative;
+    }
+    #clipboardTextBox {
+        position: relative;
+        left: 2em;
+        top: 2em;
+    }
+
+    .clipboardText a {
+        font-size: 0.7em;
+    }
+    .ingredientSelection {
+        position: relative;
+        height: 28em;
+        display: inline-block;
+        /* width: 50vw; */
+        max-width: 50%;
+        width: 50%;
+        overflow: hidden;
     }
 }
 
+
 /* laptop */
-@media screen and (min-width: 601px) and (max-height: 1023px){
-    body, #ordering {
+
+@media screen and (min-width: 601px) and (max-height: 1023px) {
+    body,
+    #ordering {
         font-size: 12pt;
-    }   
-    #mobilePopup{
+    }
+    .ingredientList {
+        max-height: 22em;
+        /* height: 2%; */
+        overflow: scroll;
+        border: 0.8em solid #709663;
+        margin-bottom: 0.2em;
+        border-bottom-left-radius: 0.8em;
+        border-bottom-right-radius: 0.8em;
+        /* border-top-right-radius: 0; */
+        width: 100%;
+    }
+    #mobilePopup {
         visibility: hidden;
     }
-    .backButton, .navbar{
+    .backButton,
+    .navbar {
         visibility: visible;
+    }
+    .navbutton {
+        position: relative;
+        top: -0.5em;
+    }
+    .colorBoxJar {
+        visibility: visible;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-right: 0;
+    }
+    #clipboard {
+        width: 100%;
+        position: absolute;
+        min-height: 200%;
+        max-height: 200%;
+    }
+
+    .clipboardText {
+        font-size: 1.2em;
+
+        text-transform: uppercase;
+        position: relative;
+    }
+    #clipboardTextBox {
+        position: relative;
+        left: 4em;
+        top: 5em;
+    }
+    .ingredientSelection {
+        position: relative;
+        height: 40em;
+        display: inline-block;
+        /* width: 50vw; */
+        max-width: 50%;
+        width: 50%;
+        overflow: hidden;
+    }
+
+    .clipboardText a {
+        font-size: 0.7em;
     }
 }
 
 /* telefon */
+
 @media screen and (max-width: 600px) {
-    body{
-        font-size: 10pt;
+    body {
+        font-size: 8pt;
     }
-    .backButton, .navBar{
+    .ingredientList {
+        max-height: 22em;
+        /* height: 2%; */
+        overflow: scroll;
+        border: 0.8em solid #709663;
+        margin-bottom: 0.2em;
+        border-bottom-left-radius: 0.8em;
+        border-bottom-right-radius: 0.8em;
+        /* border-top-right-radius: 0; */
+        width: 100%;
+    }
+    .backButton,
+    .navBar {
         visibility: hidden;
         height: 0em;
         width: 0em;
     }
-    #mobilePopup{
+    #mobilePopup {
         visibility: visible;
+    }
+    .navButtons {
+        bottom: 0em;
+        position: absolute;
+    }
+    .colorBoxJar {
+        visibility: hidden;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-right: 0;
+    }
+    #clipboard {
+        width: 100%;
+        position: absolute;
+        min-height: 140%;
+        max-height: 140%%;
+    }
+
+    .clipboardText {
+        font-size: 1.2em;
+
+        text-transform: uppercase;
+        position: relative;
+    }
+    #clipboardTextBox {
+        position: relative;
+        left: 2em;
+        top: 4em;
+    }
+
+    .clipboardText a {
+        font-size: 0.7em;
+    }
+    .ingredientSelection {
+        position: relative;
+        height: 40em;
+        display: inline-block;
+        /* width: 50vw; */
+        max-width: 50%;
+        width: 50%;
+        overflow: hidden;
     }
 }
 
 
-    body, #ordering{
-        font-family: 'Cabin Sketch', cursive;
-        background: #fff9bb;
-        display: block;
-        position: relative;
-        margin-left: auto;
-        margin-right: auto;
-        overflow: hidden;
-        min-height: 100vh;
-        max-height: 100vh;
-        max-width: 57em;
-        margin-top: 0px;
-    }
-    header{
-        height: 3em;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    footer {
-        height: 10em;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
+body,
+#ordering {
+    font-family: 'Cabin Sketch', cursive;
+    background: #fff9bb;
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    min-height: 100vh;
+    max-height: 100vh;
+    max-width: 57em;
+    margin-top: 0px;
+}
 
-    #afterSize {
-        /* margin-top: 2em; */
-        overflow: hidden;
-    }
+header {
+    height: 3em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-    h1 {
-        color: #3a3e63;
-        text-transform: uppercase;
-        letter-spacing: 2pt;
-        margin-top: 1em;
-        margin-bottom: 0px;
-    }
+footer {
+    position: absolute;
+    bottom: 2em;
+    right: 0px;
+    left: 0px;
+    height: 10em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-    #homepage,
-    #sizepage {
-        text-align: center;
-        display: block;
-    }
-    #homepage img,
-    #homepage button {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    #lemonPic {
-        width: 12.5em;
-    }
+#afterSize {
+    /* margin-top: 2em; */
+    overflow: hidden;
+    position: relative;
+    /* max-height: 29em; */
+    /* height: 150%; */
+}
 
-    /*Det som burkarna ligger i */
-    .sizeButtonsContainer {
-        position: relative;
-        display: inline-block;
-        width: 30vw;
-        max-width: 12.1em;
-        height: 57vh;
-        overflow: hidden;
-    }
-    .sizeButtonsContainer div {
-        position: relative;
-        margin-top: auto;
-    }
+h1 {
+    color: #3a3e63;
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    margin-top: 0.5em;
+    margin-bottom: 0px;
+}
 
-    /* Burkhelvetet */
-    .sizeButtonsContainer label {
-        position: relative;
-        width: inherit;
-        height: 30vh;
-    }
+#homepage,
+#sizepage, #payin {
+    text-align: center;
+    display: block;
+}
+#payin img,
+#payin button,
+#homepage img,
+#homepage button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-    #sizepage input {
-        position: absolute;
-        left: 0px;
-        bottom: 0px;
-        right: 0px;
-        background-color: black;
-        width: 100%;
-        height: 120%;
-        /* min-height: 4.4em; */
-        /* border-radius: 25px; */
-        border-radius: 2em;
-        border: solid black;
-        /* border-width: 0em; */
-        z-index: 0;
-    }
-    #sizepage h2 {
-        position: relative;
-        color: white;
-        z-index: 1;
-    }
-    #sizepage p {
-        position: relative;
-        margin-top: 0em;
-        margin-bottom: 0.7vh;
-    }
-    #smallBalloon {
-        height: 10vh;
-        display: block;
-    }
-    #mediumBalloon {
-        height: 5vh;
-        display: block;
-    }
-    #largeBalloon {
-        height: 0vh;
-        display: block;
-    }
-    #sizepage img {
-        position: absolute;
-        display: block;
-    }
-    #smalljar img {
-        height: 30vh;
-        width: 30vw;
-        max-width12.5em:;
-        max-width: 12.5em;
-    }
-    #smalljar p {
-        top: 8vh;
-    }
-    #mediumjar img {
-        height: 35vh;
-        width: 30vw;
-        max-width: 12.5em;
-    }
-    #mediumjar p {
-        top: 13vh;
-    }
-    #largejar img {
-        height: 40vh;
-        width: 30vw;
-        max-width: 12.5em;
-    }
-    #largejar p {
-        top: 18vh;
-    }
+#lemonPic {
+    width: 12.5em;
+}
+
+/*Det som burkarna ligger i */
+
+.sizeButtonsContainer {
+    position: relative;
+    display: inline-block;
+    width: 30vw;
+    max-width: 12.1em;
+    height: 57vh;
+    overflow: hidden;
+}
+
+.sizeButtonsContainer div {
+    position: relative;
+    margin-top: auto;
+}
+
+/* Burkhelvetet */
+
+.sizeButtonsContainer label {
+    position: relative;
+    width: inherit;
+    height: 30vh;
+}
+
+#sizepage input {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: black;
+    width: 100%;
+    height: 120%;
+    /* min-height: 4.4em; */
+    /* border-radius: 25px; */
+    border-radius: 2em;
+    border: solid black;
+    /* border-width: 0em; */
+    z-index: 0;
+}
+
+#sizepage h2 {
+    position: relative;
+    color: white;
+    z-index: 1;
+}
+
+#sizepage p {
+    position: relative;
+    margin-top: 0em;
+    margin-bottom: 0.7vh;
+}
+
+#smallBalloon {
+    height: 10vh;
+    display: block;
+}
+
+#mediumBalloon {
+    height: 5vh;
+    display: block;
+}
+
+#largeBalloon {
+    height: 0vh;
+    display: block;
+}
+
+#sizepage img {
+    position: absolute;
+    display: block;
+}
+
+#smalljar img {
+    height: 30vh;
+    width: 30vw;
+    max-width: 12.5em ;
+    max-width: 12.5em;
+}
+
+#smalljar p {
+    top: 8vh;
+}
+
+#mediumjar img {
+    height: 35vh;
+    width: 30vw;
+    max-width: 12.5em;
+}
+
+#mediumjar p {
+    top: 13vh;
+}
+
+#largejar img {
+    height: 40vh;
+    width: 30vw;
+    max-width: 12.5em;
+}
+
+#largejar p {
+    top: 18vh;
+}
 
 
 
-    #afterSize .navButtons p{
-        position: absolute;
-        left: 3em;
-    }
+#afterSize .navButtons p {
+    position: absolute;
+    left: 3em;
+}
 
-    .navButtons {
-        position: relative;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-        height: 70%;
-        top: -0.5em;
-    }
-    .navButtons img {
-            position: absolute;
+.navButtons {
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 70%;
+}
+
+.navButtons img {
+    position: absolute;
     height: 6.3em;
     width: 11.7em;
     max-width: 12.6em;
-    }
-    .navButtons label {
-        width: 10.2em;
-        margin-right: 2em;
-    }
-    .navButtons input {
-        position: absolute;
-        width: 0px;
-        height: 0px;
-        opacity: 0;
-    }
-    #back {
-        float: left;
-    }
-    #forward {
-        float: right;
-    }
-    #forward p {
-        position: absolute;
-        right: 6.5em;
-        top: 1.2em;
-    }
-    #back p {
-        position: absolute;
-        left: 5em;
-        top: 1.8em;
-    }
+}
 
-    .navBar {
-        position: absolute;
-        display:flex;
-        justify-content:space-between;
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: inherit;
-    }
+.navButtons label {
+    width: 10.2em;
+    margin-right: 2em;
+}
 
-    .navBar > button {
-        /*CSS för navigation bar sätts här senare. exempel från egen idividuel lab */
-        text-align: center;
-        min-width: 18%;
-        padding-top: 1em;
-        padding-bottom: 1em;
-        margin-top: 20px;
-        margin-left: 0px;
-        color: white;
-        background-color: black;
-        border-width: 2px;
-        border-radius: 16px;
-        font-size: 0.7em;
+.navButtons input {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+}
 
-    }
+#back {
+    float: left;
+}
 
-    .navBar > .activePageButton {
-        border-radius: 32px;
-        background-color: #f5ba51;
-    }
+#forward {
+    float: right;
+}
 
-    button:disabled {
-        opacity: 0.6;
-    }
+#forward p {
+    position: absolute;
+    right: 6.5em;
+    top: 1.2em;
+}
 
-    .backButton {
-        /*CSS för alla backknappar. Placeholder*/
-        color: white;
-        background-color: black;
-        border: solid black;
-        border-width: 4px;
-        border-radius: 6px;
-        margin: 4px;
-    }
+#back p {
+    position: absolute;
+    left: 5em;
+    top: 1.8em;
+}
 
-    .backButton1 {
-        display: block;
-        color: black;
-        font-size: 1.1em;
-        font-family: inherit;
-        width: 30vw;
-        background-color: #fff9bb;
-        background-size: 40px;
-        background-image: url(https://i.imgur.com/AkLpIrX.png);
-        background-repeat: no-repeat;
-        border: 1px;
-        height: 190px;
-        z-index: -1;
-    }
+.navBar {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: inherit;
+}
 
-    .nextButton {
-        /*CSS för alla nextknappar. Placeholder*/
-        position: relative;
-        border-width: 8px;
-        border-radius: 8px;
-        color: white;
-        background-color: black;
-        border: solid black;
-        left: 50%;
+.navBar > button {
+    /*CSS för navigation bar sätts här senare. exempel från egen idividuel lab */
+    text-align: center;
+    min-width: 18%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-top: 20px;
+    margin-left: 0px;
+    color: white;
+    background-color: black;
+    border-width: 2px;
+    border-radius: 16px;
+    font-size: 0.7em;
 
-    }
+}
 
-    .nextButton1 {
-        position: relative;
-        top: -190px;
-        text-align: color: black;
-        font-family: inherit;
-        font-size: 1.1em;
-        background-color: #fff9bb;
-        background-size: 200px;
-        background-image: url(https://i.imgur.com/wLFxNy4.png);
-        background-repeat: no-repeat;
-        border: 1px;
-        height: 190px;
-        z-index: 0;
-    }
-    .allButtons {
-        position: relative;
-        margin: auto;
-        background-color: black;
-        color: white;
-        font-size: 1.2em;
-        text-align: center;
-        border-radius: 25px;
-        border: solid black;
-    }
-    #mobilePopup {
+.navBar > .activePageButton {
+    border-radius: 32px;
+    background-color: #f5ba51;
+}
+
+button:disabled {
+    opacity: 0.6;
+}
+
+.backButton {
+    /*CSS för alla backknappar. Placeholder*/
+    color: white;
+    background-color: black;
+    border: solid black;
+    border-width: 4px;
+    border-radius: 6px;
+    margin: 4px;
+}
+
+.backButton1 {
+    display: block;
+    color: black;
+    font-size: 1.1em;
+    font-family: inherit;
+    width: 30vw;
+    background-color: #fff9bb;
+    background-size: 40px;
+    background-image: url(https://i.imgur.com/AkLpIrX.png);
+    background-repeat: no-repeat;
+    border: 1px;
+    height: 190px;
+    z-index: -1;
+}
+
+.nextButton {
+    /*CSS för alla nextknappar. Placeholder*/
+    position: relative;
+    border-width: 8px;
+    border-radius: 8px;
+    color: white;
+    background-color: black;
+    border: solid black;
+    left: 50%;
+
+}
+
+.nextButton1 {
+    position: relative;
+    top: -190px;
+    text-align: color: black;
+    font-family: inherit;
+    font-size: 1.1em;
+    background-color: #fff9bb;
+    background-size: 200px;
+    background-image: url(https://i.imgur.com/wLFxNy4.png);
+    background-repeat: no-repeat;
+    border: 1px;
+    height: 190px;
+    z-index: 0;
+}
+
+.allButtons {
+    position: relative;
+    margin: auto;
+    background-color: black;
+    color: white;
+    font-size: 1.2em;
+    text-align: center;
+    border-radius: 25px;
+    border: solid black;
+}
+
+#mobilePopup {
     position: absolute;
     margin-top: 0.2em;
     margin-left: 0.2em;
-    left:0px;
-    top:0px;
+    left: 0px;
+    top: 0px;
     color: white;
     border: solid black;
     border-width: medium;
@@ -346,13 +547,15 @@
     height: 3em;
     width: 3em;
 }
-    #mobilePopup p{
-        line-height: 25%;
-        margin: 0px;
-        font-size: 4.5em;
-    }
+
+#mobilePopup p {
+    line-height: 25%;
+    margin: 0px;
+    font-size: 4.5em;
+}
 
 /* Popup-rutan */
+
 #mobilePopup .popuptext {
     position: absolute;
     top: 12vw;
@@ -371,9 +574,11 @@
 
 #mobilePopup .show {
     visibility: visible;
-    
+
 }
-    /* Help Popup */
+
+/* Help Popup */
+
 /*
     #sizepage .popup {
         position: relative;
@@ -395,12 +600,12 @@
     }
 */
 
-    .popup {
+.popup {
     position: absolute;
     margin-top: 0.2em;
     margin-left: 0.2em;
-    right:0px;
-    top:0px;
+    right: 0px;
+    top: 0px;
     height: 3em;
     width: 3em;
     color: white;
@@ -410,143 +615,248 @@
     text-align: center;
     border-radius: 1em;
 }
-    .popup p{
-        margin: 0px;
-        font-size: 2.8em;
-    
-    }
 
-    /* Popup-rutan */
-    .popup .popuptext {
-        visibility: hidden;
-        background-color: #555;
-        color: #fff;
-        min-width: 40%;
-        width: auto;
-        text-align: center;
-        border-radius: 6px;
-        padding: 8px 8px;
-        top: 7%;
-        right: 1%;
-        margin-left: 50%;
-        position: fixed;
-        font-size: 0.7em;
-        z-index: 10;
-    }
+.popup p {
+    margin: 0px;
+    font-size: 2.8em;
 
-    .popup .show {
-        visibility: visible;
-    }
+}
 
+/* Popup-rutan */
 
-    /*ingredienshejhå*/
-    #afterSize input {
-        position: absolute;
-        opacity: 0;
-    }
-    .colorBoxJar {
+.popup .popuptext {
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    min-width: 40%;
+    width: auto;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 8px;
+    top: 7%;
+    right: 1%;
+    margin-left: 50%;
+    position: fixed;
+    font-size: 0.7em;
+    z-index: 10;
+}
 
-        position: absolute;
-        left: 20%;
-        top: 200px;
-        margin-right: 4px;
-    }
-
-    .ingredientSelection {
-        position: relative;
-        display: inline-block;
-        width: 50vw;
-        max-width: 50%;
-        height: 75vh;
-        overflow: hidden;
-    }
+.popup .show {
+    visibility: visible;
+}
 
 
-    .yourOrder {
-        background-position: left;
-        background-color: #fff9bb;
-        position: absolute;
-        right: 0px;
-        max-width: 50%;
-        height: 50vh;
-        margin-top: 5.2em;
-        width: 50vw;
-        background-repeat: no-repeat;
-        display: inline-block;
-    }
+/*ingredienshejhå*/
 
-    #clipboard {
-        width: 400px;
-        position: absolute;
-    }
+#afterSize input {
+    position: absolute;
+    opacity: 0;
+}
 
-    .clipboardText {
-        position: relative;
-        left: 75px;
-        font-size: 1.1em;
-    }
 
-    .ingHeading {
 
-        width: auto;
-        position: relative;
-        height: 10%;
-        background-color: black;
-        color: white;
-        font-size: 1.5em;
-        text-align: center;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        border: solid black;
-    }
 
-    .ingredientBlockHeadings label {
-        display: inline-block;
-        width: 25%;
-        font-size: 1.4em;
-        border: solid 10px;
-        border-color: #9ab591;
-    }
 
-    .ingredientBlock {
-        display: inline-block;
-        vertical-align: top;
-        margin: 0px;
-        width: 85%;
-    }
 
-    .ingredientList {
-        height: 13em;
-        overflow: scroll;
-        border: 20px solid #709663;
-        margin-bottom: 5px;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-        border-top-right-radius: 20px;
-        width: 100%;
-    }
+.yourOrder {
+    background-position: left;
+    background-color: #fff9bb;
+    position: absolute;
+    right: 0px;
+    max-width: 50%;
+    /* height: 50vh; */
+    /* margin-top: 5.2em; */
+    /* width: 50vw; */
+    width: 50%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    top: 6em;
+}
 
-    /* Själva lådorna som ingrediensknapparna ligger i */
-    .ingred {
-        border: 1px solid;
-        padding: 0px;
-        width: 100%;
-        min-height: 3em;
-        height: 3em;
-        margin-bottom: 0px;
-    }
-    /* Ingrediensknapparna */
-    .ingred label {
 
-        height: 100%;
-        width: 100%;
-        display: block;
-        position: relative;
-        background-color: white;
-    }
 
-    .ingred p {
-        text-align: center;
-        color: black;
-        margin: 0vh;
-    }
+.ingredientSelection p {
+    margin: 0.1em;
+}
+
+.ingred p {
+    position: relative;
+    top: 0.7em;
+    text-transform: uppercase;
+    text-align: center;
+    color: black;
+}
+
+.ingHeading {
+    width: auto;
+    position: relative;
+    height: 10%;
+    background-color: black;
+    color: white;
+    font-size: 1em;
+    text-align: center;
+    border-top-left-radius: 0.8em;
+    border-top-right-radius: 0.8em;
+    border: solid black;
+}
+
+.ingredientBlockHeadings label {
+    display: inline-block;
+    width: 24.5%;
+    font-size: 1em;
+    border: solid 0.4em;
+    border-color: #9ab591;
+}
+
+.ingredientBlock {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0px;
+    width: 85%;
+}
+
+
+/* Själva lådorna som ingrediensknapparna ligger i */
+
+.ingred {
+    box-sizing: border-box;
+    border: 0.2em solid black;
+    padding: 0px;
+    width: 100%;
+    min-height: 3em;
+    height: 3em;
+    margin-bottom: 0px;
+}
+
+/* Ingrediensknapparna */
+
+.ingred label {
+
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: relative;
+    background-color: white;
+}
+
+/*sliderkaoset */
+
+#baseBox,
+#noBaseBox {
+    border: 2px solid lightgrey;
+    position: absolute;
+    top: 19em;
+    left: 1.5em;
+    /* margin-left: 37px; */
+    width: 6.9em;
+    height: 5em;
+    border-radius: 0.2em;
+    border: 1px solid #D3D3D3;
+    float: bottom;
+}
+
+#baseText {
+    position: absolute;
+    bottom: 2px;
+    width: 145px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#ingredBox {
+    border: 1px solid #D3D3D3;
+    position: absolute;
+    bottom: 4em;
+    left: 1.5em;
+    width: 177px;
+    width: 7em;
+    height: 300px;
+    height: 13em;
+    border-radius: 4px;
+}
+
+#slider-color,
+#overviewSlider {
+    left: 1.5em;
+    height: 9em;
+    /* width: 180px; */
+    width: 7em;
+    position: absolute;
+    top: 11em;
+    z-index: 1;
+}
+
+[disabled] .noUi-handle {
+    background: none;
+    border: none;
+}
+
+#orderInfo {
+    float: left;
+    text-align: center;
+    padding-left: 23%;
+}
+
+#staffSliderContainer {
+    float: right;
+    position: relative;
+    top: 4em;
+    right: 30em;
+}
+
+#showOrderPage {
+    text-align: center;
+}
+
+
+#staffSlider {
+    left: 14%;
+    height: 19em;
+    width: 13em;
+    position: absolute;
+    top: 22%;
+    margin: 0;
+    z-index: 1;
+}
+
+[disabled] .noUi-handle:before,
+[disabled] .noUi-handle:after {
+    content: none;
+}
+
+[disabled] .noUi-handle {
+    display: none;
+}
+
+.noUi-vertical .noUi-handle {
+    width: 28px;
+    height: 34px;
+    left: 74px;
+    top: -17px;
+}
+
+button {
+    font-family: inherit;
+}
+
+.colorBox {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    border: 0.2em solid #555;
+    border-radius: 0.5em;
+    vertical-align: middle;
+}
+
+.sliderPic {
+    height: 20em;
+    width: 10em;
+    top: 3em;
+    position: relative;
+}
+
+#reccomend {
+    font-size: 0.7em;
+}
+
+#extraspage {}
