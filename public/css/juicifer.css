@@ -452,14 +452,14 @@ z-index: 0;
 }
 #orderInfo{
     float: left;
-text-align: center;
+text-align: right;
 padding-left: 23%;
 }
 
 #staffSliderContainer{
         float: right;
     position: relative;
-    top: 4em;
+    top: 1em;
     right: 30em;
 }
 
@@ -546,7 +546,9 @@ padding-left: 23%;
 }
 
 #orders table {
-    background-color: aliceblue;
+    background-color: white;
+    border-radius: 17px;
+    border: 3px solid black;
 }
 
 #orders thead {
@@ -557,6 +559,7 @@ padding-left: 23%;
     display: block;
     max-height: 30em;
     overflow-y: scroll;
+   
 }
 
 #orders td {
@@ -586,13 +589,15 @@ padding-left: 23%;
 
 .kitchenNavbar span {
     display: inline-block;
-    width: 15em;
-    height: 3em;
-    border: solid black;
-    border-width: thin;
-    background-color: aliceblue;
-    vertical-align: top;
+    width: 10em;
+    height: 7em;
+    margin: 2px;
+    border: 3px solid black;
+    border-radius: 17px;
+    background-color: white;
+    vertical-align: middle;
     text-align: center;
+    font-size: 1.1em;
 }
 
 .kitchenNavbar p {

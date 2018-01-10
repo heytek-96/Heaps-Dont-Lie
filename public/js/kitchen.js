@@ -37,11 +37,11 @@ Vue.component('order-list-item', {
         checkboxEvent: function () {
             if (this.checkboxstate) {
                 this.checkboxstate = false;
-                document.getElementsByClassName(this.orderId)[0].setAttribute("style", "background-color:aliceblue;");
+                document.getElementsByClassName(this.orderId)[0].setAttribute("style", "background-color:white;");
                 this.$emit('checkbox-untick');
             } else {
                 this.checkboxstate = true;
-                document.getElementsByClassName(this.orderId)[0].setAttribute("style", "background-color: #ee99acad;");
+                document.getElementsByClassName(this.orderId)[0].setAttribute("style", "background-color: #f5ba51;");
                 this.$emit('checkbox-tick');
             }
         },

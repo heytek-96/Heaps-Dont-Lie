@@ -120,10 +120,8 @@
             </button>
             </div>
             <br>
-           <h3>Storlek:</h3>
-            {{orderBeingDisplayed.size}}<br>
-            <h3>Bas:</h3>
-            {{orderBeingDisplayed.chosenBase}}<br>
+            Storlek: {{orderBeingDisplayed.size}}<br><br>
+            Bas: {{orderBeingDisplayed.chosenBase}}<br>
             <h3>Ingredienser:</h3>
             <div v-for="ingredient in orderBeingDisplayed.chosenFruitGreens">
             {{ingredient.ingredient_sv}} <span class=colorBox :style= "{'background-color': ingredient.color }"> </span>
