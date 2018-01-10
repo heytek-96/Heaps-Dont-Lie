@@ -39,7 +39,7 @@
                 <span>&larr; <p>{{ uiLabels.ordersFinished }}</p></span>
                 <span class="inactive">Esc:  </span>
                 <span :class="{ inactive: countOrders()===0 }">Enter: <p v-if="countOrders()>0"> {{ uiLabels.goToOrder }}</p></span>
-                <span>&rarr;<p>{{ uiLabels.ordersInQueue }}</p></span>
+                <span :class="{ inactive: countOrders()===0 }">&rarr;<p v-if="countOrders()>0">{{ uiLabels.ordersInQueue }}</p></span>
             </div>
 
         </div>
