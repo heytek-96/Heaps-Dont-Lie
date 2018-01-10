@@ -451,14 +451,25 @@ z-index: 0;
     border: none;
 }
 #orderInfo{
-    float: left;
+float: left;
 text-align: right;
-padding-left: 23%;
+padding-left: 1em;
+top: 10em;
+    
+}
+
+
+#orderText{
+    
+    display: inline-block;
+    width: 15em;
+    margin-right: 5em;
 }
 
 #staffSliderContainer{
-        float: right;
+    float: right;
     position: relative;
+    margin-bottom: 5em;
     top: 1em;
     right: 30em;
 }
@@ -477,6 +488,8 @@ padding-left: 23%;
     margin: 0;
     z-index: 1;
 }
+
+
 
 [disabled] .noUi-handle:before,
 [disabled] .noUi-handle:after {
