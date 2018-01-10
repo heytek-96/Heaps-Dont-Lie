@@ -9,11 +9,11 @@
     <title>Juicifers Kitchen</title>
     <link href="css/nouislider.min.css" rel="stylesheet">
     <script src="js/nouislider.min.js" defer></script>
-    <link rel="stylesheet" href="css/juicifer.css">
+    <link rel="stylesheet" href="css/css_kitchen_klar.css">
     <script src="/vue/vue.js" defer></script>
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="js/juicifer-main.js" defer></script>
-    <script src="js/kitchen.js" defer></script>
+    <script src="js/kitchen_klar.js" defer></script>
 
 
 
@@ -25,8 +25,9 @@
     <div id="orders">
 
         <div>
-            <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-            <span> {{uiLabels.ordersInQueue}}: {{ countOrders() }}</span>
+            <!--<button v-on:click="switchLang()">{{ uiLabels.language }}</button>-->
+            <span> <h2>{{uiLabels.ordersInQueue}}: <div id="orderCountBox">{{ countOrders() }}</div></h2></span>
+
         </div>
 
         <div v-show="showStart && isAtStart">
@@ -34,11 +35,14 @@
             <h1 v-if="countOrders() === 0">{{ uiLabels.waitingFor }}</h1>
             <h1 v-if="countOrders() > 0">{{ uiLabels.juiceWaiting }}</h1>
 
+            <img id="lemonPicKitchen" src="https://www.pulpandpress.com/wp-content/uploads/pp_Icons_website__Lemon-3.png" alt="lemonPic">
+
+
             <div class="kitchenNavbar">
                 <span>&larr; <p>{{ uiLabels.ordersFinished }}</p></span>
                 <span class="inactive">Esc:  </span>
                 <span :class="{ inactive: countOrders()===0 }">Enter: <p v-if="countOrders()>0"> {{ uiLabels.goToOrder }}</p></span>
-                <span>&rarr;<p>{{ uiLabels.ordersInQueue }}</p></span>
+                <span :class="{ inactive: countOrders()===0 }">&rarr;<p v-if="countOrders()>0">{{ uiLabels.ordersInQueue }}</p></span>
             </div>
 
         </div>
@@ -107,42 +111,47 @@
 
         <div id= showOrderPage v-show="showOrder">
 
-            <h2>Order: {{orderBeingDisplayed.nr}}</h2>
+
+            <h1>Order: {{orderBeingDisplayed.nr}}</h1>
             <div id=showOrderContainer>
             <div id=orderInfo>
+
+
+            <div id = "orderText">
             <br>
-            <div v-if="!orderBeingDisplayed.done">
-                <button v-on:click="markDone(orderBeingDisplayed.nr)">
-            {{uiLabels.ready}}
-            </button>
-                <button v-on:click="sendCancel(orderBeingDisplayed.nr)">
-            {{uiLabels.cancel}}
-            </button>
-            </div>
-            <br>
-           <h3>Storlek:</h3>
-            {{orderBeingDisplayed.size}}<br>
-            <h3>Bas:</h3>
-            {{orderBeingDisplayed.chosenBase}}<br>
-            <h3>Ingredienser:</h3>
+            {{uiLabels.size}}: {{orderBeingDisplayed.size}}<br><br>
+            {{uiLabels.base}}: {{orderBeingDisplayed.chosenBase}}<br>
+            <h3>{{uiLabels.ingredients}}:</h3>
             <div v-for="ingredient in orderBeingDisplayed.chosenFruitGreens">
-            {{ingredient.ingredient_sv}} <span class=colorBox :style= "{'background-color': ingredient.color }"> </span>
+            {{ingredient.ingredient_en}} <span class=colorBox :style= "{'background-color': ingredient.color }"> </span>
 
             </div>
             <h3> Extras: </h3>
             Topping: {{orderBeingDisplayed.chosenTopping}}<br>
             Boost: {{orderBeingDisplayed.chosenBoost}}<br>
-
                 </div>
-            <div id= staffSliderContainer>
-            <div id=sliderPic>
+            </div>
+        <!--    <div id= staffSliderContainer>
+            <div id=sliderPicKitchen>
 
                 <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
 
             </div>
             <div id=staffSlider></div>
 
-                </div>
+          </div> -->
+
+
+                  <div id="staffSliderContainer">
+                    <div id=sliderPicKitchen>
+                      <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
+                    </div>
+                    <div v-if="oneIngredChosen()"><div id="ingredKitchenBox" v-for="choice in orderBeingDisplayed.chosenFruitGreens" :style= "{'background-color': choice.color} "></div></div>
+                    <div v-if="noIngredChosen()"><div id="noIngredKitchenBox"></div></div>
+                    <div id=staffSlider></div>
+                  </div>
+
+
             </div>
 
 
