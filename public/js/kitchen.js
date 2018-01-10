@@ -351,8 +351,18 @@ var vm = new Vue({
                 this.staffSlider = "";
             }
         },
+        oneIngredChosen: function(){
+          var oneIngred = false;
+          console.log(this.orderBeingDisplayed.chosenFruitGreens)
+          if(this.showOrder){
+            if(this.orderBeingDisplayed.chosenFruitGreens.length<2){
+              oneIngred = true;
+            }
+          }
+          return oneIngred;
+        },
 
     },
-    
-    
+
+
 });
