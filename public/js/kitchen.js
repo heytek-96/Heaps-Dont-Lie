@@ -357,6 +357,7 @@ var vm = new Vue({
           if(this.showOrder){
             if(this.orderBeingDisplayed.chosenFruitGreens.length<2){
               oneIngred = true;
+              console.log("one Ingred Chosen: " + oneIngred)
             }
           }
           return oneIngred;

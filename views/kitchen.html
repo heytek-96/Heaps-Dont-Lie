@@ -25,7 +25,7 @@
     <div id="orders">
 
         <div>
-            <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+            <!--<button v-on:click="switchLang()">{{ uiLabels.language }}</button>-->
             <span> {{uiLabels.ordersInQueue}}: {{ countOrders() }}</span>
         </div>
 
@@ -120,11 +120,11 @@
             </button>
             </div>
             <br>
-            Storlek: {{orderBeingDisplayed.size}}<br><br>
-            Bas: {{orderBeingDisplayed.chosenBase}}<br>
-            <h3>Ingredienser:</h3>
+            {{uiLabels.size}}: {{orderBeingDisplayed.size}}<br><br>
+            {{uiLabels.base}}: {{orderBeingDisplayed.chosenBase}}<br>
+            <h3>{{uiLabels.ingredients}}:</h3>
             <div v-for="ingredient in orderBeingDisplayed.chosenFruitGreens">
-            {{ingredient.ingredient_sv}} <span class=colorBox :style= "{'background-color': ingredient.color }"> </span>
+            {{ingredient.ingredient_en}} <span class=colorBox :style= "{'background-color': ingredient.color }"> </span>
 
             </div>
             <h3> Extras: </h3>
@@ -147,8 +147,8 @@
                     <div id=sliderPicKitchen>
                       <img src="http://moziru.com/images/jar-clipart-8.png" height="400">
                     </div>
-                    <div id=staffSlider></div>
                     <div v-if="oneIngredChosen()"></div><div id="ingredKitchenBox" v-for="choice in orderBeingDisplayed.chosenFruitGreens" :style= "{'background-color': choice.color} "></div>
+                    <div id=staffSlider></div>
                   </div>
 
             </div>
